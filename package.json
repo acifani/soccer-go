@@ -1,0 +1,71 @@
+{
+  "name": "soccer-go",
+  "version": "0.0.1",
+  "description": "soccer-go",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acifani/soccer-go"
+  },
+  "author": {
+    "name": "Alessandro Cifani",
+    "email": "alessandro.cifani@gmail.com",
+    "url": "https://github.com/acifani"
+  },
+  "keywords": [
+    ""
+  ],
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "clean": "rimraf lib && rimraf coverage",
+    "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
+    "lint": "tslint --force --format verbose \"src/**/*.ts\"",
+    "prepublish": "npm run build",
+    "prebuild": "npm run clean && npm run format && npm run lint && echo Using TypeScript && tsc --version",
+    "build": "tsc --pretty",
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "watch": "npm run build -- --watch",
+    "watch:test": "jest --watch"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "chalk": "^2.3.0",
+    "cli-table2": "^0.2.0",
+    "commander": "^2.11.0"
+  },
+  "devDependencies": {
+    "@types/cli-table2": "^0.2.1",
+    "@types/commander": "^2.11.0",
+    "@types/jest": "^20.0.5",
+    "@types/node": "^8.0.0",
+    "coveralls": "^2.0.0",
+    "jest": "^20.0.4",
+    "jest-environment-node-debug": "^2.0.0",
+    "prettier": "^1.5.2",
+    "rimraf": "^2.0.0",
+    "ts-jest": "^20.0.7",
+    "ts-node": "^3.2.0",
+    "tslint": "^5.0.0",
+    "tslint-config-prettier": "^1.1.0",
+    "typescript": "^2.3.0"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "jest": {
+    "transform": {
+      ".(ts)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "testEnvironment": "node"
+  }
+}
