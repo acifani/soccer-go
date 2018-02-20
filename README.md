@@ -3,3 +3,5 @@
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
 # soccer-go
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/acifani/soccer-go.svg)](https://greenkeeper.io/)
