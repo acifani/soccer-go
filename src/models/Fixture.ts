@@ -31,21 +31,21 @@ export default class Fixture {
 
   constructor(data: any) {
     this.home = {
-      team: data.homeTeamName,
       goals: data.result.goalsHomeTeam,
+      team: data.homeTeamName,
     };
     this.away = {
-      team: data.awayTeamName,
       goals: data.result.goalsAwayTeam,
+      team: data.awayTeamName,
     };
     this.matchday = data.matchday;
     this.status = data.status;
     this.date = new Date(data.date);
     this.links = {
-      self: data._links.self.href,
+      awayTeam: data._links.awayTeam.href,
       competition: data._links.competition.href,
       homeTeam: data._links.homeTeam.href,
-      awayTeam: data._links.awayTeam.href,
+      self: data._links.self.href,
     };
   }
 

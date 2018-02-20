@@ -1,5 +1,5 @@
 import * as program from 'commander';
-const version = require('../package.json').version;
+const version = require('../package.json').version; // tslint:disable-line
 
 import * as commands from './commands';
 

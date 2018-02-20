@@ -38,14 +38,13 @@ export default class Team {
     this.code = data.code;
     this.shortName = data.shortName;
     this.links = {
-      self: data._links.self.href,
       fixtures: data._links.fixtures.href,
       players: data._links.players.href,
+      self: data._links.self.href,
     };
   }
 
   public print = (): void => {
-    // tslint:disable-next-line:no-console
     console.log(
       '[' + chalk.inverse(this.code || '') + '] ' + chalk.red(this.name)
     );

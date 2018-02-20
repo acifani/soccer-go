@@ -34,8 +34,8 @@ export const get = (teamName: string, options: any): void => {
         const table = new Table({
           head: ['Name', 'Jersey', 'Position', 'Nationality', 'Date of Birth'],
           style: {
-            head: [],
             border: [],
+            head: [],
           },
         }) as Table.HorizontalTable;
 

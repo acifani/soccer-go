@@ -8,7 +8,11 @@ export default class Player {
   public nationality: string;
 
   constructor(data: any) {
-    Object.assign(this, data);
+    this.name = data.name;
+    this.position = data.position;
+    this.jerseyNumber = data.jerseyNumber;
+    this.dateOfBirth = data.dateOfBirth;
+    this.nationality = data.nationality;
   }
 
   public toRow = (): Cell[] => [
