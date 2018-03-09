@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import * as Table from 'cli-table2';
+import * as ora from 'ora';
 import cfg from '../config';
 import { Fixture } from '../models';
 
@@ -21,9 +22,12 @@ export const matchday = (comp: string): void => {
     }) as Table.HorizontalTable;
 
     try {
+      const spinner = ora('Fetching fixtures...').start();
       const fixtureResponse: AxiosResponse = await axios.get(
         `${cfg.apiBaseUrl}/fixtures?league=${comp}`
       );
+      spinner.stop();
+
       fixtureResponse.data.fixtures.forEach((fix: any) => {
         const fixture = new Fixture(fix);
         table.push(fixture.toRow());

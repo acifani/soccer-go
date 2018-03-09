@@ -1,16 +1,20 @@
 import axios, { AxiosResponse } from 'axios';
 import * as Table from 'cli-table2';
 import { Answers } from 'inquirer';
+import * as ora from 'ora';
 import cfg from '../config';
 import { Fixture, Player, Team } from '../models';
 
 export const get = (teamName: string, options: Answers): void => {
   (async () => {
     try {
+      let spinner = ora('Fetching team...').start();
       const teamResponse: AxiosResponse = await axios.get(
         `${cfg.apiBaseUrl}/teams/${teamName}`,
         cfg.axiosConfig
       );
+      spinner.stop();
+
       const team = new Team(teamResponse.data);
       team.print();
 
@@ -20,10 +24,13 @@ export const get = (teamName: string, options: Answers): void => {
           style: { head: [], border: [] },
         }) as Table.HorizontalTable;
 
+        spinner = ora('Fetching team fixtures...').start();
         const fixtureResponse: AxiosResponse = await axios.get(
           team.links.fixtures,
           cfg.axiosConfig
         );
+        spinner.stop();
+
         fixtureResponse.data.fixtures.forEach((fix: any) => {
           const fixture = new Fixture(fix);
           table.push(fixture.toRow());
@@ -41,10 +48,13 @@ export const get = (teamName: string, options: Answers): void => {
           },
         }) as Table.HorizontalTable;
 
+        spinner = ora('Fetching team plauers...').start();
         const playersResponse: AxiosResponse = await axios.get(
           team.links.players,
           cfg.axiosConfig
         );
+        spinner.stop();
+
         playersResponse.data.players.forEach((p: any) => {
           const player = new Player(p);
           table.push(player.toRow());
