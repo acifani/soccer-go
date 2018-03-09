@@ -17,29 +17,29 @@ const searchLeague = (answers: any, input: string) => {
 
 export const questions: any = [
   {
+    choices: ['Team', 'Matchday', 'Standings'],
+    message: 'What do you want to do?',
     name: 'home',
     type: 'list',
-    message: 'What do you want to do?',
-    choices: ['Team', 'Matchday', 'Standings'],
   },
   {
+    choices: ['Fixtures', 'Players'],
+    message: 'What do you want to see?',
     name: 'teamOptions',
     type: 'checkbox',
-    message: 'What do you want to see?',
-    choices: ['Fixtures', 'Players'],
     when: (answers: inquirer.Answers) => answers.home === 'Team',
   },
   {
+    message: 'Team code',
     name: 'teamName',
     type: 'input',
-    message: 'Team code',
     when: (answers: inquirer.Answers) => answers.home === 'Team',
   },
   {
-    name: 'matchdayLeague',
-    type: 'autocomplete',
     message: 'League code',
+    name: 'matchdayLeague',
     source: searchLeague,
+    type: 'autocomplete',
     when: (answers: inquirer.Answers) => answers.home === 'Matchday',
   },
 ];
