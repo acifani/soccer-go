@@ -3,7 +3,7 @@ import { Cell } from 'cli-table2';
 const chalk = Chalk.default;
 
 export enum Status {
-  InProgress = 'IN_PROGRESS',
+  InProgress = 'IN_PLAY',
   Finished = 'FINISHED',
   Timed = 'TIMED',
   Scheduled = 'SCHEDULED',
@@ -52,7 +52,7 @@ export default class Fixture {
   public toRow = (): Cell[] => [
     `${this.home.team} - ${this.away.team}`,
     [Status.InProgress, Status.Finished].includes(this.status)
-      ? chalk.bold(`${this.home.goals} : ${this.away.goals}`)
+      ? chalk.bold(`${this.home.goals} - ${this.away.goals}`)
       : '',
     this.status,
     this.date.toLocaleString(),
