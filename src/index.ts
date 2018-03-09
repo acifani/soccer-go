@@ -9,6 +9,7 @@ const questions: inquirer.Questions = [
     choices: ['Team', 'Matchday', 'Standings'],
   },
   {
+    name: 'teamOptions',
     type: 'checkbox',
     message: 'What do you want to see?',
     choices: ['Fixtures', 'Players'],
