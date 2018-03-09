@@ -1,22 +1,44 @@
-import * as program from 'commander';
-const version = require('../package.json').version; // tslint:disable-line
-
+import * as inquirer from 'inquirer';
 import * as commands from './commands';
 
-program.version(version);
+const questions: inquirer.Questions = [
+  {
+    name: 'home',
+    type: 'list',
+    message: 'What do you want to do?',
+    choices: ['Team', 'Matchday', 'Standings'],
+  },
+  {
+    type: 'checkbox',
+    message: 'What do you want to see?',
+    choices: ['Fixtures', 'Players'],
+    when: (answers: inquirer.Answers) => answers.home === 'Team',
+  },
+  {
+    name: 'teamName',
+    type: 'input',
+    message: 'Team code',
+    when: (answers: inquirer.Answers) => answers.home === 'Team',
+  },
+  {
+    name: 'matchdayLeague',
+    type: 'input',
+    message: 'League code',
+    when: (answers: inquirer.Answers) => answers.home === 'Matchday',
+  },
+];
 
-program
-  .command('matchday <competition>')
-  .description('Get the current matchday game of a given competition')
-  .action((comp: string) => commands.fixtures.matchday(comp));
-
-program
-  .command('team <team_name>')
-  .description('Get info about a given team')
-  .option('-f, --fixtures', 'Get team fixtures')
-  .option('-p, --players', 'Get team players')
-  .action((teamName: string, options: any) =>
-    commands.team.get(teamName, options)
-  );
-
-program.parse(process.argv);
+inquirer
+  .prompt(questions)
+  .then((answers: inquirer.Answers) => {
+    console.log(JSON.stringify(answers, null, '  '));
+    switch (answers.home) {
+      case 'Team':
+        commands.team.get(answers.teamName, answers.teamOptions);
+        break;
+      case 'Matchday':
+        commands.fixtures.matchday(answers.matchdayLeague);
+        break;
+    }
+  })
+  .catch(e => console.log(e));

@@ -20,7 +20,10 @@ export const matchday = (comp: string): void => {
   }) as Table.HorizontalTable;
 
   axios
-    .get(`http://football-data.org/v1/fixtures/?league=${comp}`)
+    .get(
+      `http://football-data.org/v1/fixtures/?league=${comp}`,
+      cfg.axiosConfig
+    )
     .then((fixtureRes: any): void => {
       fixtureRes.data.fixtures.forEach((fix: any) => {
         const fixture = new Fixture(fix);
@@ -29,5 +32,5 @@ export const matchday = (comp: string): void => {
 
       console.log(table.toString());
     })
-    .catch(err => console.log(err.response.data.error));
+    .catch(err => console.log(err));
 };

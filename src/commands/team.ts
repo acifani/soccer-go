@@ -1,17 +1,17 @@
 import axios from 'axios';
 import * as Table from 'cli-table2';
+import { Answers } from 'inquirer';
 import cfg from '../config';
 import { Fixture, Player, Team } from '../models';
-import { ITeamJson } from '../models/Team';
 
-export const get = (teamName: string, options: any): void => {
+export const get = (teamName: string, options: Answers): void => {
   axios
     .get(cfg.apiBaseUrl + teamName, cfg.axiosConfig)
     .then((teamRes: any) => {
       const team = new Team(teamRes.data);
       team.print();
 
-      if (options.fixtures) {
+      if (options.includes('Fixtures')) {
         const table = new Table({
           head: ['Home - Away', 'Score', 'Status', 'Date'],
           style: { head: [], border: [] },
@@ -27,10 +27,10 @@ export const get = (teamName: string, options: any): void => {
 
             console.log(table.toString());
           })
-          .catch(err => console.log(err.response.data.error));
+          .catch(err => console.log(err));
       }
 
-      if (options.players) {
+      if (options.includes('Players')) {
         const table = new Table({
           head: ['Name', 'Jersey', 'Position', 'Nationality', 'Date of Birth'],
           style: {
@@ -49,8 +49,8 @@ export const get = (teamName: string, options: any): void => {
 
             console.log(table.toString());
           })
-          .catch(err => console.log(err.response.data.error));
+          .catch(err => console.log(err));
       }
     })
-    .catch(err => console.log(err.response.data.error));
+    .catch(err => console.log(err));
 };
