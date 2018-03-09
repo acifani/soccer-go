@@ -1,14 +1,17 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import * as Table from 'cli-table2';
 import { Answers } from 'inquirer';
 import cfg from '../config';
 import { Fixture, Player, Team } from '../models';
 
 export const get = (teamName: string, options: Answers): void => {
-  axios
-    .get(cfg.apiBaseUrl + teamName, cfg.axiosConfig)
-    .then((teamRes: any) => {
-      const team = new Team(teamRes.data);
+  (async () => {
+    try {
+      const teamResponse: AxiosResponse = await axios.get(
+        `${cfg.apiBaseUrl}/teams/${teamName}`,
+        cfg.axiosConfig
+      );
+      const team = new Team(teamResponse.data);
       team.print();
 
       if (options.includes('Fixtures')) {
@@ -17,17 +20,16 @@ export const get = (teamName: string, options: Answers): void => {
           style: { head: [], border: [] },
         }) as Table.HorizontalTable;
 
-        axios
-          .get(team.links.fixtures, cfg.axiosConfig)
-          .then((fixtureRes: any) => {
-            fixtureRes.data.fixtures.forEach((fix: any) => {
-              const fixture = new Fixture(fix);
-              table.push(fixture.toRow());
-            });
+        const fixtureResponse: AxiosResponse = await axios.get(
+          team.links.fixtures,
+          cfg.axiosConfig
+        );
+        fixtureResponse.data.fixtures.forEach((fix: any) => {
+          const fixture = new Fixture(fix);
+          table.push(fixture.toRow());
+        });
 
-            console.log(table.toString());
-          })
-          .catch(err => console.log(err));
+        console.log(table.toString());
       }
 
       if (options.includes('Players')) {
@@ -39,18 +41,23 @@ export const get = (teamName: string, options: Answers): void => {
           },
         }) as Table.HorizontalTable;
 
-        axios
-          .get(team.links.players, cfg.axiosConfig)
-          .then((playersRes: any) => {
-            playersRes.data.players.forEach((p: any) => {
-              const player = new Player(p);
-              table.push(player.toRow());
-            });
+        const playersResponse: AxiosResponse = await axios.get(
+          team.links.players,
+          cfg.axiosConfig
+        );
+        playersResponse.data.players.forEach((p: any) => {
+          const player = new Player(p);
+          table.push(player.toRow());
+        });
 
-            console.log(table.toString());
-          })
-          .catch(err => console.log(err));
+        console.log(table.toString());
       }
-    })
-    .catch(err => console.log(err));
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.error);
+      } else {
+        console.log(error);
+      }
+    }
+  })();
 };

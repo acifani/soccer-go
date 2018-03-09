@@ -29,9 +29,9 @@ const questions: inquirer.Questions = [
   },
 ];
 
-inquirer
-  .prompt(questions)
-  .then((answers: inquirer.Answers) => {
+(async () => {
+  try {
+    const answers: inquirer.Answers = await inquirer.prompt(questions);
     console.log(JSON.stringify(answers, null, '  '));
     switch (answers.home) {
       case 'Team':
@@ -41,5 +41,7 @@ inquirer
         commands.fixtures.matchday(answers.matchdayLeague);
         break;
     }
-  })
-  .catch(e => console.log(e));
+  } catch (error) {
+    console.log(error);
+  }
+})();
