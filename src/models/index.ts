@@ -1,3 +1,3 @@
-export { default as Fixture } from './Fixture';
-export { default as Player } from './Player';
-export { default as Team } from './Team';
+export { default as Fixture, IFixtureJson } from './Fixture';
+export { default as Player, IPlayerJson } from './Player';
+export { default as Team, ITeamJson } from './Team';

@@ -4,7 +4,7 @@ import { Answers } from 'inquirer';
 import * as ora from 'ora';
 import * as api from '../api';
 import cfg from '../config';
-import { Fixture, Player, Team } from '../models';
+import { Fixture, IFixtureJson, IPlayerJson, Player, Team } from '../models';
 
 export const get = (teamCode: string, options: Answers): void => {
   (async () => {
@@ -13,26 +13,24 @@ export const get = (teamCode: string, options: Answers): void => {
     team.print();
 
     if (options.includes('Fixtures')) {
+      const fixturesData = await api.getTeamFixtures(team);
+      const teamFixtures = fixturesData.map((f: IFixtureJson) =>
+        new Fixture(f).toRow()
+      );
+
       const table = Fixture.buildTable();
-      const teamFixtures = await api.getTeamFixtures(team);
-
-      teamFixtures.forEach((fix: any) => {
-        const fixture = new Fixture(fix);
-        table.push(fixture.toRow());
-      });
-
+      table.push(...teamFixtures);
       console.log(table.toString());
     }
 
     if (options.includes('Players')) {
+      const playersData = await api.getTeamPlayers(team);
+      const players = playersData.map((p: IPlayerJson) =>
+        new Player(p).toRow()
+      );
+
       const table = Player.buildTable();
-      const teamPlayers = await api.getTeamPlayers(team);
-
-      teamPlayers.forEach((p: any) => {
-        const player = new Player(p);
-        table.push(player.toRow());
-      });
-
+      table.push(...players);
       console.log(table.toString());
     }
   })();

@@ -3,7 +3,7 @@ import * as Table from 'cli-table2';
 import * as ora from 'ora';
 import cfg from '../config';
 import { ILeague, leagueCodes } from '../constants/leagues';
-import { Fixture } from '../models';
+import { Fixture, IFixtureJson } from '../models';
 import * as api from './../api';
 
 export const matchday = (leagueName: string): void => {
@@ -17,13 +17,13 @@ export const matchday = (leagueName: string): void => {
     }
 
     const leagueCode = league ? league.code : '';
-    const table = Fixture.buildTable();
-    const fixtures = await api.getMatchday(leagueCode);
+    const fixturesData = await api.getMatchday(leagueCode);
+    const fixtures = fixturesData.map((f: IFixtureJson) =>
+      new Fixture(f).toRow()
+    );
 
-    fixtures.forEach((fix: any) => {
-      const fixture = new Fixture(fix);
-      table.push(fixture.toRow());
-    });
+    const table = Fixture.buildTable();
+    table.push(...fixtures);
 
     console.log(table.toString());
   })();
