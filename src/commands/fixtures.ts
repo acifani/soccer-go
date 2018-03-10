@@ -15,11 +15,7 @@ export const matchday = (leagueName: string): void => {
       process.exit(1);
     }
     const leagueCode = league ? league.code : '';
-
-    const table = new Table({
-      head: ['Home - Away', 'Score', 'Status', 'Date'],
-      style: { head: [], border: [] },
-    }) as Table.HorizontalTable;
+    const table = Fixture.buildTable();
 
     try {
       const spinner = ora('Fetching fixtures...').start();

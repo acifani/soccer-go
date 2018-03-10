@@ -5,12 +5,12 @@ import * as ora from 'ora';
 import cfg from '../config';
 import { Fixture, Player, Team } from '../models';
 
-export const get = (teamName: string, options: Answers): void => {
+export const get = (teamCode: string, options: Answers): void => {
   (async () => {
     try {
       let spinner = ora('Fetching team...').start();
       const teamResponse: AxiosResponse = await axios.get(
-        `${cfg.apiBaseUrl}/teams/${teamName}`,
+        `${cfg.apiBaseUrl}/teams/${teamCode}`,
         cfg.axiosConfig
       );
       spinner.stop();
@@ -19,10 +19,7 @@ export const get = (teamName: string, options: Answers): void => {
       team.print();
 
       if (options.includes('Fixtures')) {
-        const table = new Table({
-          head: ['Home - Away', 'Score', 'Status', 'Date'],
-          style: { head: [], border: [] },
-        }) as Table.HorizontalTable;
+        const table = Fixture.buildTable();
 
         spinner = ora('Fetching team fixtures...').start();
         const fixtureResponse: AxiosResponse = await axios.get(
@@ -40,13 +37,7 @@ export const get = (teamName: string, options: Answers): void => {
       }
 
       if (options.includes('Players')) {
-        const table = new Table({
-          head: ['Name', 'Jersey', 'Position', 'Nationality', 'Date of Birth'],
-          style: {
-            border: [],
-            head: [],
-          },
-        }) as Table.HorizontalTable;
+        const table = Player.buildTable()
 
         spinner = ora('Fetching team plauers...').start();
         const playersResponse: AxiosResponse = await axios.get(

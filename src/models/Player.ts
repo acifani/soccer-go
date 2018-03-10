@@ -1,6 +1,16 @@
-import { Cell } from 'cli-table2';
+import * as Table from 'cli-table2';
 
 export default class Player {
+  public static buildTable() {
+    return new Table({
+      head: ['Name', 'Jersey', 'Position', 'Nationality', 'Date of Birth'],
+      style: {
+        border: [],
+        head: [],
+      },
+    }) as Table.HorizontalTable;
+  }
+
   public name: string;
   public position: string;
   public jerseyNumber: number;
@@ -15,7 +25,7 @@ export default class Player {
     this.nationality = data.nationality;
   }
 
-  public toRow = (): Cell[] => [
+  public toRow = (): Table.Cell[] => [
     this.name,
     this.jerseyNumber,
     this.position,

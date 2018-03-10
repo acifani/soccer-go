@@ -1,5 +1,5 @@
 import * as Chalk from 'chalk';
-import { Cell } from 'cli-table2';
+import * as Table from 'cli-table2';
 const chalk = Chalk.default;
 
 export enum Status {
@@ -22,6 +22,14 @@ export interface IFixtureLinks {
 }
 
 export default class Fixture {
+
+  public static buildTable() {
+    return new Table({
+      head: ['Home - Away', 'Score', 'Status', 'Date'],
+      style: { head: [], border: [] },
+    }) as Table.HorizontalTable;
+  }
+
   public home: ISide;
   public away: ISide;
   public matchday: number;
@@ -49,7 +57,7 @@ export default class Fixture {
     };
   }
 
-  public toRow = (): Cell[] => [
+  public toRow = (): Table.Cell[] => [
     `${this.home.team} - ${this.away.team}`,
     [Status.InProgress, Status.Finished].includes(this.status)
       ? chalk.bold(`${this.home.goals} - ${this.away.goals}`)
