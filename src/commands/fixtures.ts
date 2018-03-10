@@ -4,6 +4,7 @@ import * as ora from 'ora';
 import cfg from '../config';
 import { ILeague, leagueCodes } from '../constants/leagues';
 import { Fixture } from '../models';
+import * as api from './../api';
 
 export const matchday = (leagueName: string): void => {
   (async () => {
@@ -14,28 +15,16 @@ export const matchday = (leagueName: string): void => {
       console.log('Competition not found.');
       process.exit(1);
     }
+
     const leagueCode = league ? league.code : '';
     const table = Fixture.buildTable();
+    const fixtures = await api.getMatchday(leagueCode);
 
-    try {
-      const spinner = ora('Fetching fixtures...').start();
-      const fixtureResponse: AxiosResponse = await axios.get(
-        `${cfg.apiBaseUrl}/fixtures?league=${leagueCode}`
-      );
-      spinner.stop();
+    fixtures.forEach((fix: any) => {
+      const fixture = new Fixture(fix);
+      table.push(fixture.toRow());
+    });
 
-      fixtureResponse.data.fixtures.forEach((fix: any) => {
-        const fixture = new Fixture(fix);
-        table.push(fixture.toRow());
-      });
-
-      console.log(table.toString());
-    } catch (error) {
-      if (error.response) {
-        console.log(error.response.data.error);
-      } else {
-        console.log(error);
-      }
-    }
+    console.log(table.toString());
   })();
 };

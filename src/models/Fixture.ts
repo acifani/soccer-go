@@ -22,7 +22,6 @@ export interface IFixtureLinks {
 }
 
 export default class Fixture {
-
   public static buildTable() {
     return new Table({
       head: ['Home - Away', 'Score', 'Status', 'Date'],
