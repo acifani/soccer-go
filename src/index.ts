@@ -5,13 +5,16 @@ import { questions } from './constants/questions';
 (async () => {
   try {
     const answers: inquirer.Answers = await inquirer.prompt(questions);
-
-    switch (answers.home) {
-      case 'Team':
-        commands.team.get(answers.teamName, answers.teamOptions);
-        break;
+    const competition = answers.competition;
+    switch (answers.main) {
       case 'Matchday':
-        commands.fixtures.matchday(answers.matchdayLeague);
+        commands.fixtures.matchday(competition);
+        break;
+      case 'Standings':
+        console.log('Standings coming soon!');
+        break;
+      case 'Team':
+        commands.team.get(answers.teamCode, answers.teamOptions);
         break;
     }
   } catch (error) {

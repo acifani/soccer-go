@@ -24,7 +24,6 @@ export const matchday = (leagueName: string): void => {
 
     const table = Fixture.buildTable();
     table.push(...fixtures);
-
     console.log(table.toString());
   })();
 };

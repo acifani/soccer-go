@@ -15,31 +15,31 @@ const searchLeague = (answers: any, input: string) => {
   });
 };
 
-export const questions: any = [
+export const questions = [
   {
-    choices: ['Team', 'Matchday', 'Standings'],
-    message: 'What do you want to do?',
-    name: 'home',
-    type: 'list',
+    message: 'Choose a competition',
+    name: 'competition',
+    source: searchLeague,
+    type: 'autocomplete',
   },
   {
-    choices: ['Fixtures', 'Players'],
-    message: 'What do you want to see?',
-    name: 'teamOptions',
-    type: 'checkbox',
-    when: (answers: inquirer.Answers) => answers.home === 'Team',
+    choices: ['Matchday', 'Standings', 'Team'],
+    message: 'Choose a function',
+    name: 'main',
+    type: 'list',
+    when: (answers: inquirer.Answers) => answers.competition,
   },
   {
     message: 'Team code',
-    name: 'teamName',
+    name: 'teamCode',
     type: 'input',
-    when: (answers: inquirer.Answers) => answers.home === 'Team',
+    when: (answers: inquirer.Answers) => answers.main === 'Team',
   },
   {
-    message: 'League code',
-    name: 'matchdayLeague',
-    source: searchLeague,
-    type: 'autocomplete',
-    when: (answers: inquirer.Answers) => answers.home === 'Matchday',
+    choices: ['Fixtures', 'Players'],
+    message: 'Team info',
+    name: 'teamOptions',
+    type: 'checkbox',
+    when: (answers: inquirer.Answers) => answers.main === 'Team',
   },
 ];

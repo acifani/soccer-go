@@ -46,4 +46,5 @@ const handleError = (error: any) => {
   } else {
     console.log(error);
   }
+  throw new Error('Error while fetching data');
 };
