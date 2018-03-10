@@ -6,9 +6,14 @@ import * as api from '../api';
 import cfg from '../config';
 import { Fixture, IFixtureJson, IPlayerJson, Player, Team } from '../models';
 
-export const get = (teamCode: string, options: Answers): void => {
+export const get = (answers: Answers): void => {
   (async () => {
-    const teamData = await api.getTeam(teamCode);
+    const teamName = answers.teamName;
+    const compName = answers.competition;
+    const options = answers.teamOptions;
+
+    const teamId = await api.getTeamId(teamName, compName);
+    const teamData = await api.getTeam(teamId);
     const team = new Team(teamData);
     team.print();
 

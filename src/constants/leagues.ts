@@ -3,6 +3,11 @@ export interface ILeague {
   name: string;
 }
 
+export const getLeagueByName = (compName: string) => {
+  const candidate = leagueCodes.find(l => l.name === compName);
+  return candidate ? candidate : leagueCodes[0];
+};
+
 export const leagueCodes: ILeague[] = [
   { code: 'BL1', name: '1. Bundesliga' },
   { code: 'BL2', name: '2. Bundesliga' },

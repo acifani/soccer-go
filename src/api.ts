@@ -1,7 +1,9 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import * as ora from 'ora';
 import cfg from './config';
-import { Team } from './models';
+import { getLeagueByName } from './constants/leagues';
+import { ITeamJson, Team } from './models';
+import Competition, { ICompetitionJson } from './models/Competition';
 
 export const getMatchday = async (leagueCode: string) => {
   const data = await callApi(
@@ -11,8 +13,8 @@ export const getMatchday = async (leagueCode: string) => {
   return data.fixtures;
 };
 
-export const getTeam = async (teamCode: string) =>
-  callApi(`${cfg.apiBaseUrl}/teams/${teamCode}`, 'Fetching team...');
+export const getTeam = async (teamId: number) =>
+  callApi(`${cfg.apiBaseUrl}/teams/${teamId}`, 'Fetching team...');
 
 export const getTeamFixtures = async (team: Team) => {
   const data = await callApi(team.links.fixtures, 'Fetching team fixtures...');
@@ -22,6 +24,36 @@ export const getTeamFixtures = async (team: Team) => {
 export const getTeamPlayers = async (team: Team) => {
   const data = await callApi(team.links.players, 'Fetching team players...');
   return data.players;
+};
+
+export const getCompetition = async (leagueCode: string) => {
+  const data: ICompetitionJson[] = await callApi(
+    `${cfg.apiBaseUrl}/competitions`,
+    'Fetching competition...'
+  );
+  return data.find(c => c.league === leagueCode);
+};
+
+export const getCompetitionTeams = async (comp: Competition) => {
+  const data = await callApi(comp.links.teams, 'Fetching teams...');
+  return data.teams;
+};
+
+export const getTeamId = async (teamName: string, compName: string) => {
+  const league = getLeagueByName(compName);
+  const comp = await getCompetition(league.code);
+  if (comp == null) {
+    throw new Error();
+  }
+  const teams: ITeamJson[] = await getCompetitionTeams(new Competition(comp));
+  const team = teams.find(t =>
+    t.name.toLowerCase().includes(teamName.toLowerCase())
+  );
+  if (team == null) {
+    throw new Error();
+  }
+  const stringId = team._links.self.href.split('/').pop();
+  return Number(stringId);
 };
 
 const callApi = async (url: string, placeholder: string) => {
@@ -46,5 +78,5 @@ const handleError = (error: any) => {
   } else {
     console.log(error);
   }
-  throw new Error('Error while fetching data');
+  process.exit(1);
 };

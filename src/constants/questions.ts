@@ -30,8 +30,8 @@ export const questions = [
     when: (answers: inquirer.Answers) => answers.competition,
   },
   {
-    message: 'Team code',
-    name: 'teamCode',
+    message: 'Team name',
+    name: 'teamName',
     type: 'input',
     when: (answers: inquirer.Answers) => answers.main === 'Team',
   },
