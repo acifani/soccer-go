@@ -29,7 +29,7 @@ export default class Fixture {
   public date: Date;
   public links: IFixtureLinks;
 
-  constructor(data: any) {
+  constructor(data: IFixtureJson) {
     this.home = {
       goals: data.result.goalsHomeTeam,
       team: data.homeTeamName,
@@ -57,4 +57,30 @@ export default class Fixture {
     this.status,
     this.date.toLocaleString(),
   ];
+}
+
+export interface IFixtureJson {
+  _links: {
+    self: {
+      href: string;
+    };
+    competition: {
+      href: string;
+    };
+    homeTeam: {
+      href: string;
+    };
+    awayTeam: {
+      href: string;
+    };
+  };
+  date: Date;
+  status: Status;
+  matchday: number;
+  homeTeamName: string;
+  awayTeamName: string;
+  result: {
+    goalsHomeTeam: number;
+    goalsAwayTeam: number;
+  };
 }

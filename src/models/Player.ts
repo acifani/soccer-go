@@ -3,11 +3,11 @@ import { Cell } from 'cli-table2';
 export default class Player {
   public name: string;
   public position: string;
-  public jerseyNumber: string;
+  public jerseyNumber: number;
   public dateOfBirth: string;
   public nationality: string;
 
-  constructor(data: any) {
+  constructor(data: IPlayerJson) {
     this.name = data.name;
     this.position = data.position;
     this.jerseyNumber = data.jerseyNumber;
@@ -22,4 +22,14 @@ export default class Player {
     this.nationality,
     this.dateOfBirth,
   ];
+}
+
+export interface IPlayerJson {
+  name: string;
+  position: string;
+  jerseyNumber: number;
+  dateOfBirth: string;
+  nationality: string;
+  contractUntil: string;
+  marketValue: string;
 }
