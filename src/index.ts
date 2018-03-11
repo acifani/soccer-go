@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import * as inquirer from 'inquirer';
 import * as commands from './commands';
 import { questions } from './constants/questions';

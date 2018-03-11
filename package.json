@@ -20,6 +20,9 @@
   ],
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
+  "bin": {
+    "soccer-go": "lib/index.js"
+  },
   "scripts": {
     "clean": "rimraf lib && rimraf coverage",
     "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
