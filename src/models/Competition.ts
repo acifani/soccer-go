@@ -21,7 +21,7 @@ export default class Competition {
     this.year = data.year;
     this.links = {
       fixtures: data._links.fixtures.href,
-      leagueTable: data._links.fixtures.href,
+      leagueTable: data._links.leagueTable.href,
       self: data._links.self.href,
       teams: data._links.teams.href,
     };
