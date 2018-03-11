@@ -1,10 +1,9 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios from 'axios';
 import * as ora from 'ora';
 import cfg from './config';
 import { getLeagueByName } from './constants/leagues';
 import {
   Competition,
-  Fixture,
   ICompetitionJson,
   IFixtureJson,
   IPlayerJson,

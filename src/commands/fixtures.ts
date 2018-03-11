@@ -1,9 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
-import * as Table from 'cli-table2';
-import * as ora from 'ora';
-import cfg from '../config';
-import { getLeagueByName, ILeague, leagueCodes } from '../constants/leagues';
-import { Fixture, IFixtureJson } from '../models';
+import { getLeagueByName } from '../constants/leagues';
+import { Fixture } from '../models';
 import * as api from './../api';
 
 export const matchday = (leagueName: string): void => {

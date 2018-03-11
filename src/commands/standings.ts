@@ -1,4 +1,3 @@
-import { Answers } from 'inquirer';
 import * as api from '../api';
 import { Standing } from '../models';
 

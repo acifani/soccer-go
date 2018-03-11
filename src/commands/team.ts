@@ -1,10 +1,6 @@
-import axios, { AxiosResponse } from 'axios';
-import * as Table from 'cli-table2';
 import { Answers } from 'inquirer';
-import * as ora from 'ora';
 import * as api from '../api';
-import cfg from '../config';
-import { Fixture, IFixtureJson, IPlayerJson, Player, Team } from '../models';
+import { Fixture, Player, Team } from '../models';
 
 export const get = (answers: Answers): void => {
   (async () => {
