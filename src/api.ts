@@ -2,10 +2,19 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import * as ora from 'ora';
 import cfg from './config';
 import { getLeagueByName } from './constants/leagues';
-import { ITeamJson, Team } from './models';
-import Competition, { ICompetitionJson } from './models/Competition';
+import {
+  Competition,
+  Fixture,
+  ICompetitionJson,
+  IFixtureJson,
+  IPlayerJson,
+  ITeamJson,
+  Team,
+} from './models';
 
-export const getMatchday = async (leagueCode: string) => {
+export const getMatchday = async (
+  leagueCode: string
+): Promise<IFixtureJson[]> => {
   const data = await callApi(
     `${cfg.apiBaseUrl}/fixtures?league=${leagueCode}`,
     'Fetching matchday...'
@@ -13,20 +22,22 @@ export const getMatchday = async (leagueCode: string) => {
   return data.fixtures;
 };
 
-export const getTeam = async (teamId: number) =>
+export const getTeam = async (teamId: number): Promise<ITeamJson> =>
   callApi(`${cfg.apiBaseUrl}/teams/${teamId}`, 'Fetching team...');
 
-export const getTeamFixtures = async (team: Team) => {
+export const getTeamFixtures = async (team: Team): Promise<IFixtureJson[]> => {
   const data = await callApi(team.links.fixtures, 'Fetching team fixtures...');
   return data.fixtures;
 };
 
-export const getTeamPlayers = async (team: Team) => {
+export const getTeamPlayers = async (team: Team): Promise<IPlayerJson[]> => {
   const data = await callApi(team.links.players, 'Fetching team players...');
   return data.players;
 };
 
-export const getCompetition = async (leagueCode: string) => {
+export const getCompetition = async (
+  leagueCode: string
+): Promise<ICompetitionJson | undefined> => {
   const data: ICompetitionJson[] = await callApi(
     `${cfg.apiBaseUrl}/competitions`,
     'Fetching competition...'
@@ -34,32 +45,37 @@ export const getCompetition = async (leagueCode: string) => {
   return data.find(c => c.league === leagueCode);
 };
 
-export const getCompetitionTeams = async (comp: Competition) => {
+export const getCompetitionTeams = async (
+  comp: Competition
+): Promise<ITeamJson[]> => {
   const data = await callApi(comp.links.teams, 'Fetching teams...');
   return data.teams;
 };
 
-export const getTeamId = async (teamName: string, compName: string) => {
+export const getTeamId = async (
+  teamName: string,
+  compName: string
+): Promise<number> => {
   const league = getLeagueByName(compName);
   const comp = await getCompetition(league.code);
   if (comp == null) {
-    throw new Error();
+    throw new Error('Competition not found.');
   }
-  const teams: ITeamJson[] = await getCompetitionTeams(new Competition(comp));
+  const teams = await getCompetitionTeams(new Competition(comp));
   const team = teams.find(t =>
     t.name.toLowerCase().includes(teamName.toLowerCase())
   );
   if (team == null) {
-    throw new Error();
+    throw new Error('Team not found.');
   }
   const stringId = team._links.self.href.split('/').pop();
   return Number(stringId);
 };
 
-const callApi = async (url: string, placeholder: string) => {
+const callApi = async (url: string, placeholder: string): Promise<any> => {
   try {
     const spinner = ora(placeholder).start();
-    const response: AxiosResponse = await axios.get(url, cfg.axiosConfig);
+    const response = await axios.get(url, cfg.axiosConfig);
     spinner.stop();
     return response.data;
   } catch (error) {
@@ -67,7 +83,7 @@ const callApi = async (url: string, placeholder: string) => {
   }
 };
 
-const handleError = (error: any) => {
+const handleError = (error: any): void => {
   if (error.response) {
     console.log(error.response.data);
     console.log(error.response.status);

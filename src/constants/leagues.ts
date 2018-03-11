@@ -3,7 +3,7 @@ export interface ILeague {
   name: string;
 }
 
-export const getLeagueByName = (compName: string) => {
+export const getLeagueByName = (compName: string): ILeague => {
   const candidate = leagueCodes.find(l => l.name === compName);
   return candidate ? candidate : leagueCodes[0];
 };
