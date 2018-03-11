@@ -10,6 +10,8 @@
 
 The app is still in its early stages of development, so do expect bugs and errors. All contributions are very welcome!
 
+![Matchday preview](https://github.com/acifani/soccer-go/blob/master/soccer-go-matchday.gif)
+
 ### Features
 
 - Data from multiple leagues
