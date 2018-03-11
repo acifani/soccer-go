@@ -12,7 +12,7 @@ import { questions } from './constants/questions';
         commands.fixtures.matchday(answers.competition);
         break;
       case 'Standings':
-        console.log('Standings coming soon!');
+        commands.standings.get(answers.competition);
         break;
       case 'Team':
         commands.team.get(answers);

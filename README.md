@@ -13,13 +13,14 @@ The app is still in its early stages of development, so do expect bugs and error
 ### Features
 
 - Data from multiple leagues
-- Matchday 
+- Matchday
 - Team squad
 - Team fixtures
+- League standings
 
 ### To-Dos
 
-- [ ] League standings
+- [x] League standings
 - [ ] Extra-time / penalty
 - [ ] Head2head
 - [ ] Team colors

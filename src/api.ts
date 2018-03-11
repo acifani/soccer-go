@@ -8,6 +8,7 @@ import {
   ICompetitionJson,
   IFixtureJson,
   IPlayerJson,
+  IStandingJson,
   ITeamJson,
   Team,
 } from './models';
@@ -50,6 +51,24 @@ export const getCompetitionTeams = async (
 ): Promise<ITeamJson[]> => {
   const data = await callApi(comp.links.teams, 'Fetching teams...');
   return data.teams;
+};
+
+export const getStandings = async (
+  compName: string
+): Promise<IStandingJson[]> => {
+  const league = getLeagueByName(compName);
+  const comp = await getCompetition(league.code);
+  if (comp == null) {
+    throw new Error('Competition not found.');
+  }
+  return getCompetitionTable(new Competition(comp));
+};
+
+export const getCompetitionTable = async (
+  comp: Competition
+): Promise<IStandingJson[]> => {
+  const data = await callApi(comp.links.leagueTable, 'Fetching standings...');
+  return data.standing;
 };
 
 export const getTeamId = async (
