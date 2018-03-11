@@ -11,10 +11,7 @@ export const matchday = (leagueName: string): void => {
     // TODO: print comp here
     const league = getLeagueByName(leagueName);
     const fixturesData = await api.getMatchday(league.code);
-    const fixtures = fixturesData.map(f => new Fixture(f).toRow());
-
-    const table = Fixture.buildTable();
-    table.push(...fixtures);
+    const table = Fixture.buildTable(fixturesData);
     console.log(table.toString());
   })();
 };

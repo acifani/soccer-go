@@ -22,12 +22,18 @@ export interface IFixtureLinks {
 }
 
 export default class Fixture {
-  public static buildTable() {
-    return new Table({
+  public static buildTable = (data: IFixtureJson[]) => {
+    const table = Fixture.buildTableHeader();
+    const fixtures = data.map(f => new Fixture(f).toRow());
+    table.push(...fixtures);
+    return table;
+  };
+
+  private static buildTableHeader = () =>
+    new Table({
       head: ['Home - Away', 'Score', 'Status', 'Date'],
       style: { head: [], border: [] },
     }) as Table.HorizontalTable;
-  }
 
   public home: ISide;
   public away: ISide;

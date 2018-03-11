@@ -14,19 +14,13 @@ export const get = (answers: Answers): void => {
 
     if (options.includes('Fixtures')) {
       const fixturesData = await api.getTeamFixtures(team);
-      const teamFixtures = fixturesData.map(f => new Fixture(f).toRow());
-
-      const table = Fixture.buildTable();
-      table.push(...teamFixtures);
+      const table = Fixture.buildTable(fixturesData);
       console.log(table.toString());
     }
 
     if (options.includes('Players')) {
       const playersData = await api.getTeamPlayers(team);
-      const players = playersData.map(p => new Player(p).toRow());
-
-      const table = Player.buildTable();
-      table.push(...players);
+      const table = Player.buildTable(playersData);
       console.log(table.toString());
     }
   })();
