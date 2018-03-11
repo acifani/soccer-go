@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 import * as inquirer from 'inquirer';
 import * as commands from './commands';
 import { questions } from './constants/questions';
@@ -9,13 +8,13 @@ import { questions } from './constants/questions';
     const answers: inquirer.Answers = await inquirer.prompt(questions);
     switch (answers.main) {
       case 'Matchday':
-        commands.fixtures.matchday(answers.competition);
+        commands.printMatchday(answers.competition);
         break;
       case 'Standings':
-        commands.standings.get(answers.competition);
+        commands.printStandings(answers.competition);
         break;
       case 'Team':
-        commands.team.get(answers);
+        commands.printTeam(answers);
         break;
     }
   } catch (error) {
