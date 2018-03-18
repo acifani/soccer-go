@@ -10,7 +10,7 @@ export default class Standing {
 
   private static buildTableHeader = () =>
     new Table({
-      head: ['#', 'Club', 'MP', 'Pts', 'GF', 'GA', 'GD'],
+      head: ['#', 'Club', 'MP', 'Pts', 'W', 'D', 'L', 'GF', 'GA', 'GD'],
       style: { border: [], head: [] },
     }) as Table.HorizontalTable;
 
@@ -21,6 +21,9 @@ export default class Standing {
   public goals: number;
   public goalsAgainst: number;
   public goalDifference: number;
+  public wins: number;
+  public draws: number;
+  public losses: number;
 
   constructor(data: IStandingJson) {
     this.rank = data.position;
@@ -30,6 +33,9 @@ export default class Standing {
     this.goals = data.goals;
     this.goalsAgainst = data.goalsAgainst;
     this.goalDifference = data.goalDifference;
+    this.wins = data.wins;
+    this.draws = data.draws;
+    this.losses = data.losses;
   }
 
   public toRow = (): Table.Cell[] => [
@@ -37,6 +43,9 @@ export default class Standing {
     this.team,
     this.playedGames,
     this.points,
+    this.wins,
+    this.draws,
+    this.losses,
     this.goals,
     this.goalsAgainst,
     this.goalDifference,
