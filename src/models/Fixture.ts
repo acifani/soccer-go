@@ -10,6 +10,13 @@ export enum Status {
   Scheduled = 'SCHEDULED',
 }
 
+const statusDisplayString: Map<Status, string> = new Map([
+  [Status.InProgress, 'Playing'],
+  [Status.Finished, 'Finished'],
+  [Status.Timed, 'Timed'],
+  [Status.Scheduled, 'Scheduled'],
+]);
+
 export interface ISide {
   team: string;
   goals: number;
@@ -73,7 +80,7 @@ export default class Fixture {
     [Status.InProgress, Status.Finished].includes(this.status)
       ? c.bold(`${this.home.goals} - ${this.away.goals}`)
       : '',
-    this.status,
+    statusDisplayString.get(this.status),
     moment(this.date).format('llll'),
   ];
 }
