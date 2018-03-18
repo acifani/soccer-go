@@ -1,5 +1,6 @@
 import * as Chalk from 'chalk';
 import * as Table from 'cli-table2';
+import * as moment from 'moment'
 const chalk = Chalk.default;
 
 export enum Status {
@@ -68,7 +69,7 @@ export default class Fixture {
       ? chalk.bold(`${this.home.goals} - ${this.away.goals}`)
       : '',
     this.status,
-    this.date.toLocaleString(),
+    moment(this.date).format('llll'),
   ];
 }
 
