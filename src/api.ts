@@ -97,7 +97,7 @@ const callApi = async (url: string, placeholder: string): Promise<any> => {
     spinner.stop();
     return response.data;
   } catch (error) {
-    spinner.fail()
+    spinner.fail();
     handleError(error);
   }
 };

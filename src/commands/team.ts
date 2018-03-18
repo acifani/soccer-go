@@ -1,3 +1,5 @@
+// tslint:disable-next-line
+const figlet = require('figlet');
 import { Answers } from 'inquirer';
 import * as api from '../api';
 import { Fixture, Player, Team } from '../models';
@@ -5,7 +7,10 @@ import { Fixture, Player, Team } from '../models';
 export const printTeam = async (answers: Answers) => {
   const options = answers.teamOptions;
   const team = await fetchTeamByName(answers);
-  team.print();
+  const teamTitle = figlet.textSync(team.shortName || team.name, {
+    font: 'slant',
+  });
+  console.log(teamTitle);
 
   if (options.includes('Fixtures')) {
     const fixturesData = await api.getTeamFixtures(team);
@@ -26,8 +31,8 @@ const fetchTeamByName = async (answers: Answers): Promise<Team> => {
     const teamData = await api.getTeam(teamId);
     return new Team(teamData);
   } catch (error) {
-    console.log(error.message)
-    process.exit(1)
-    throw new Error(error)
+    console.log(error.message);
+    process.exit(1);
+    throw new Error(error);
   }
 };
