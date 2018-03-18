@@ -26,9 +26,7 @@ export default class Team {
   }
 
   public print = (): void => {
-    console.log(
-      '[' + chalk.inverse(this.code || '') + '] ' + chalk.red(this.name)
-    );
+    console.log('[' + this.code + '] ' + this.name);
   };
 }
 

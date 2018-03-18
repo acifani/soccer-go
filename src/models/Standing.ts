@@ -1,4 +1,6 @@
+import * as Chalk from 'chalk';
 import * as Table from 'cli-table2';
+const c = Chalk.default;
 
 export default class Standing {
   public static buildTable = (data: IStandingJson[]) => {
@@ -10,7 +12,18 @@ export default class Standing {
 
   private static buildTableHeader = () =>
     new Table({
-      head: ['#', 'Club', 'MP', 'Pts', 'W', 'D', 'L', 'GF', 'GA', 'GD'],
+      head: [
+        c.bold('#'),
+        c.bold('Club'),
+        c.bold('MP'),
+        c.bold('Pts'),
+        c.bold('W'),
+        c.bold('D'),
+        c.bold('L'),
+        c.bold('GF'),
+        c.bold('GA'),
+        c.bold('GD'),
+      ],
       style: { border: [], head: [] },
     }) as Table.HorizontalTable;
 

@@ -1,4 +1,7 @@
+import * as Chalk from 'chalk';
 import * as Table from 'cli-table2';
+import * as moment from 'moment';
+const c = Chalk.default;
 
 export default class Player {
   public static buildTable = (data: IPlayerJson[]) => {
@@ -10,7 +13,13 @@ export default class Player {
 
   private static buildTableHeader = () =>
     new Table({
-      head: ['Name', 'Jersey', 'Position', 'Nationality', 'Date of Birth'],
+      head: [
+        c.bold('Name'),
+        c.bold('Jersey'),
+        c.bold('Position'),
+        c.bold('Nationality'),
+        c.bold('Date of Birth'),
+      ],
       style: { border: [], head: [] },
     }) as Table.HorizontalTable;
 
@@ -33,7 +42,7 @@ export default class Player {
     this.jerseyNumber,
     this.position,
     this.nationality,
-    this.dateOfBirth,
+    moment(this.dateOfBirth).format('L'),
   ];
 }
 

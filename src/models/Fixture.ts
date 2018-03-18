@@ -1,7 +1,7 @@
 import * as Chalk from 'chalk';
 import * as Table from 'cli-table2';
-import * as moment from 'moment'
-const chalk = Chalk.default;
+import * as moment from 'moment';
+const c = Chalk.default;
 
 export enum Status {
   InProgress = 'IN_PLAY',
@@ -32,7 +32,12 @@ export default class Fixture {
 
   private static buildTableHeader = () =>
     new Table({
-      head: ['Home - Away', 'Score', 'Status', 'Date'],
+      head: [
+        c.bold('Home - Away'),
+        c.bold('Score'),
+        c.bold('Status'),
+        c.bold('Date'),
+      ],
       style: { head: [], border: [] },
     }) as Table.HorizontalTable;
 
@@ -66,7 +71,7 @@ export default class Fixture {
   public toRow = (): Table.Cell[] => [
     `${this.home.team} - ${this.away.team}`,
     [Status.InProgress, Status.Finished].includes(this.status)
-      ? chalk.bold(`${this.home.goals} - ${this.away.goals}`)
+      ? c.bold(`${this.home.goals} - ${this.away.goals}`)
       : '',
     this.status,
     moment(this.date).format('llll'),
