@@ -21,7 +21,13 @@ export const printTeam = async (answers: Answers) => {
 };
 
 const fetchTeamByName = async (answers: Answers): Promise<Team> => {
-  const teamId = await api.getTeamId(answers.teamName, answers.competition);
-  const teamData = await api.getTeam(teamId);
-  return new Team(teamData);
+  try {
+    const teamId = await api.getTeamId(answers.teamName, answers.competition);
+    const teamData = await api.getTeam(teamId);
+    return new Team(teamData);
+  } catch (error) {
+    console.log(error.message)
+    process.exit(1)
+    throw new Error(error)
+  }
 };
