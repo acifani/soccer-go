@@ -81,7 +81,7 @@ export const getTeamId = async (
   }
   const teams = await getCompetitionTeams(new Competition(comp));
   const team = teams.find(t =>
-    t.name.toLowerCase().includes(teamName.toLowerCase())
+    t.name.toLowerCase().includes(teamName.toLowerCase().trim())
   );
   if (team == null) {
     throw new Error('Team not found.');
@@ -91,19 +91,20 @@ export const getTeamId = async (
 };
 
 const callApi = async (url: string, placeholder: string): Promise<any> => {
+  const spinner = ora(placeholder).start();
   try {
-    const spinner = ora(placeholder).start();
     const response = await axios.get(url, cfg.axiosConfig);
     spinner.stop();
     return response.data;
   } catch (error) {
+    spinner.fail()
     handleError(error);
   }
 };
 
 const handleError = (error: any): void => {
   if (error.response) {
-    console.log(error.response.data);
+    console.log(error.response.data.error);
     console.log(error.response.status);
   } else if (error.request) {
     console.log(error.request);
