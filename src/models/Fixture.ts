@@ -1,6 +1,7 @@
 import * as Chalk from 'chalk';
 import * as Table from 'cli-table2';
 import * as moment from 'moment';
+import { IRowable } from '../tableBuilders/BaseTableBuilder';
 const c = Chalk.default;
 
 export enum Status {
@@ -29,25 +30,7 @@ export interface IFixtureLinks {
   awayTeam: string;
 }
 
-export default class Fixture {
-  public static buildTable = (data: IFixtureJson[]) => {
-    const table = Fixture.buildTableHeader();
-    const fixtures = data.map(f => new Fixture(f).toRow());
-    table.push(...fixtures);
-    return table;
-  };
-
-  private static buildTableHeader = () =>
-    new Table({
-      head: [
-        c.bold('Home - Away'),
-        c.bold('Score'),
-        c.bold('Status'),
-        c.bold('Date'),
-      ],
-      style: { head: [], border: [] },
-    }) as Table.HorizontalTable;
-
+export default class Fixture implements IRowable {
   public home: ISide;
   public away: ISide;
   public matchday: number;

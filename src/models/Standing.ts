@@ -1,32 +1,9 @@
 import * as Chalk from 'chalk';
 import * as Table from 'cli-table2';
+import { IRowable } from '../tableBuilders/BaseTableBuilder';
 const c = Chalk.default;
 
-export default class Standing {
-  public static buildTable = (data: IStandingJson[]) => {
-    const standings = data.map(s => new Standing(s).toRow());
-    const table = Standing.buildTableHeader();
-    table.push(...standings);
-    return table;
-  };
-
-  private static buildTableHeader = () =>
-    new Table({
-      head: [
-        c.bold('#'),
-        c.bold('Club'),
-        c.bold('MP'),
-        c.bold('Pts'),
-        c.bold('W'),
-        c.bold('D'),
-        c.bold('L'),
-        c.bold('GF'),
-        c.bold('GA'),
-        c.bold('GD'),
-      ],
-      style: { border: [], head: [] },
-    }) as Table.HorizontalTable;
-
+export default class Standing implements IRowable {
   public rank: number;
   public team: string;
   public playedGames: number;
