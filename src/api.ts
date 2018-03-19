@@ -39,8 +39,11 @@ export const getTeamFixtures = async (team: Team): Promise<IFixtureJson[]> => {
 };
 
 export const getTeamPlayers = async (team: Team): Promise<IPlayerJson[]> => {
+  const compareJerseyNumber = (a: IPlayerJson, b: IPlayerJson) =>
+    a.jerseyNumber > b.jerseyNumber ? 1 : -1;
+
   const data = await callApi(team.links.players, 'Fetching team players...');
-  return data.players;
+  return data.players.sort(compareJerseyNumber);
 };
 
 export const getCompetition = async (
