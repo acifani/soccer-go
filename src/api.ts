@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as moment from 'moment';
 import * as ora from 'ora';
 import cfg from './config';
 import { getLeagueByName } from './constants/leagues';
@@ -15,8 +16,15 @@ import {
 export const getMatchday = async (
   leagueCode: string
 ): Promise<IFixtureJson[]> => {
+  const start = moment()
+    .subtract(3, 'day')
+    .format('YYYY-MM-DD');
+  const end = moment()
+    .add(3, 'days')
+    .format('YYYY-MM-DD');
   const data = await callApi(
-    `${cfg.apiBaseUrl}/fixtures?league=${leagueCode}`,
+    `${cfg.apiBaseUrl}/fixtures?league=${leagueCode}` +
+      `&timeFrameStart=${start}&timeFrameEnd=${end}`,
     'Fetching matchday...'
   );
   return data.fixtures;

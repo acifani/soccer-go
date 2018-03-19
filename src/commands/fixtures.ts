@@ -1,8 +1,8 @@
 // tslint:disable-next-line
 const figlet = require('figlet');
+import * as api from '../api';
 import { getLeagueByName } from '../constants/leagues';
 import { Fixture } from '../models';
-import * as api from './../api';
 
 export const printMatchday = async (leagueName: string) => {
   const league = getLeagueByName(leagueName);

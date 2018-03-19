@@ -8,8 +8,7 @@ import * as commands from './commands';
 import { questions } from './constants/questions';
 
 (async () => {
-  const notifier = UpdateNotifier({ pkg });
-  notifier.notify();
+  UpdateNotifier({ pkg }).notify();
 
   try {
     const answers: inquirer.Answers = await inquirer.prompt(questions);
