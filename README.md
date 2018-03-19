@@ -10,19 +10,34 @@
 
 The app is still in its early stages of development, so do expect bugs and errors. All contributions are very welcome!
 
-![Matchday preview](https://github.com/acifani/soccer-go/blob/master/soccer-go-matchday.gif)
+## Features
 
-### Features
+### Data from multiple leagues
 
-- Data from multiple leagues
-- Matchday
-- Team squad
-- Team fixtures
-- League standings
+- Premiere League, League One, Championship
+- Primera Division, Segunda Division
+- Serie A, Serie B
+- Bundesliga 1, 2, 3
+- Ligue 1, 2
+- Eredivisie
+- Primeira Liga
+
+### Matchday
+
+![Matchday](https://raw.githubusercontent.com/acifani/soccer-go/master/matchday.png)
+
+### Team fixtures
+
+![Fixtures](https://raw.githubusercontent.com/acifani/soccer-go/master/fixtures.png)
+
+### League standings
+
+![Standings](https://raw.githubusercontent.com/acifani/soccer-go/master/standings.png)
+
+... and more.
 
 ### To-Dos
 
-- [x] League standings
 - [ ] Extra-time / penalty
 - [ ] Head2head
 - [ ] Team colors
