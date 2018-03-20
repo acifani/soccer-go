@@ -5,7 +5,7 @@ import { Standing } from '../models';
 import { StandingsTableBuilder } from '../tableBuilders';
 
 export const printStandings = async (compName: string) => {
-  const compTitle = figlet.textSync(compName, { font: 'slant' });
+  const compTitle = figlet.textSync(compName, { font: 'Slant' });
   console.log(compTitle);
   const standingsData = await api.getStandings(compName);
   const table = new StandingsTableBuilder().buildTable(standingsData, Standing);
