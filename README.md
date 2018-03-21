@@ -10,6 +10,14 @@
 
 The app is still in its early stages of development, so do expect bugs and errors. All contributions are very welcome!
 
+## Install
+
+The only prerequisite is to have [Node.js](https://nodejs.org/en/) installed, then you can install **soccer-go** with `npm`:
+
+`$ npm i -g soccer-go`
+
+To launch it simply type `soccer-go` in your terminal.
+
 ## Features
 
 ### Data from multiple leagues
