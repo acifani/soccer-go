@@ -5,6 +5,7 @@
 [![Dependencies status](https://david-dm.org/acifani/soccer-go.svg)](https://david-dm.org)
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 [![Greenkeeper badge](https://badges.greenkeeper.io/acifani/soccer-go.svg)](https://greenkeeper.io/)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Facifani%2Fsoccer-go.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Facifani%2Fsoccer-go?ref=badge_shield)
 
 **soccer-go** is a node command line application to gather soccer stats and results. Heavily inspired by [nba-go](https://github.com/xxhomey19/nba-go).
 
@@ -106,3 +107,7 @@ $ yarn build
 - [ ] Extra-time / penalty
 - [ ] Head2head
 - [ ] Team colors
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Facifani%2Fsoccer-go.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Facifani%2Fsoccer-go?ref=badge_large)
