@@ -1,13 +1,15 @@
 // tslint:disable-next-line
 const figlet = require('figlet');
-import { Answers } from 'inquirer';
 import * as api from '../api';
 import { Fixture, Player, Team } from '../models';
 import { FixturesTableBuilder, PlayersTableBuilder } from '../tableBuilders';
 
-export const printTeam = async (answers: Answers) => {
-  const options = answers.teamOptions;
-  const team = await fetchTeamByName(answers);
+export const printTeam = async (
+  teamName: string,
+  options: string[],
+  leagueCode: string
+) => {
+  const team = await fetchTeam(teamName, leagueCode);
   const teamTitle = figlet.textSync(team.shortName || team.name, {
     font: 'slant',
   });
@@ -26,9 +28,9 @@ export const printTeam = async (answers: Answers) => {
   }
 };
 
-const fetchTeamByName = async (answers: Answers): Promise<Team> => {
+const fetchTeam = async (team: string, league: string): Promise<Team> => {
   try {
-    const teamId = await api.getTeamId(answers.teamName, answers.competition);
+    const teamId = await api.getTeamId(team, league);
     const teamData = await api.getTeam(teamId);
     return new Team(teamData);
   } catch (error) {
