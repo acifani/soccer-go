@@ -9,6 +9,8 @@ export enum Status {
   Finished = 'FINISHED',
   Timed = 'TIMED',
   Scheduled = 'SCHEDULED',
+  Postponed = 'POSTPONED',
+  Canceled = 'CANCELED',
 }
 
 const statusDisplayString: Map<Status, string> = new Map([
@@ -16,6 +18,8 @@ const statusDisplayString: Map<Status, string> = new Map([
   [Status.Finished, 'Finished'],
   [Status.Timed, 'Timed'],
   [Status.Scheduled, 'Scheduled'],
+  [Status.Postponed, 'Postponed'],
+  [Status.Canceled, 'Canceled'],
 ]);
 
 export interface ISide {
