@@ -20,7 +20,11 @@ import { questions } from './constants/questions';
         commands.printStandings(answers.competition);
         break;
       case 'Team':
-        commands.printTeam(answers);
+        commands.printTeam(
+          answers.teamName,
+          answers.teamOptions,
+          answers.competition
+        );
         break;
     }
   } catch (error) {

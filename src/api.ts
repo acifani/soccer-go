@@ -122,8 +122,7 @@ const handleError = (error: any): void => {
   } else if (error.message) {
     console.log('Error', error.message);
   } else {
-    console.log('ciao');
-    // console.log(error);
+    console.log(error);
   }
   process.exit(1);
 };
