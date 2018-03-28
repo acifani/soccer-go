@@ -14,37 +14,70 @@ The app is still in its early stages of development, so do expect bugs and error
 
 The only prerequisite is to have [Node.js](https://nodejs.org/en/) installed, then you can install **soccer-go** with `npm`:
 
-`$ npm i -g soccer-go`
+```$ npm i -g soccer-go```
 
-To launch it simply type `soccer-go` in your terminal.
+## Usage
 
-## Features
+**soccer-go** can be launched globally by typing `soccer-go` or `sgo` in your terminal. It has two modes: CLI or visual.
 
-### Data from multiple leagues
+### Visual
 
-- Premiere League, League One, Championship
-- Primera Division, Segunda Division
-- Serie A, Serie B
-- Bundesliga 1, 2, 3
-- Ligue 1, 2
-- Eredivisie
-- Primeira Liga
+Just launch soccer-go, you will be then prompted for info.
 
-### Matchday
+### CLI
+
+There are 3 main commands:
+
+- [`matchday` or `m`](#matchday)
+- [`standings` or `s`](#league-standings)
+- [`team` or `t`](#team-fixtures)
+
+Each of these commands will take the league code as first argument. Common ones are
+
+- **PL** - Premiere League
+- **PD** - Primera Division
+- **SA** - Serie A
+- **BL1** - Bundesliga
+- **FL1** - Ligue 1
+
+You can find the complete list in the visual mode or you can take a look [here](https://github.com/acifani/soccer-go/blob/master/src/constants/leagues.ts).
+
+#### Matchday
+
+**```$ soccer-go matchday <league>```**
+
+> Example: `$ soccer-go matchday SA`
 
 ![Matchday](https://raw.githubusercontent.com/acifani/soccer-go/master/matchday.png)
 
-### Team fixtures
+#### League standings
 
-![Fixtures](https://raw.githubusercontent.com/acifani/soccer-go/master/fixtures.png)
+**```$ soccer-go standings <league>```**
 
-### League standings
+> Example: `$ soccer-go standings PL`
 
 ![Standings](https://raw.githubusercontent.com/acifani/soccer-go/master/standings.png)
 
+#### Team fixtures
+
+**```$ soccer-go team <league> <team> [options]```**
+
+##### Options
+
+- `--fixtures`, `-f`: Print all the **games** played by the team in the current season
+- `--players`, `-p`: Show the current **squad**
+
+> Examples:
+>
+> `$ soccer-go team PL "manchester united" -f`
+>
+> `$ soccer-go team SA juventus -fp`
+
+![Fixtures](https://raw.githubusercontent.com/acifani/soccer-go/master/fixtures.png)
+
 ... and more.
 
-### To-Dos
+## To-Dos
 
 - [ ] Extra-time / penalty
 - [ ] Head2head
