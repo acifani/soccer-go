@@ -35,28 +35,25 @@ const askQuestions = async () => {
   program.version(pkg.version);
 
   program
-    .command('standings')
+    .command('standings <league>')
     .alias('s')
-    .option('-l, --league <code>', 'league code')
-    .action(opts => commands.printStandings(opts.league));
+    .action(league => commands.printStandings(league));
 
   program
-    .command('matchday')
+    .command('matchday <league>')
     .alias('m')
-    .option('-l, --league <code>', 'league code')
-    .action(opts => commands.printMatchday(opts.league));
+    .action(league => commands.printMatchday(league));
 
   program
-    .command('team <name>')
+    .command('team <league> <team>')
     .alias('t')
-    .option('-l, --league <code>', 'league code')
-    .option('-f, --fixtures', 'display fixtures')
-    .option('-p, --players', 'display players')
-    .action((name, opts) =>
+    .option('-f, --fixtures', 'include fixtures')
+    .option('-p, --players', 'include players')
+    .action((league, team, opts) =>
       commands.printTeam(
-        name,
+        team,
         [opts.fixtures ? 'Fixtures' : '', opts.players ? 'Players' : ''],
-        opts.league
+        league
       )
     );
 
