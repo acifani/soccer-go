@@ -13,16 +13,16 @@ const askQuestions = async () => {
     const answers: inquirer.Answers = await inquirer.prompt(questions);
     switch (answers.main) {
       case 'Matchday':
-        commands.printMatchday(answers.competition);
+        commands.printMatchday(answers.league);
         break;
       case 'Standings':
-        commands.printStandings(answers.competition);
+        commands.printStandings(answers.league);
         break;
       case 'Team':
         commands.printTeam(
           answers.teamName,
           answers.teamOptions,
-          answers.competition
+          answers.league
         );
         break;
     }

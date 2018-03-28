@@ -7,9 +7,9 @@ import { FixturesTableBuilder, PlayersTableBuilder } from '../tableBuilders';
 export const printTeam = async (
   teamName: string,
   options: string[],
-  competition: string
+  leagueName: string
 ) => {
-  const team = await fetchTeam(teamName, competition);
+  const team = await fetchTeam(teamName, leagueName);
   const teamTitle = figlet.textSync(team.shortName || team.name, {
     font: 'slant',
   });
@@ -28,9 +28,9 @@ export const printTeam = async (
   }
 };
 
-const fetchTeam = async (teamName: string, comp: string): Promise<Team> => {
+const fetchTeam = async (team: string, league: string): Promise<Team> => {
   try {
-    const teamId = await api.getTeamId(teamName, comp);
+    const teamId = await api.getTeamId(team, league);
     const teamData = await api.getTeam(teamId);
     return new Team(teamData);
   } catch (error) {

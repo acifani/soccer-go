@@ -17,8 +17,8 @@ const searchLeague = (answers: any, input: string) => {
 
 export const questions = [
   {
-    message: 'Choose a competition',
-    name: 'competition',
+    message: 'Choose a league',
+    name: 'league',
     source: searchLeague,
     type: 'autocomplete',
   },
@@ -27,7 +27,7 @@ export const questions = [
     message: 'Choose a function',
     name: 'main',
     type: 'list',
-    when: (answers: inquirer.Answers) => answers.competition,
+    when: (answers: inquirer.Answers) => answers.league,
   },
   {
     message: 'Team name',

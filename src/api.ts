@@ -64,9 +64,9 @@ export const getCompetitionTeams = async (
 };
 
 export const getStandings = async (
-  compName: string
+  leagueName: string
 ): Promise<IStandingJson[]> => {
-  const league = getLeagueByName(compName);
+  const league = getLeagueByName(leagueName);
   const comp = await getCompetition(league.code);
   if (comp == null) {
     throw new Error('Competition not found.');
@@ -83,9 +83,9 @@ export const getCompetitionTable = async (
 
 export const getTeamId = async (
   teamName: string,
-  compName: string
+  leagueName: string
 ): Promise<number> => {
-  const league = getLeagueByName(compName);
+  const league = getLeagueByName(leagueName);
   const comp = await getCompetition(league.code);
   if (comp == null) {
     throw new Error('Competition not found.');
