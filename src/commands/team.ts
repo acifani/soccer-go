@@ -7,9 +7,9 @@ import { FixturesTableBuilder, PlayersTableBuilder } from '../tableBuilders';
 export const printTeam = async (
   teamName: string,
   options: string[],
-  leagueName: string
+  leagueCode: string
 ) => {
-  const team = await fetchTeam(teamName, leagueName);
+  const team = await fetchTeam(teamName, leagueCode);
   const teamTitle = figlet.textSync(team.shortName || team.name, {
     font: 'slant',
   });

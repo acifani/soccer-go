@@ -3,9 +3,20 @@ export interface ILeague {
   name: string;
 }
 
-export const getLeagueByName = (leagueName: string): ILeague => {
-  const candidate = leagueCodes.find(l => l.name === leagueName);
-  return candidate ? candidate : leagueCodes[0];
+export const getLeagueByName = (name: string): ILeague => {
+  const candidate = leagueCodes.find(l => l.name === name);
+  if (candidate) {
+    return candidate;
+  }
+  throw new Error('League not found');
+};
+
+export const getLeagueByCode = (code: string): ILeague => {
+  const candidate = leagueCodes.find(l => l.code === code);
+  if (candidate) {
+    return candidate;
+  }
+  throw new Error('League not found');
 };
 
 export const leagueCodes: ILeague[] = [

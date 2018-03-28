@@ -2,7 +2,6 @@ import axios from 'axios';
 import * as moment from 'moment';
 import * as ora from 'ora';
 import cfg from './config';
-import { getLeagueByName } from './constants/leagues';
 import {
   Competition,
   ICompetitionJson,
@@ -64,10 +63,9 @@ export const getCompetitionTeams = async (
 };
 
 export const getStandings = async (
-  leagueName: string
+  leagueCode: string
 ): Promise<IStandingJson[]> => {
-  const league = getLeagueByName(leagueName);
-  const comp = await getCompetition(league.code);
+  const comp = await getCompetition(leagueCode);
   if (comp == null) {
     throw new Error('Competition not found.');
   }
@@ -83,10 +81,9 @@ export const getCompetitionTable = async (
 
 export const getTeamId = async (
   teamName: string,
-  leagueName: string
+  leagueCode: string
 ): Promise<number> => {
-  const league = getLeagueByName(leagueName);
-  const comp = await getCompetition(league.code);
+  const comp = await getCompetition(leagueCode);
   if (comp == null) {
     throw new Error('Competition not found.');
   }

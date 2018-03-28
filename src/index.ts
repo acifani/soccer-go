@@ -6,24 +6,22 @@ const pkg: UpdateNotifier.Package = require('../package.json');
 import * as program from 'commander';
 import * as UpdateNotifier from 'update-notifier';
 import * as commands from './commands';
+import { getLeagueByName } from './constants/leagues';
 import { questions } from './constants/questions';
 
 const askQuestions = async () => {
   try {
     const answers: inquirer.Answers = await inquirer.prompt(questions);
+    const league = getLeagueByName(answers.league);
     switch (answers.main) {
       case 'Matchday':
-        commands.printMatchday(answers.league);
+        commands.printMatchday(league.code);
         break;
       case 'Standings':
-        commands.printStandings(answers.league);
+        commands.printStandings(league.code);
         break;
       case 'Team':
-        commands.printTeam(
-          answers.teamName,
-          answers.teamOptions,
-          answers.league
-        );
+        commands.printTeam(answers.teamName, answers.teamOptions, league.code);
         break;
     }
   } catch (error) {
