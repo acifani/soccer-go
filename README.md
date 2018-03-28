@@ -14,7 +14,9 @@ The app is still in its early stages of development, so do expect bugs and error
 
 The only prerequisite is to have [Node.js](https://nodejs.org/en/) installed, then you can install **soccer-go** with `npm`:
 
-```$ npm i -g soccer-go```
+```
+$ npm i -g soccer-go
+```
 
 ## Usage
 
@@ -76,6 +78,28 @@ You can find the complete list in the visual mode or you can take a look [here](
 ![Fixtures](https://raw.githubusercontent.com/acifani/soccer-go/master/fixtures.png)
 
 ... and more.
+
+## Development
+
+If you want to customize or contribute to this package, then running it locally from source is really easy.
+
+```
+$ git clone git@github.com:acifani/soccer-go.git
+$ cd soccer-go
+$ yarn
+```
+
+Now you can either run it in watch mode
+
+```
+$ yarn start
+```
+
+Or build everything
+
+```
+$ yarn build
+```
 
 ## To-Dos
 
