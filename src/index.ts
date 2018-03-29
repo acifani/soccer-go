@@ -30,7 +30,7 @@ const askQuestions = async () => {
 };
 
 (async () => {
-  UpdateNotifier({ pkg }).notify();
+  UpdateNotifier({ pkg }).notify({ isGlobal: true });
 
   program.version(pkg.version);
 
