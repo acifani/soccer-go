@@ -1,7 +1,7 @@
 {
   "name": "soccer-go",
   "version": "0.3.0",
-  "description": "soccer-go",
+  "description": "Soccer CLI for stats and results.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -13,7 +13,10 @@
     "url": "https://github.com/acifani"
   },
   "keywords": [
-    ""
+    "soccer",
+    "cli",
+    "sports",
+    "typescript"
   ],
   "files": [
     "lib"
