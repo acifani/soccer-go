@@ -20,9 +20,9 @@
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@types/cli-table2/-/cli-table2-0.2.1.tgz#08faf5ce07115b0fd5c73c3dca9e8de3e2cf1d8e"
 
-"@types/inquirer@^0.0.40":
-  version "0.0.40"
-  resolved "https://registry.yarnpkg.com/@types/inquirer/-/inquirer-0.0.40.tgz#16513dce5ae36f1f5d3b1fc642453c7a853b6a86"
+"@types/inquirer@^0.0.41":
+  version "0.0.41"
+  resolved "https://registry.yarnpkg.com/@types/inquirer/-/inquirer-0.0.41.tgz#0c33027dcd0b0dde234e22afa454f2c75d8b30d2"
   dependencies:
     "@types/rx" "*"
     "@types/through" "*"
@@ -831,11 +831,7 @@ combined-stream@1.0.6, combined-stream@^1.0.5, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@^2.12.1, commander@^2.9.0:
-  version "2.15.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.15.1.tgz#df46e867d0fc2aec66a34662b406a9ccafff5b0f"
-
-commander@^2.15.1:
+commander@^2.12.1, commander@^2.15.1, commander@^2.9.0:
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.15.1.tgz#df46e867d0fc2aec66a34662b406a9ccafff5b0f"
 

@@ -2,7 +2,7 @@
 
 import * as inquirer from 'inquirer';
 // tslint:disable-next-line
-const pkg: UpdateNotifier.Package = require('../package.json');
+const pkg = require('../package.json');
 import * as program from 'commander';
 import * as UpdateNotifier from 'update-notifier';
 import * as commands from './commands';
@@ -10,6 +10,8 @@ import { getLeagueByName } from './constants/leagues';
 import { questions } from './constants/questions';
 
 const askQuestions = async () => {
+  UpdateNotifier({ pkg }).notify({ isGlobal: true });
+
   try {
     const answers: inquirer.Answers = await inquirer.prompt(questions);
     const league = getLeagueByName(answers.league);
