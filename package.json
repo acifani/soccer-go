@@ -1,6 +1,6 @@
 {
   "name": "soccer-go",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Soccer CLI for stats and results.",
   "license": "MIT",
   "repository": {
