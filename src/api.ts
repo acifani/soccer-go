@@ -102,9 +102,9 @@ export const getTeamId = async (
 const callApi = async (url: string, placeholder: string): Promise<any> => {
   const spinner = ora(placeholder).start();
   try {
-    const response = await cachedApiCall(url, cfg);
+    const response = await cachedApiCall(url, cfg.axiosConfig);
     spinner.stop();
-    return response.data;
+    return response;
   } catch (error) {
     spinner.fail();
     handleError(error);

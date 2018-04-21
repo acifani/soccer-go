@@ -11,11 +11,11 @@ export default class Cache {
     this.file = path.join(dir, cfg.cache.fileName);
     try {
       const buffer = fs.readFileSync(this.file);
-      this.data = JSON.parse(buffer.toString('utf-8'));
+      this.data = new Map(JSON.parse(buffer.toString('utf-8')));
     } catch (error) {
       if (error.code === 'ENOENT') {
-        fs.writeFileSync(this.file, '{}');
         this.data = new Map<string, CacheItem>();
+        fs.writeFileSync(this.file, JSON.stringify(Array.from(this.data)));
       } else {
         throw error;
       }
@@ -38,8 +38,11 @@ export default class Cache {
 
   public has = (id: string): boolean => this.data.has(id);
 
-  private persist = () =>
-    fs.writeFile(this.file, JSON.stringify(this.data), err => {
-      throw err;
-    });
+  private persist = () => {
+    try {
+      fs.writeFileSync(this.file, JSON.stringify(Array.from(this.data)));
+    } catch (error) {
+      throw error;
+    }
+  };
 }
