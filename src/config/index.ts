@@ -6,5 +6,5 @@ export default {
       'X-Response-Control': 'full',
     },
   },
-  figletFont: 'Slate',
+  figletFont: 'Slant',
 };
