@@ -1,6 +1,7 @@
 // tslint:disable-next-line
 const figlet = require('figlet');
 import * as api from '../api';
+import cfg from '../config';
 import { Fixture, Player, Team } from '../models';
 import { FixturesTableBuilder, PlayersTableBuilder } from '../tableBuilders';
 
@@ -11,7 +12,7 @@ export const printTeam = async (
 ) => {
   const team = await fetchTeam(teamName, leagueCode);
   const teamTitle = figlet.textSync(team.shortName || team.name, {
-    font: 'Slant',
+    font: cfg.figletFont,
   });
   console.log(teamTitle);
 
