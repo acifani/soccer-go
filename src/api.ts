@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as moment from 'moment';
 import * as ora from 'ora';
+import { cachedApiCall } from './cache';
 import cfg from './config';
 import {
   Competition,
@@ -101,7 +102,7 @@ export const getTeamId = async (
 const callApi = async (url: string, placeholder: string): Promise<any> => {
   const spinner = ora(placeholder).start();
   try {
-    const response = await axios.get(url, cfg.axiosConfig);
+    const response = await cachedApiCall(url, cfg);
     spinner.stop();
     return response.data;
   } catch (error) {

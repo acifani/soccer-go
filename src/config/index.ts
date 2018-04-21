@@ -6,5 +6,9 @@ export default {
       'X-Response-Control': 'full',
     },
   },
+  cache: {
+    expiry: 24 * 60 * 1000, // 24 hours
+    fileName: '.cache',
+  },
   figletFont: 'Slant',
 };
