@@ -11,7 +11,7 @@ export const printTeam = async (
 ) => {
   const team = await fetchTeam(teamName, leagueCode);
   const teamTitle = figlet.textSync(team.shortName || team.name, {
-    font: 'slant',
+    font: 'Slant',
   });
   console.log(teamTitle);
 
