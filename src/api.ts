@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as moment from 'moment';
 import * as ora from 'ora';
 import { cachedApiCall } from './cache';

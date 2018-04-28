@@ -1,8 +1,6 @@
-import * as Chalk from 'chalk';
 import * as Table from 'cli-table2';
 import * as moment from 'moment';
 import { IRowable } from '../tableBuilders/BaseTableBuilder';
-const c = Chalk.default;
 
 export default class Player implements IRowable {
   public name: string;

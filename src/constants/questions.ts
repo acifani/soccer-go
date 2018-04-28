@@ -4,7 +4,7 @@ import { ILeague, leagueCodes } from './leagues';
 const autocomplete = require('inquirer-autocomplete-prompt');
 inquirer.registerPrompt('autocomplete', autocomplete);
 
-const searchLeague = (answers: any, input: string) => {
+const searchLeague = (_: any, input: string) => {
   input = input || '';
   return new Promise(resolve => {
     resolve(
