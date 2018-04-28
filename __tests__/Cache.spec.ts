@@ -17,6 +17,7 @@ describe('Cache', () => {
       const key = 'key';
       const cache1 = new Cache(filePath);
       cache1.add(key, data);
+      cache1.persist();
 
       const cache2 = new Cache(filePath);
       const output = cache2.has(key);

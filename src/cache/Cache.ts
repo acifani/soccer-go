@@ -24,13 +24,11 @@ export default class Cache {
 
   public add = (id: string, data: object) => {
     const res = this.data.set(id, new CacheItem(Date.now(), data));
-    this.persist();
     return res;
   };
 
   public remove = (id: string) => {
     const res = this.data.delete(id);
-    this.persist();
     return res;
   };
 
@@ -38,7 +36,7 @@ export default class Cache {
 
   public has = (id: string): boolean => this.data.has(id);
 
-  private persist = () => {
+  public persist = () => {
     try {
       fs.writeFileSync(this.file, JSON.stringify(Array.from(this.data)));
     } catch (error) {

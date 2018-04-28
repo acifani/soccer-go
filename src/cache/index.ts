@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import * as fs from 'fs';
 import * as path from 'path';
 import cfg from '../config';
@@ -9,7 +9,7 @@ const cache = new Cache(baseDir);
 
 export const cachedApiCall = async (
   url: string,
-  axiosCfg: object
+  axiosCfg: AxiosRequestConfig
 ): Promise<any> => {
   const item = cache.get(url);
   if (item) {
@@ -29,3 +29,9 @@ export const cachedApiCall = async (
     throw error;
   }
 };
+
+process.on('exit', () => {
+  if (cache) {
+    cache.persist();
+  }
+});
