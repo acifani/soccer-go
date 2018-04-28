@@ -1,7 +1,4 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import * as fs from 'fs';
-import * as path from 'path';
-import cfg from '../config';
 import Cache from './Cache';
 
 const baseDir = process.cwd();
@@ -9,12 +6,13 @@ const cache = new Cache(baseDir);
 
 export const cachedApiCall = async (
   url: string,
-  axiosCfg: AxiosRequestConfig
+  axiosCfg: AxiosRequestConfig,
+  expiry: number
 ): Promise<any> => {
   const item = cache.get(url);
   if (item) {
     const age = Date.now() - item.date;
-    if (age < cfg.cache.expiry) {
+    if (age < expiry) {
       return item.data;
     }
     // data is expired

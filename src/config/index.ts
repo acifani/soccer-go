@@ -7,7 +7,13 @@ export default {
     },
   },
   cache: {
-    expiry: 24 * 60 * 1000, // 24 hours
+    expiry: {
+      competition: 30 * 24 * 60 * 60 * 1000, // 1 month
+      fixtures: 5 * 60 * 1000, // 5 minutes
+      players: 7 * 24 * 60 * 60 * 1000, // 1 week
+      standings: 60 * 60 * 1000, // 1 hour
+      team: 7 * 24 * 60 * 60 * 1000, // 1 week
+    },
     fileName: '.cache',
   },
   figletFont: 'Slant',
