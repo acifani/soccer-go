@@ -36,7 +36,7 @@ There are 3 main commands:
 
 Each of these commands will take the league code as first argument. Common ones are
 
-- **PL** - Premiere League
+- **PL** - Premier League
 - **PD** - Primera Division
 - **SA** - Serie A
 - **BL1** - Bundesliga
