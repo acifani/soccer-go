@@ -1,7 +1,5 @@
-import * as Chalk from 'chalk';
 import * as Table from 'cli-table2';
 import { IRowable } from '../tableBuilders/BaseTableBuilder';
-const c = Chalk.default;
 
 export default class Standing implements IRowable {
   public rank: number;

@@ -1,6 +1,6 @@
-import axios from 'axios';
 import * as moment from 'moment';
 import * as ora from 'ora';
+import { cachedApiCall } from './cache';
 import cfg from './config';
 import {
   Competition,
@@ -24,16 +24,25 @@ export const getMatchday = async (
   const data = await callApi(
     `${cfg.apiBaseUrl}/fixtures?league=${leagueCode}` +
       `&timeFrameStart=${start}&timeFrameEnd=${end}`,
-    'Fetching matchday...'
+    'Fetching matchday...',
+    cfg.cache.expiry.fixtures
   );
   return data.fixtures;
 };
 
 export const getTeam = async (teamId: number): Promise<ITeamJson> =>
-  callApi(`${cfg.apiBaseUrl}/teams/${teamId}`, 'Fetching team...');
+  callApi(
+    `${cfg.apiBaseUrl}/teams/${teamId}`,
+    'Fetching team...',
+    cfg.cache.expiry.team
+  );
 
 export const getTeamFixtures = async (team: Team): Promise<IFixtureJson[]> => {
-  const data = await callApi(team.links.fixtures, 'Fetching team fixtures...');
+  const data = await callApi(
+    team.links.fixtures,
+    'Fetching team fixtures...',
+    cfg.cache.expiry.fixtures
+  );
   return data.fixtures;
 };
 
@@ -41,7 +50,11 @@ export const getTeamPlayers = async (team: Team): Promise<IPlayerJson[]> => {
   const compareJerseyNumber = (a: IPlayerJson, b: IPlayerJson) =>
     a.jerseyNumber > b.jerseyNumber ? 1 : -1;
 
-  const data = await callApi(team.links.players, 'Fetching team players...');
+  const data = await callApi(
+    team.links.players,
+    'Fetching team players...',
+    cfg.cache.expiry.players
+  );
   return data.players.sort(compareJerseyNumber);
 };
 
@@ -50,7 +63,8 @@ export const getCompetition = async (
 ): Promise<ICompetitionJson | undefined> => {
   const data: ICompetitionJson[] = await callApi(
     `${cfg.apiBaseUrl}/competitions`,
-    'Fetching competition...'
+    'Fetching competition...',
+    cfg.cache.expiry.competition
   );
   return data.find(c => c.league === leagueCode);
 };
@@ -58,7 +72,11 @@ export const getCompetition = async (
 export const getCompetitionTeams = async (
   comp: Competition
 ): Promise<ITeamJson[]> => {
-  const data = await callApi(comp.links.teams, 'Fetching teams...');
+  const data = await callApi(
+    comp.links.teams,
+    'Fetching teams...',
+    cfg.cache.expiry.competition
+  );
   return data.teams;
 };
 
@@ -75,7 +93,11 @@ export const getStandings = async (
 export const getCompetitionTable = async (
   comp: Competition
 ): Promise<IStandingJson[]> => {
-  const data = await callApi(comp.links.leagueTable, 'Fetching standings...');
+  const data = await callApi(
+    comp.links.leagueTable,
+    'Fetching standings...',
+    cfg.cache.expiry.standings
+  );
   return data.standing;
 };
 
@@ -98,12 +120,16 @@ export const getTeamId = async (
   return Number(stringId);
 };
 
-const callApi = async (url: string, placeholder: string): Promise<any> => {
+const callApi = async (
+  url: string,
+  placeholder: string,
+  expiry: number
+): Promise<any> => {
   const spinner = ora(placeholder).start();
   try {
-    const response = await axios.get(url, cfg.axiosConfig);
+    const response = await cachedApiCall(url, cfg.axiosConfig, expiry);
     spinner.stop();
-    return response.data;
+    return response;
   } catch (error) {
     spinner.fail();
     handleError(error);

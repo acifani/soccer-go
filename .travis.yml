@@ -2,9 +2,9 @@ language: node_js
 node_js:
   - 'node' # use latest stable nodejs version
 script:
-  - npm run build
-
-# Disable testing on travis until we have actual working tests
-#   - npm run coverage # jest test with coverage flag does coverage too
-# after_script:
-#   - 'cat coverage/lcov.info | ./node_modules/.bin/coveralls' # sends the coverage report to coveralls
+  - yarn coverage # jest test with coverage flag does coverage too
+after_script:
+  - 'cat coverage/lcov.info | ./node_modules/.bin/coveralls' # sends the coverage report to coveralls
+cache:
+  directories:
+    - node_modules

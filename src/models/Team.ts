@@ -1,7 +1,3 @@
-import * as Chalk from 'chalk';
-
-const chalk = Chalk.default;
-
 export interface ITeamLinks {
   self: string;
   fixtures: string;
