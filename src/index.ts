@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 
-import * as inquirer from 'inquirer';
-// tslint:disable-next-line
-const pkg = require('../package.json');
 import * as Chalk from 'chalk';
 import * as program from 'commander';
+import * as inquirer from 'inquirer';
 import * as UpdateNotifier from 'update-notifier';
+import * as pkg from '../package.json';
 import * as commands from './commands';
 import { getLeagueByName } from './constants/leagues';
 import { questions } from './constants/questions';
