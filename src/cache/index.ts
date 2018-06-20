@@ -1,8 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import Cache from './Cache';
 
-const baseDir = process.cwd();
-const cache = new Cache(baseDir);
+const cache = new Cache(__dirname);
 
 export const cachedApiCall = async (
   url: string,
