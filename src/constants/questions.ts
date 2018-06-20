@@ -1,7 +1,6 @@
 import * as inquirer from 'inquirer';
+import * as autocomplete from 'inquirer-autocomplete-prompt';
 import { ILeague, leagueCodes } from './leagues';
-// tslint:disable-next-line
-const autocomplete = require('inquirer-autocomplete-prompt');
 inquirer.registerPrompt('autocomplete', autocomplete);
 
 const searchLeague = (_: any, input: string) => {
