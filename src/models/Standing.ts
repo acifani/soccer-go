@@ -1,4 +1,4 @@
-import * as Table from 'cli-table2';
+import * as Table from 'cli-table3';
 import { IRowable } from '../tableBuilders/BaseTableBuilder';
 
 export default class Standing implements IRowable {

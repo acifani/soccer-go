@@ -1,5 +1,5 @@
 import * as Chalk from 'chalk';
-import * as Table from 'cli-table2';
+import * as Table from 'cli-table3';
 import * as moment from 'moment';
 import { IRowable } from '../tableBuilders/BaseTableBuilder';
 const c = Chalk.default;
