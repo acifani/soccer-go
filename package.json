@@ -48,7 +48,7 @@
     "commander": "^2.15.1",
     "figlet": "^1.2.0",
     "inquirer": "^6.0.0",
-    "inquirer-autocomplete-prompt": "^0.12.2",
+    "inquirer-autocomplete-prompt": "^1.0.0",
     "moment": "^2.22.2",
     "ora": "^2.1.0",
     "update-notifier": "^2.5.0"
