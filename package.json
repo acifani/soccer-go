@@ -50,7 +50,7 @@
     "inquirer": "^6.0.0",
     "inquirer-autocomplete-prompt": "^0.12.2",
     "moment": "^2.22.2",
-    "ora": "^2.1.0",
+    "ora": "^3.0.0",
     "update-notifier": "^2.5.0"
   },
   "devDependencies": {
