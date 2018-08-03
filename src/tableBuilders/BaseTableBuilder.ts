@@ -1,4 +1,4 @@
-import * as Table from 'cli-table2';
+import * as Table from 'cli-table3';
 
 export abstract class BaseTableBuilder<TJson, T extends IRowable> {
   public buildTable(data: TJson[], TClass: { new (d: any): T }) {
