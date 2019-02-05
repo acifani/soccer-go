@@ -57,7 +57,7 @@
     "@babel/core": "^7.0.0-beta.56",
     "@types/figlet": "^1.2.0",
     "@types/inquirer": "^0.0.43",
-    "@types/jest": "^23.3.1",
+    "@types/jest": "^24.0.0",
     "@types/node": "^10.5.7",
     "@types/ora": "^3.0.0",
     "@types/update-notifier": "^2.2.0",
