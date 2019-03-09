@@ -1,23 +1,29 @@
+import cfg from '../config';
+
 export interface ITeamLinks {
   self: string;
-  fixtures: string;
+  matches: string;
   players: string;
 }
 
 export default class Team {
+  public id: number;
   public name: string;
   public code: string;
   public shortName: string | null;
   public links: ITeamLinks;
 
   constructor(data: ITeamJson) {
+    const baseLink = `${cfg.apiBaseUrl}/teams/${data.id}`;
+
+    this.id = data.id;
     this.name = data.name;
-    this.code = data.code;
+    this.code = data.tla;
     this.shortName = data.shortName;
     this.links = {
-      fixtures: data._links.fixtures.href,
-      players: data._links.players.href,
-      self: data._links.self.href,
+      matches: `${baseLink}/matches`,
+      players: `${baseLink}/players`,
+      self: baseLink,
     };
   }
 
@@ -27,20 +33,10 @@ export default class Team {
 }
 
 export interface ITeamJson {
-  _links: {
-    self: {
-      href: string;
-    };
-    fixtures: {
-      href: string;
-    };
-    players: {
-      href: string;
-    };
-  };
+  id: number;
   name: string;
-  code: string;
   shortName: string;
-  squadMarketValue: string;
+  tla: string;
   crestUrl: string;
+  venue: string;
 }

@@ -1,11 +1,10 @@
 import { Fonts } from 'figlet';
 
 export default {
-  apiBaseUrl: 'http://api.football-data.org/v1',
+  apiBaseUrl: 'https://api.football-data.org/v2',
   axiosConfig: {
     headers: {
-      'X-Auth-Token': process.env.SOCCER_GO_API_KEY || '',
-      'X-Response-Control': 'full',
+      'X-Auth-Token': process.env.SOCCER_GO_API_KEY,
     },
   },
   cache: {

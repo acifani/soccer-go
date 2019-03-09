@@ -12,7 +12,7 @@ export default class Player implements IRowable {
   constructor(data: IPlayerJson) {
     this.name = data.name;
     this.position = data.position;
-    this.jerseyNumber = data.jerseyNumber;
+    this.jerseyNumber = data.shirtNumber;
     this.dateOfBirth = data.dateOfBirth;
     this.nationality = data.nationality;
   }
@@ -27,11 +27,10 @@ export default class Player implements IRowable {
 }
 
 export interface IPlayerJson {
+  id: number;
   name: string;
   position: string;
-  jerseyNumber: number;
+  shirtNumber: number;
   dateOfBirth: string;
   nationality: string;
-  contractUntil: string;
-  marketValue: string;
 }
