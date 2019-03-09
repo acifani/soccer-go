@@ -22,7 +22,8 @@ export const getMatchday = async (
     .add(3, 'days')
     .format('YYYY-MM-DD');
   const data = await callApi(
-    `${cfg.apiBaseUrl}/competitions/${leagueCode}/matches?dateFrom=${start}&dateTo=${end}`,
+    `${cfg.apiBaseUrl}/competitions/${leagueCode}` +
+      `/matches?dateFrom=${start}&dateTo=${end}`,
     'Fetching matchday...',
     cfg.cache.expiry.fixtures
   );
@@ -79,14 +80,16 @@ export const getCompetitionTeams = async (
   return data.teams;
 };
 
-export const getStandings = async(leagueCode: string): Promise<IStandingJson[]> => {
+export const getStandings = async (
+  leagueCode: string
+): Promise<IStandingJson[]> => {
   const data = await callApi(
     `${cfg.apiBaseUrl}/competitions/${leagueCode}/standings?standingType=TOTAL`,
     'Fetching standings...',
     cfg.cache.expiry.standings
-  )
-  return data.standings[0].table
-}
+  );
+  return data.standings[0].table;
+};
 
 export const getTeamId = async (
   teamName: string,
