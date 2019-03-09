@@ -1,7 +1,7 @@
 import * as Table from 'cli-table3';
 
 export abstract class BaseTableBuilder<TJson, T extends IRowable> {
-  public buildTable(data: TJson[], TClass: { new (d: any): T }) {
+  public buildTable(data: TJson[], TClass: new (d: any) => T) {
     const table = this.buildTableHeader();
     const rows = data.map(d => new TClass(d).toRow());
     table.push(...rows);
