@@ -22,12 +22,12 @@ export const getMatchday = async (
     .add(3, 'days')
     .format('YYYY-MM-DD');
   const data = await callApi(
-    `${cfg.apiBaseUrl}/fixtures?league=${leagueCode}` +
-      `&timeFrameStart=${start}&timeFrameEnd=${end}`,
+    `${cfg.apiBaseUrl}/competitions/${leagueCode}` +
+      `/matches?dateFrom=${start}&dateTo=${end}`,
     'Fetching matchday...',
     cfg.cache.expiry.fixtures
   );
-  return data.fixtures;
+  return data.matches;
 };
 
 export const getTeam = async (teamId: number): Promise<ITeamJson> =>
@@ -39,34 +39,34 @@ export const getTeam = async (teamId: number): Promise<ITeamJson> =>
 
 export const getTeamFixtures = async (team: Team): Promise<IFixtureJson[]> => {
   const data = await callApi(
-    team.links.fixtures,
+    team.links.matches,
     'Fetching team fixtures...',
     cfg.cache.expiry.fixtures
   );
-  return data.fixtures;
+  return data.matches;
 };
 
 export const getTeamPlayers = async (team: Team): Promise<IPlayerJson[]> => {
   const compareJerseyNumber = (a: IPlayerJson, b: IPlayerJson) =>
-    a.jerseyNumber > b.jerseyNumber ? 1 : -1;
+    a.shirtNumber > b.shirtNumber ? 1 : -1;
 
   const data = await callApi(
-    team.links.players,
+    team.links.self,
     'Fetching team players...',
     cfg.cache.expiry.players
   );
-  return data.players.sort(compareJerseyNumber);
+  return data.squad.sort(compareJerseyNumber);
 };
 
 export const getCompetition = async (
   leagueCode: string
 ): Promise<ICompetitionJson | undefined> => {
-  const data: ICompetitionJson[] = await callApi(
+  const data = await callApi(
     `${cfg.apiBaseUrl}/competitions`,
     'Fetching competition...',
     cfg.cache.expiry.competition
   );
-  return data.find(c => c.league === leagueCode);
+  return data.competitions.find((c: ICompetitionJson) => c.code === leagueCode);
 };
 
 export const getCompetitionTeams = async (
@@ -83,22 +83,12 @@ export const getCompetitionTeams = async (
 export const getStandings = async (
   leagueCode: string
 ): Promise<IStandingJson[]> => {
-  const comp = await getCompetition(leagueCode);
-  if (comp == null) {
-    throw new Error('Competition not found.');
-  }
-  return getCompetitionTable(new Competition(comp));
-};
-
-export const getCompetitionTable = async (
-  comp: Competition
-): Promise<IStandingJson[]> => {
   const data = await callApi(
-    comp.links.leagueTable,
+    `${cfg.apiBaseUrl}/competitions/${leagueCode}/standings?standingType=TOTAL`,
     'Fetching standings...',
     cfg.cache.expiry.standings
   );
-  return data.standing;
+  return data.standings[0].table;
 };
 
 export const getTeamId = async (
@@ -116,8 +106,7 @@ export const getTeamId = async (
   if (team == null) {
     throw new Error('Team not found.');
   }
-  const stringId = team._links.self.href.split('/').pop();
-  return Number(stringId);
+  return team.id;
 };
 
 const callApi = async (

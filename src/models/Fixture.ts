@@ -1,6 +1,7 @@
 import * as Chalk from 'chalk';
 import * as Table from 'cli-table3';
 import * as moment from 'moment';
+import cfg from '../config';
 import { IRowable } from '../tableBuilders/BaseTableBuilder';
 const c = Chalk.default;
 
@@ -29,12 +30,12 @@ export interface ISide {
 
 export interface IFixtureLinks {
   self: string;
-  competition: string;
   homeTeam: string;
   awayTeam: string;
 }
 
 export default class Fixture implements IRowable {
+  public id: number;
   public home: ISide;
   public away: ISide;
   public matchday: number;
@@ -43,22 +44,24 @@ export default class Fixture implements IRowable {
   public links: IFixtureLinks;
 
   constructor(data: IFixtureJson) {
+    const [homeScore, awayScore] = this.getScores(data.score);
+
+    this.id = data.id;
     this.home = {
-      goals: data.result.goalsHomeTeam,
-      team: data.homeTeamName,
+      goals: homeScore,
+      team: data.homeTeam.name,
     };
     this.away = {
-      goals: data.result.goalsAwayTeam,
-      team: data.awayTeamName,
+      goals: awayScore,
+      team: data.awayTeam.name,
     };
     this.matchday = data.matchday;
     this.status = data.status;
-    this.date = new Date(data.date);
+    this.date = new Date(data.utcDate);
     this.links = {
-      awayTeam: data._links.awayTeam.href,
-      competition: data._links.competition.href,
-      homeTeam: data._links.homeTeam.href,
-      self: data._links.self.href,
+      awayTeam: `${cfg.apiBaseUrl}/teams/${data.awayTeam.id}`,
+      homeTeam: `${cfg.apiBaseUrl}/teams/${data.homeTeam.id}`,
+      self: `${cfg.apiBaseUrl}/matches/${data.id}`,
     };
   }
 
@@ -70,30 +73,48 @@ export default class Fixture implements IRowable {
     statusDisplayString.get(this.status),
     moment(this.date).format('llll'),
   ];
+
+  private getScores(score: IFixtureJson['score']): [number, number] {
+    if (score.penalties.homeTeam != null) {
+      return [score.penalties.homeTeam, score.penalties.awayTeam];
+    }
+    if (score.extraTime.homeTeam != null) {
+      return [score.extraTime.homeTeam, score.extraTime.awayTeam];
+    }
+    if (score.fullTime.homeTeam != null) {
+      return [score.fullTime.homeTeam, score.fullTime.awayTeam];
+    }
+    if (score.halfTime.homeTeam != null) {
+      return [score.halfTime.homeTeam, score.halfTime.awayTeam];
+    }
+
+    return [0, 0];
+  }
 }
 
 export interface IFixtureJson {
-  _links: {
-    self: {
-      href: string;
-    };
-    competition: {
-      href: string;
-    };
-    homeTeam: {
-      href: string;
-    };
-    awayTeam: {
-      href: string;
-    };
-  };
-  date: Date;
+  id: number;
+  utcDate: Date;
   status: Status;
   matchday: number;
-  homeTeamName: string;
-  awayTeamName: string;
-  result: {
-    goalsHomeTeam: number;
-    goalsAwayTeam: number;
+  homeTeam: ITeamSide;
+  awayTeam: ITeamSide;
+  score: {
+    winner: string;
+    duration: string;
+    fullTime: IScore;
+    halfTime: IScore;
+    extraTime: IScore;
+    penalties: IScore;
   };
+}
+
+interface ITeamSide {
+  id: number;
+  name: string;
+}
+
+interface IScore {
+  homeTeam: number;
+  awayTeam: number;
 }

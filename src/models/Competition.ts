@@ -1,4 +1,4 @@
-import { ICompetitionJson } from './Competition';
+import cfg from '../config';
 
 export interface ICompetitionLinks {
   self: string;
@@ -9,47 +9,27 @@ export interface ICompetitionLinks {
 
 export default class Competition {
   public id: number;
+  public code: string;
   public caption: string;
-  public league: string;
-  public year: string;
   public links: ICompetitionLinks;
 
   constructor(data: ICompetitionJson) {
+    const baseLink = `${cfg.apiBaseUrl}/competitions/${data.code}`;
+
     this.id = data.id;
-    this.caption = data.caption;
-    this.league = data.league;
-    this.year = data.year;
+    this.code = data.code;
+    this.caption = data.name;
     this.links = {
-      fixtures: data._links.fixtures.href,
-      leagueTable: data._links.leagueTable.href,
-      self: data._links.self.href,
-      teams: data._links.teams.href,
+      fixtures: `${baseLink}/matches`,
+      leagueTable: `${baseLink}/standings`,
+      self: baseLink,
+      teams: `${baseLink}/teams`,
     };
   }
 }
 
 export interface ICompetitionJson {
-  _links: {
-    self: {
-      href: string;
-    };
-    teams: {
-      href: string;
-    };
-    fixtures: {
-      href: string;
-    };
-    leagueTable: {
-      href: string;
-    };
-  };
   id: number;
-  caption: string;
-  league: string;
-  year: string;
-  currentMatchday: number;
-  numberOfMatchdays: number;
-  numberOfTeams: number;
-  numberOfGames: number;
-  lastUpdated: Date;
+  name: string;
+  code: string;
 }
