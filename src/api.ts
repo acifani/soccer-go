@@ -114,6 +114,10 @@ const callApi = async (
   placeholder: string,
   expiry: number
 ): Promise<any> => {
+  if (cfg.axiosConfig.headers['X-Auth-Token'] == null) {
+    apiKeyError();
+  }
+
   const spinner = ora(placeholder).start();
   try {
     const response = await cachedApiCall(url, cfg.axiosConfig, expiry);
@@ -138,3 +142,19 @@ const handleError = (error: any): void => {
   }
   process.exit(1);
 };
+
+function apiKeyError() {
+  if (process.env.CI) {
+    return;
+  }
+
+  console.error(`
+  SOCCER_GO_API_KEY environment variable not set.
+
+      $ export SOCCER_GO_API_KEY=<football_data_api_key>
+
+  You can get your own API key over at
+  https://www.football-data.org/client/register
+  `);
+  process.exit(1);
+}
