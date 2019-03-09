@@ -1,10 +1,8 @@
 language: node_js
 node_js:
-  - 'node' # use latest stable nodejs version
+  - 'node'
+  - 'lts/*'
 script:
-  - yarn coverage # jest test with coverage flag does coverage too
+  - npm run coverage
 after_script:
-  - 'cat coverage/lcov.info | ./node_modules/.bin/coveralls' # sends the coverage report to coveralls
-cache:
-  directories:
-    - node_modules
+  - 'cat coverage/lcov.info | ./node_modules/.bin/coveralls'
