@@ -12,10 +12,23 @@ The app is still in its early stages of development, so do expect bugs and error
 
 ## Install
 
-The only prerequisite is to have [Node.js](https://nodejs.org/en/) installed, then you can install **soccer-go** with `npm`:
+Requirements:
+
+- [Node.js](https://nodejs.org/en/)
+- [football-data](https://www.football-data.org/) API key, which can be obtained [here](https://www.football-data.org/client/register)
+
+You can install **soccer-go** with `npm` or `yarn`:
 
 ```
 $ npm i -g soccer-go
+or
+$ yarn global add soccer-go
+```
+
+And then set the API key
+
+```
+$ export SOCCER_GO_API_KEY=<your api key>
 ```
 
 ## Usage
@@ -86,19 +99,19 @@ If you want to customize or contribute to this package, then running it locally 
 ```
 $ git clone git@github.com:acifani/soccer-go.git
 $ cd soccer-go
-$ yarn
+$ npm i
 ```
 
 Now you can either run it in watch mode
 
 ```
-$ yarn start
+$ npm start
 ```
 
 Or build everything
 
 ```
-$ yarn build
+$ npm run build
 ```
 
 ## To-Dos
