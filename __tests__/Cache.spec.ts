@@ -1,6 +1,4 @@
-import * as fs from 'fs';
 import Cache from './../src/cache/Cache';
-import CacheItem from './../src/cache/CacheItem';
 
 const filePath = process.cwd();
 
