@@ -24,7 +24,7 @@ export const leagueCodes: ILeague[] = [
   { code: 'BL2', name: '2. Bundesliga' },
   { code: 'BL3', name: '3. Bundesliga' },
   { code: 'DFB', name: 'Dfb-Cup' },
-  { code: 'PL', name: 'Premiere League' },
+  { code: 'PL', name: 'Premier League' },
   { code: 'EL1', name: 'League One' },
   { code: 'ELC', name: 'Championship' },
   { code: 'FAC', name: 'FA-Cup' },
