@@ -42,7 +42,7 @@
     "version": "auto-changelog -p && git add CHANGELOG.md"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "chalk": "^2.4.2",
     "cli-table3": "^0.5.1",
     "commander": "^2.19.0",
