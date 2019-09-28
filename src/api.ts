@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import ora from 'ora';
+import * as ora from 'ora';
 import { cachedApiCall } from './cache';
 import cfg from './config';
 import {

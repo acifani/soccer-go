@@ -50,7 +50,7 @@
     "inquirer": "^6.2.2",
     "inquirer-autocomplete-prompt": "^1.0.1",
     "moment": "^2.24.0",
-    "ora": "^3.2.0",
+    "ora": "^4.0.1",
     "update-notifier": "^3.0.1"
   },
   "devDependencies": {
@@ -59,7 +59,6 @@
     "@types/inquirer": "^6.0.0",
     "@types/jest": "^24.0.11",
     "@types/node": "^12.7.4",
-    "@types/ora": "^3.2.0",
     "@types/update-notifier": "^2.5.0",
     "auto-changelog": "^1.11.0",
     "coveralls": "^3.0.3",
