@@ -6,21 +6,25 @@ import { IRowable } from '../tableBuilders/BaseTableBuilder';
 const c = Chalk.default;
 
 export enum Status {
-  InProgress = 'IN_PLAY',
-  Finished = 'FINISHED',
-  Timed = 'TIMED',
-  Scheduled = 'SCHEDULED',
-  Postponed = 'POSTPONED',
+  Awarded = 'AWARDED',
   Canceled = 'CANCELED',
+  Finished = 'FINISHED',
+  InProgress = 'IN_PLAY',
+  Paused = 'PAUSED',
+  Postponed = 'POSTPONED',
+  Scheduled = 'SCHEDULED',
+  Suspended = 'SUSPENDED',
 }
 
 const statusDisplayString: Map<Status, string> = new Map([
-  [Status.InProgress, 'Playing'],
-  [Status.Finished, 'Finished'],
-  [Status.Timed, 'Timed'],
-  [Status.Scheduled, 'Scheduled'],
-  [Status.Postponed, 'Postponed'],
+  [Status.Awarded, 'Awarded'],
   [Status.Canceled, 'Canceled'],
+  [Status.Finished, 'Finished'],
+  [Status.InProgress, 'Playing'],
+  [Status.Paused, 'Paused'],
+  [Status.Postponed, 'Postponed'],
+  [Status.Scheduled, 'Scheduled'],
+  [Status.Suspended, 'Suspended'],
 ]);
 
 export interface ISide {
