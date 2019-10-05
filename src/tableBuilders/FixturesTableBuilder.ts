@@ -8,7 +8,7 @@ export class FixturesTableBuilder extends BaseTableBuilder<
   IFixtureJson,
   Fixture
 > {
-  public buildTableHeader() {
+  public buildTableHeader(): Table.HorizontalTable {
     return new Table({
       head: [
         c.bold('Home - Away'),

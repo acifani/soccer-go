@@ -8,7 +8,7 @@ export class StandingsTableBuilder extends BaseTableBuilder<
   IStandingJson,
   Standing
 > {
-  public buildTableHeader() {
+  public buildTableHeader(): Table.HorizontalTable {
     return new Table({
       head: [
         c.bold('#'),

@@ -5,7 +5,7 @@ import { BaseTableBuilder } from './BaseTableBuilder';
 const c = Chalk.default;
 
 export class PlayersTableBuilder extends BaseTableBuilder<IPlayerJson, Player> {
-  public buildTableHeader() {
+  public buildTableHeader(): Table.HorizontalTable {
     return new Table({
       head: [
         c.bold('Name'),

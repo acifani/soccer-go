@@ -5,7 +5,7 @@ import { getLeagueByCode } from '../constants/leagues';
 import { Standing } from '../models';
 import { StandingsTableBuilder } from '../tableBuilders';
 
-export const printStandings = async (leagueCode: string) => {
+export const printStandings = async (leagueCode: string): Promise<void> => {
   const league = getLeagueByCode(leagueCode);
   const leagueTitle = figlet.textSync(league.name, { font: cfg.figletFont });
   console.log(leagueTitle);

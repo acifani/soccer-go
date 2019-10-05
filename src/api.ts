@@ -47,7 +47,7 @@ export const getTeamFixtures = async (team: Team): Promise<IFixtureJson[]> => {
 };
 
 export const getTeamPlayers = async (team: Team): Promise<IPlayerJson[]> => {
-  const compareJerseyNumber = (a: IPlayerJson, b: IPlayerJson) =>
+  const compareJerseyNumber = (a: IPlayerJson, b: IPlayerJson): 1 | -1 =>
     a.shirtNumber > b.shirtNumber ? 1 : -1;
 
   const data = await callApi(
@@ -109,11 +109,11 @@ export const getTeamId = async (
   return team.id;
 };
 
-const callApi = async (
+async function callApi(
   url: string,
   placeholder: string,
   expiry: number
-): Promise<any> => {
+): Promise<any> {
   if (cfg.axiosConfig.headers['X-Auth-Token'] == null) {
     apiKeyError();
   }
@@ -127,9 +127,9 @@ const callApi = async (
     spinner.fail();
     handleError(error);
   }
-};
+}
 
-const handleError = (error: any): void => {
+function handleError(error: any): void {
   if (error.response) {
     console.log(error.response.data.error);
     console.log(error.response.status);
@@ -141,9 +141,9 @@ const handleError = (error: any): void => {
     console.log(error);
   }
   process.exit(1);
-};
+}
 
-function apiKeyError() {
+function apiKeyError(): void {
   if (process.env.CI) {
     return;
   }

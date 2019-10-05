@@ -19,5 +19,11 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  rules: {},
+  rules: {
+    '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/no-use-before-define': [
+      'error',
+      { functions: false, classes: false },
+    ],
+  },
 };
