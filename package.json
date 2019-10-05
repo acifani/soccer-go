@@ -47,7 +47,7 @@
     "cli-table3": "^0.5.1",
     "commander": "^3.0.2",
     "figlet": "^1.2.1",
-    "inquirer": "^6.2.2",
+    "inquirer": "^7.0.0",
     "inquirer-autocomplete-prompt": "^1.0.1",
     "moment": "^2.24.0",
     "ora": "^4.0.2",

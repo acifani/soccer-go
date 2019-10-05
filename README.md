@@ -13,7 +13,7 @@ The app is still in its early stages of development, so do expect bugs and error
 
 Requirements:
 
-- [Node.js](https://nodejs.org/en/)
+- [Node.js](https://nodejs.org/en/) >= 8
 - [football-data](https://www.football-data.org/) API key, which can be obtained [here](https://www.football-data.org/client/register)
 
 You can install **soccer-go** with `npm` or `yarn`:
@@ -58,7 +58,7 @@ You can find the complete list in the visual mode or you can take a look [here](
 
 #### Matchday
 
-**```$ soccer-go matchday <league>```**
+**`$ soccer-go matchday <league>`**
 
 > Example: `$ soccer-go matchday SA`
 
@@ -66,7 +66,7 @@ You can find the complete list in the visual mode or you can take a look [here](
 
 #### League standings
 
-**```$ soccer-go standings <league>```**
+**`$ soccer-go standings <league>`**
 
 > Example: `$ soccer-go standings PL`
 
@@ -74,7 +74,7 @@ You can find the complete list in the visual mode or you can take a look [here](
 
 #### Team fixtures
 
-**```$ soccer-go team <league> <team> [options]```**
+**`$ soccer-go team <league> <team> [options]`**
 
 ##### Options
 
