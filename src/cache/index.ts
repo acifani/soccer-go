@@ -17,14 +17,10 @@ export const cachedApiCall = async (
     // data is expired
     cache.remove(url);
   }
-  try {
-    const response = await axios.get(url, axiosCfg);
-    const data = response.data;
-    cache.add(url, data);
-    return data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axios.get(url, axiosCfg);
+  const data = response.data;
+  cache.add(url, data);
+  return data;
 };
 
 process.on('exit', () => {

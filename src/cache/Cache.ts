@@ -3,9 +3,11 @@ import * as path from 'path';
 import cfg from '../config';
 import CacheItem from './CacheItem';
 
+type Data = Map<string, CacheItem>;
+
 export default class Cache {
   private file: string;
-  private data: Map<string, CacheItem>;
+  private data: Data;
 
   constructor(dir: string) {
     this.file = path.join(dir, cfg.cache.fileName);
@@ -22,12 +24,12 @@ export default class Cache {
     }
   }
 
-  public add = (id: string, data: object) => {
+  public add = (id: string, data: object): Data => {
     const res = this.data.set(id, new CacheItem(Date.now(), data));
     return res;
   };
 
-  public remove = (id: string) => {
+  public remove = (id: string): boolean => {
     const res = this.data.delete(id);
     return res;
   };
@@ -36,11 +38,7 @@ export default class Cache {
 
   public has = (id: string): boolean => this.data.has(id);
 
-  public persist = () => {
-    try {
-      fs.writeFileSync(this.file, JSON.stringify(Array.from(this.data)));
-    } catch (error) {
-      throw error;
-    }
+  public persist = (): void => {
+    fs.writeFileSync(this.file, JSON.stringify(Array.from(this.data)));
   };
 }

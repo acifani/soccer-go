@@ -10,7 +10,7 @@ import { getLeagueByName } from './constants/leagues';
 import { questions } from './constants/questions';
 const c = Chalk.default;
 
-const askQuestions = async () => {
+const askQuestions = async (): Promise<void> => {
   UpdateNotifier({ pkg }).notify({ isGlobal: true });
 
   try {
@@ -32,7 +32,7 @@ const askQuestions = async () => {
   }
 };
 
-(async () => {
+(async (): Promise<void> => {
   UpdateNotifier({ pkg }).notify({ isGlobal: true });
 
   program.version(pkg.version);

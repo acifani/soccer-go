@@ -8,7 +8,7 @@ export const printTeam = async (
   teamName: string,
   options: string[],
   leagueCode: string
-) => {
+): Promise<void> => {
   const team = await fetchTeam(teamName, leagueCode);
   const teamTitle = figlet.textSync(team.shortName || team.name, {
     font: cfg.figletFont,
@@ -28,7 +28,7 @@ export const printTeam = async (
   }
 };
 
-const fetchTeam = async (team: string, league: string): Promise<Team> => {
+async function fetchTeam(team: string, league: string): Promise<Team> {
   try {
     const teamId = await api.getTeamId(team, league);
     const teamData = await api.getTeam(teamId);
@@ -38,4 +38,4 @@ const fetchTeam = async (team: string, league: string): Promise<Team> => {
     process.exit(1);
     throw new Error(error);
   }
-};
+}
