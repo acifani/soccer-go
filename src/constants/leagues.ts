@@ -22,6 +22,7 @@ export const leagueCodes: ILeague[] = [
   { code: 'DED', name: 'Eredivisie' },
   { code: 'PPL', name: 'Primeira Liga' },
   { code: 'GSL', name: 'Super League' },
+  { code: 'BSA', name: 'Brasileiro Serie A' },
   { code: 'CL', name: 'Champions-League' },
   { code: 'EL', name: 'UEFA-Cup' },
   { code: 'EC', name: 'European-Cup of Nations' },
