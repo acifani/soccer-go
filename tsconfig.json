@@ -1,28 +1,15 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "lib": [
-      "esnext"
-    ],
-    "target": "es2015",
-    "strict": true,
     "outDir": "./lib",
-    "preserveConstEnums": true,
+    "lib": ["es2018"],
+    "module": "commonjs",
+    "target": "es2018",
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "removeComments": true,
-    "inlineSourceMap": true,
-    "typeRoots": [
-      "./node_modules/@types"
-    ],
-    "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "esModuleInterop": true
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*-spec.ts"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/*spec.ts"]
 }

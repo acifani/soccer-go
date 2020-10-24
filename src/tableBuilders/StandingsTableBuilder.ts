@@ -1,8 +1,7 @@
-import * as Chalk from 'chalk';
-import * as Table from 'cli-table3';
+import c from 'chalk';
+import Table from 'cli-table3';
 import { IStandingJson, Standing } from '../models';
 import { BaseTableBuilder } from './BaseTableBuilder';
-const c = Chalk.default;
 
 export class StandingsTableBuilder extends BaseTableBuilder<
   IStandingJson,

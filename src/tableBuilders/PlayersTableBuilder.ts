@@ -1,8 +1,7 @@
-import * as Chalk from 'chalk';
-import * as Table from 'cli-table3';
+import c from 'chalk';
+import Table from 'cli-table3';
 import { IPlayerJson, Player } from '../models';
 import { BaseTableBuilder } from './BaseTableBuilder';
-const c = Chalk.default;
 
 export class PlayersTableBuilder extends BaseTableBuilder<IPlayerJson, Player> {
   public buildTableHeader(): Table.HorizontalTable {

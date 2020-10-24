@@ -1,5 +1,5 @@
-import * as Table from 'cli-table3';
-import * as moment from 'moment';
+import Table from 'cli-table3';
+import moment from 'moment';
 import { IRowable } from '../tableBuilders/BaseTableBuilder';
 
 export default class Player implements IRowable {

@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 
-import * as Chalk from 'chalk';
-import * as program from 'commander';
-import * as inquirer from 'inquirer';
-import * as UpdateNotifier from 'update-notifier';
-import * as pkg from '../package.json';
+import c from 'chalk';
+import program from 'commander';
+import inquirer from 'inquirer';
+import UpdateNotifier from 'update-notifier';
+import pkg from '../package.json';
 import * as commands from './commands';
 import { getLeagueByName } from './constants/leagues';
 import { questions } from './constants/questions';
-const c = Chalk.default;
 
 const askQuestions = async (): Promise<void> => {
   UpdateNotifier({ pkg }).notify({ isGlobal: true });

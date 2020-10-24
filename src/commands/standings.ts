@@ -1,4 +1,4 @@
-import * as figlet from 'figlet';
+import figlet from 'figlet';
 import * as api from '../api';
 import cfg from '../config';
 import { getLeagueByCode } from '../constants/leagues';

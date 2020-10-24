@@ -1,9 +1,8 @@
-import * as Chalk from 'chalk';
-import * as Table from 'cli-table3';
-import * as moment from 'moment';
+import c from 'chalk';
+import Table from 'cli-table3';
+import moment from 'moment';
 import cfg from '../config';
 import { IRowable } from '../tableBuilders/BaseTableBuilder';
-const c = Chalk.default;
 
 export enum Status {
   Awarded = 'AWARDED',
