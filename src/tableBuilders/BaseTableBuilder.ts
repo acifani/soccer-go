@@ -1,4 +1,4 @@
-import * as Table from 'cli-table3';
+import Table from 'cli-table3';
 
 export abstract class BaseTableBuilder<TJson, T extends IRowable> {
   public buildTable(
@@ -6,7 +6,7 @@ export abstract class BaseTableBuilder<TJson, T extends IRowable> {
     TClass: new (d: TJson) => T
   ): Table.GenericTable<Table.Cell[]> {
     const table = this.buildTableHeader();
-    const rows = data.map(d => new TClass(d).toRow());
+    const rows = data.map((d) => new TClass(d).toRow());
     table.push(...rows);
     return table;
   }

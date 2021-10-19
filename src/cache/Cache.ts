@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import * as path from 'path';
+import fs from 'fs';
+import path from 'path';
 import cfg from '../config';
 import CacheItem from './CacheItem';
 
@@ -14,7 +14,7 @@ export default class Cache {
     try {
       const buffer = fs.readFileSync(this.file);
       this.data = new Map(JSON.parse(buffer.toString('utf-8')));
-    } catch (error) {
+    } catch (error: any) {
       if (error.code === 'ENOENT') {
         this.data = new Map<string, CacheItem>();
         fs.writeFileSync(this.file, JSON.stringify(Array.from(this.data)));

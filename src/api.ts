@@ -1,5 +1,5 @@
-import * as moment from 'moment';
-import * as ora from 'ora';
+import moment from 'moment';
+import ora from 'ora';
 import { cachedApiCall } from './cache';
 import cfg from './config';
 import {
@@ -15,12 +15,8 @@ import {
 export const getMatchday = async (
   leagueCode: string
 ): Promise<IFixtureJson[]> => {
-  const start = moment()
-    .subtract(3, 'day')
-    .format('YYYY-MM-DD');
-  const end = moment()
-    .add(3, 'days')
-    .format('YYYY-MM-DD');
+  const start = moment().subtract(3, 'day').format('YYYY-MM-DD');
+  const end = moment().add(3, 'days').format('YYYY-MM-DD');
   const data = await callApi(
     `${cfg.apiBaseUrl}/competitions/${leagueCode}` +
       `/matches?dateFrom=${start}&dateTo=${end}`,
@@ -100,7 +96,7 @@ export const getTeamId = async (
     throw new Error('Competition not found.');
   }
   const teams = await getCompetitionTeams(new Competition(comp));
-  const team = teams.find(t =>
+  const team = teams.find((t) =>
     t.name.toLowerCase().includes(teamName.toLowerCase().trim())
   );
   if (team == null) {

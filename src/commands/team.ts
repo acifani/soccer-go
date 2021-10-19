@@ -1,4 +1,4 @@
-import * as figlet from 'figlet';
+import figlet from 'figlet';
 import * as api from '../api';
 import cfg from '../config';
 import { Fixture, Player, Team } from '../models';
@@ -33,9 +33,8 @@ async function fetchTeam(team: string, league: string): Promise<Team> {
     const teamId = await api.getTeamId(team, league);
     const teamData = await api.getTeam(teamId);
     return new Team(teamData);
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.message);
     process.exit(1);
-    throw new Error(error);
   }
 }

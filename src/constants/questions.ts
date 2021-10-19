@@ -1,10 +1,10 @@
-import * as inquirer from 'inquirer';
-import * as autocomplete from 'inquirer-autocomplete-prompt';
+import inquirer from 'inquirer';
+import autocomplete from 'inquirer-autocomplete-prompt';
 import { ILeague, leagueCodes } from './leagues';
 inquirer.registerPrompt('autocomplete', autocomplete);
 
 const searchLeague = (_: unknown, input: string): Promise<ILeague[]> => {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     resolve(
       leagueCodes.filter((league: ILeague) =>
         league.name.match(new RegExp(input || '', 'i'))

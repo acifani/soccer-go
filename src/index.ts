@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 
-import * as Chalk from 'chalk';
-import * as program from 'commander';
-import * as inquirer from 'inquirer';
-import * as UpdateNotifier from 'update-notifier';
-import * as pkg from '../package.json';
+import c from 'chalk';
+import program from 'commander';
+import inquirer from 'inquirer';
+import UpdateNotifier from 'update-notifier';
+import pkg from '../package.json';
 import * as commands from './commands';
 import { getLeagueByName } from './constants/leagues';
 import { questions } from './constants/questions';
-const c = Chalk.default;
 
 const askQuestions = async (): Promise<void> => {
   UpdateNotifier({ pkg }).notify({ isGlobal: true });
@@ -48,7 +47,7 @@ const askQuestions = async (): Promise<void> => {
 
         ${c.green('sgo s SA')}    Print Serie A table`)
     )
-    .action(league => commands.printStandings(league));
+    .action((league: string) => commands.printStandings(league));
 
   program
     .command('matchday <league>')
@@ -61,7 +60,7 @@ const askQuestions = async (): Promise<void> => {
 
         ${c.green('sgo m SA')}    Print Serie A matchday`)
     )
-    .action(league => commands.printMatchday(league));
+    .action((league: string) => commands.printMatchday(league));
 
   program
     .command('team <league> <team>')
@@ -77,15 +76,20 @@ const askQuestions = async (): Promise<void> => {
         ${c.green('sgo t SA roma -f')}             Print AS Roma fixtures
         ${c.green('sgo t PD "real madrid" -p')}    Print Real Madrid players`)
     )
-    .action((league, team, opts) =>
-      commands.printTeam(
-        team,
-        [opts.fixtures ? 'Fixtures' : '', opts.players ? 'Players' : ''],
-        league
-      )
+    .action(
+      (
+        league: string,
+        team: string,
+        opts: { fixtures: boolean; players: boolean }
+      ) =>
+        commands.printTeam(
+          team,
+          [opts.fixtures ? 'Fixtures' : '', opts.players ? 'Players' : ''],
+          league
+        )
     );
 
-  program.command('*').action(cmd => {
+  program.command('*').action((cmd) => {
     console.log(`Unknown command "${cmd}".`);
     process.exit(1);
   });

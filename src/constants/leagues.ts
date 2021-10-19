@@ -30,7 +30,7 @@ export const leagueCodes: ILeague[] = [
 ];
 
 export const getLeagueByName = (name: string): ILeague => {
-  const candidate = leagueCodes.find(l => l.name === name);
+  const candidate = leagueCodes.find((l) => l.name === name);
   if (candidate) {
     return candidate;
   }
@@ -38,7 +38,7 @@ export const getLeagueByName = (name: string): ILeague => {
 };
 
 export const getLeagueByCode = (code: string): ILeague => {
-  const candidate = leagueCodes.find(l => l.code === code);
+  const candidate = leagueCodes.find((l) => l.code === code);
   if (candidate) {
     return candidate;
   }
