@@ -1,43 +1,56 @@
-import inquirer from 'inquirer';
-import autocomplete from 'inquirer-autocomplete-prompt';
-import { ILeague, leagueCodes } from './leagues';
-inquirer.registerPrompt('autocomplete', autocomplete);
+import { prompt } from 'enquirer';
+import { leagueCodes } from './leagues';
 
-const searchLeague = (_: unknown, input: string): Promise<ILeague[]> => {
-  return new Promise((resolve) => {
-    resolve(
-      leagueCodes.filter((league: ILeague) =>
-        league.name.match(new RegExp(input || '', 'i'))
-      )
-    );
-  });
-};
+type Answers =
+  | {
+      league: string;
+      main: 'Team';
+      teamName: string;
+      teamOptions: Array<'Fixtures' | 'Players'>;
+    }
+  | {
+      league: string;
+      main: 'Matchday' | 'Standings';
+    };
 
-export const questions = [
-  {
-    message: 'Choose a league',
-    name: 'league',
-    source: searchLeague,
-    type: 'autocomplete',
-  },
-  {
-    choices: ['Matchday', 'Standings', 'Team'],
-    message: 'Choose a function',
-    name: 'main',
-    type: 'list',
-    when: (answers: inquirer.Answers) => answers.league,
-  },
-  {
-    message: 'Team name',
-    name: 'teamName',
-    type: 'input',
-    when: (answers: inquirer.Answers) => answers.main === 'Team',
-  },
-  {
-    choices: ['Fixtures', 'Players'],
-    message: 'Team info',
-    name: 'teamOptions',
-    type: 'checkbox',
-    when: (answers: inquirer.Answers) => answers.main === 'Team',
-  },
-];
+export async function questions(): Promise<Answers> {
+  let answers: any = await prompt([
+    {
+      type: 'autocomplete',
+      name: 'league',
+      message: 'Choose a league',
+      choices: leagueCodes.map((l) => l.name),
+      // @ts-expect-error: remove once types are fixed
+      limit: 10,
+    },
+    {
+      type: 'select',
+      name: 'main',
+      message: 'Choose a function',
+      choices: ['Matchday', 'Standings', 'Team'],
+    },
+  ]);
+
+  if (answers.main === 'Team') {
+    const teamAnswers = await prompt([
+      {
+        type: 'input',
+        name: 'teamName',
+        message: 'Team name',
+      },
+      {
+        type: 'multiselect',
+        name: 'teamOptions',
+        message: 'Team info',
+        choices: ['Fixtures', 'Players'],
+      },
+    ]);
+
+    answers = {
+      ...answers,
+      ...teamAnswers,
+    };
+  }
+
+  return answers as Answers;
+}

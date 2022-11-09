@@ -2,7 +2,6 @@
 
 import pc from 'picocolors';
 import program from 'commander';
-import inquirer from 'inquirer';
 import { checkForUpdates } from './utils/update-check';
 import pkg from '../package.json';
 import * as commands from './commands';
@@ -11,7 +10,7 @@ import { questions } from './constants/questions';
 
 const askQuestions = async (): Promise<void> => {
   try {
-    const answers: inquirer.Answers = await inquirer.prompt(questions);
+    const answers = await questions();
     const league = getLeagueByName(answers.league);
     switch (answers.main) {
       case 'Matchday':
