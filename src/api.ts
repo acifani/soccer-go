@@ -1,5 +1,5 @@
 import moment from 'moment';
-import ora from 'ora';
+import { createSpinner } from 'nanospinner';
 import { cachedApiCall } from './cache';
 import cfg from './config';
 import {
@@ -114,13 +114,13 @@ async function callApi(
     apiKeyError();
   }
 
-  const spinner = ora(placeholder).start();
+  const spinner = createSpinner(placeholder).start();
   try {
     const response = await cachedApiCall(url, cfg.axiosConfig, expiry);
     spinner.stop();
     return response;
   } catch (error) {
-    spinner.fail();
+    spinner.error();
     handleError(error);
   }
 }
