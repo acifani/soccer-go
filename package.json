@@ -44,11 +44,11 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "cfonts": "^3.1.1",
     "cli-table3": "^0.5.1",
     "commander": "^3.0.2",
     "dayjs": "^1.11.6",
     "enquirer": "^2.3.6",
-    "figlet": "^1.2.1",
     "nanospinner": "^1.1.0",
     "picocolors": "^1.0.0",
     "update-check": "^1.5.4"

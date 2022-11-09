@@ -1,6 +1,5 @@
-import figlet from 'figlet';
+import cfonts from 'cfonts';
 import * as api from '../api';
-import cfg from '../config';
 import { Fixture, Player, Team } from '../models';
 import { FixturesTableBuilder, PlayersTableBuilder } from '../tableBuilders';
 
@@ -10,10 +9,7 @@ export const printTeam = async (
   leagueCode: string
 ): Promise<void> => {
   const team = await fetchTeam(teamName, leagueCode);
-  const teamTitle = figlet.textSync(team.shortName || team.name, {
-    font: cfg.figletFont,
-  });
-  console.log(teamTitle);
+  cfonts.say(team.shortName || team.name);
 
   if (options.includes('Fixtures')) {
     const fixturesData = await api.getTeamFixtures(team);

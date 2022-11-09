@@ -1,5 +1,3 @@
-import { Fonts } from 'figlet';
-
 export default {
   apiBaseUrl: 'https://api.football-data.org/v2',
   axiosConfig: {
@@ -17,5 +15,4 @@ export default {
     },
     fileName: '.cache',
   },
-  figletFont: 'Slant' as Fonts,
 };
