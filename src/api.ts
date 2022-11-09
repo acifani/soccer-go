@@ -117,7 +117,7 @@ async function callApi(
   const spinner = createSpinner(placeholder).start();
   try {
     const response = await cachedApiCall(url, cfg.axiosConfig, expiry);
-    spinner.stop();
+    spinner.success().clear();
     return response;
   } catch (error) {
     spinner.error();
