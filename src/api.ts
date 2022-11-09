@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { createSpinner } from 'nanospinner';
 import { cachedApiCall } from './cache';
 import cfg from './config';
@@ -15,8 +15,8 @@ import {
 export const getMatchday = async (
   leagueCode: string
 ): Promise<IFixtureJson[]> => {
-  const start = moment().subtract(3, 'day').format('YYYY-MM-DD');
-  const end = moment().add(3, 'days').format('YYYY-MM-DD');
+  const start = dayjs().subtract(3, 'day').format('YYYY-MM-DD');
+  const end = dayjs().add(3, 'days').format('YYYY-MM-DD');
   const data = await callApi(
     `${cfg.apiBaseUrl}/competitions/${leagueCode}` +
       `/matches?dateFrom=${start}&dateTo=${end}`,

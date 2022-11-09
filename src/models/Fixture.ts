@@ -1,6 +1,6 @@
 import pc from 'picocolors';
 import Table from 'cli-table3';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import cfg from '../config';
 import { IRowable } from '../tableBuilders/BaseTableBuilder';
 
@@ -74,7 +74,7 @@ export default class Fixture implements IRowable {
       ? pc.bold(`${this.home.goals} - ${this.away.goals}`)
       : '',
     statusDisplayString.get(this.status),
-    moment(this.date).format('llll'),
+    dayjs(this.date).format('ddd, MMM D YYYY h:mm A'),
   ];
 
   private getScores(score: IFixtureJson['score']): [number, number] {

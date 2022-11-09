@@ -1,5 +1,5 @@
 import Table from 'cli-table3';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { IRowable } from '../tableBuilders/BaseTableBuilder';
 
 export default class Player implements IRowable {
@@ -22,7 +22,7 @@ export default class Player implements IRowable {
     this.jerseyNumber,
     this.position,
     this.nationality,
-    moment(this.dateOfBirth).format('L'),
+    dayjs(this.dateOfBirth).format('MM/DD/YYYY'),
   ];
 }
 
