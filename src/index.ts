@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import c from 'chalk';
+import pc from 'picocolors';
 import program from 'commander';
 import inquirer from 'inquirer';
 import UpdateNotifier from 'update-notifier';
@@ -45,7 +45,7 @@ const askQuestions = async (): Promise<void> => {
 
         Example:
 
-        ${c.green('sgo s SA')}    Print Serie A table`)
+        ${pc.green('sgo s SA')}    Print Serie A table`)
     )
     .action((league: string) => commands.printStandings(league));
 
@@ -58,7 +58,7 @@ const askQuestions = async (): Promise<void> => {
 
         Example:
 
-        ${c.green('sgo m SA')}    Print Serie A matchday`)
+        ${pc.green('sgo m SA')}    Print Serie A matchday`)
     )
     .action((league: string) => commands.printMatchday(league));
 
@@ -73,8 +73,8 @@ const askQuestions = async (): Promise<void> => {
 
         Example:
 
-        ${c.green('sgo t SA roma -f')}             Print AS Roma fixtures
-        ${c.green('sgo t PD "real madrid" -p')}    Print Real Madrid players`)
+        ${pc.green('sgo t SA roma -f')}             Print AS Roma fixtures
+        ${pc.green('sgo t PD "real madrid" -p')}    Print Real Madrid players`)
     )
     .action(
       (

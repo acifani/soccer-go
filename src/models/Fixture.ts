@@ -1,4 +1,4 @@
-import c from 'chalk';
+import pc from 'picocolors';
 import Table from 'cli-table3';
 import moment from 'moment';
 import cfg from '../config';
@@ -71,7 +71,7 @@ export default class Fixture implements IRowable {
   public toRow = (): Table.Cell[] => [
     `${this.home.team} - ${this.away.team}`,
     [Status.InProgress, Status.Finished].includes(this.status)
-      ? c.bold(`${this.home.goals} - ${this.away.goals}`)
+      ? pc.bold(`${this.home.goals} - ${this.away.goals}`)
       : '',
     statusDisplayString.get(this.status),
     moment(this.date).format('llll'),

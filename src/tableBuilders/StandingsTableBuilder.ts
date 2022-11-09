@@ -1,4 +1,4 @@
-import c from 'chalk';
+import pc from 'picocolors';
 import Table from 'cli-table3';
 import { IStandingJson, Standing } from '../models';
 import { BaseTableBuilder } from './BaseTableBuilder';
@@ -10,16 +10,16 @@ export class StandingsTableBuilder extends BaseTableBuilder<
   public buildTableHeader(): Table.HorizontalTable {
     return new Table({
       head: [
-        c.bold('#'),
-        c.bold('Club'),
-        c.bold('MP'),
-        c.bold('Pts'),
-        c.bold('W'),
-        c.bold('D'),
-        c.bold('L'),
-        c.bold('GF'),
-        c.bold('GA'),
-        c.bold('GD'),
+        pc.bold('#'),
+        pc.bold('Club'),
+        pc.bold('MP'),
+        pc.bold('Pts'),
+        pc.bold('W'),
+        pc.bold('D'),
+        pc.bold('L'),
+        pc.bold('GF'),
+        pc.bold('GA'),
+        pc.bold('GD'),
       ],
       style: { border: [], head: [] },
     }) as Table.HorizontalTable;
