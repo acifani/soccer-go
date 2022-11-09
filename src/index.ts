@@ -3,15 +3,13 @@
 import pc from 'picocolors';
 import program from 'commander';
 import inquirer from 'inquirer';
-import UpdateNotifier from 'update-notifier';
+import { checkForUpdates } from './utils/update-check';
 import pkg from '../package.json';
 import * as commands from './commands';
 import { getLeagueByName } from './constants/leagues';
 import { questions } from './constants/questions';
 
 const askQuestions = async (): Promise<void> => {
-  UpdateNotifier({ pkg }).notify({ isGlobal: true });
-
   try {
     const answers: inquirer.Answers = await inquirer.prompt(questions);
     const league = getLeagueByName(answers.league);
@@ -32,8 +30,6 @@ const askQuestions = async (): Promise<void> => {
 };
 
 (async (): Promise<void> => {
-  UpdateNotifier({ pkg }).notify({ isGlobal: true });
-
   program.version(pkg.version);
 
   program
@@ -100,3 +96,7 @@ const askQuestions = async (): Promise<void> => {
 
   program.parse(process.argv);
 })();
+
+process.on('beforeExit', async () => {
+  await checkForUpdates(pkg);
+});
