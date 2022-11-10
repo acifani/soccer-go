@@ -39,8 +39,7 @@
     "coverage": "jest --coverage",
     "watch": "npm run build -- --watch",
     "watch:test": "jest --watch",
-    "start": "ts-node --files src/index.ts",
-    "version": "auto-changelog -p && git add CHANGELOG.md"
+    "start": "ts-node --files src/index.ts"
   },
   "dependencies": {
     "cfonts": "^3.1.1",
@@ -56,15 +55,11 @@
   "devDependencies": {
     "@babel/core": "^7.15.8",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/figlet": "^1.2.0",
-    "@types/inquirer": "^6.0.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.1",
     "@types/update-notifier": "^2.5.0",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
-    "auto-changelog": "^2.0.0",
-    "coveralls": "^3.0.3",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^25.2.2",
