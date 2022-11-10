@@ -1,11 +1,11 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import p from 'phin';
 import Cache from './Cache';
 
 const cache = new Cache(__dirname);
 
 export const cachedApiCall = async (
   url: string,
-  axiosCfg: AxiosRequestConfig,
+  authToken: string | undefined,
   expiry: number
 ): Promise<any> => {
   const item = cache.get(url);
@@ -17,8 +17,12 @@ export const cachedApiCall = async (
     // data is expired
     cache.remove(url);
   }
-  const response = await axios.get(url, axiosCfg);
-  const data = response.data;
+  const response = await p({
+    url,
+    parse: 'json',
+    headers: { 'X-Auth-Token': authToken },
+  });
+  const data = response.body as object;
   cache.add(url, data);
   return data;
 };

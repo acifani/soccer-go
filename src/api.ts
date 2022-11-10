@@ -110,13 +110,13 @@ async function callApi(
   placeholder: string,
   expiry: number
 ): Promise<any> {
-  if (cfg.axiosConfig.headers['X-Auth-Token'] == null) {
+  if (!cfg.authToken) {
     apiKeyError();
   }
 
   const spinner = createSpinner(placeholder).start();
   try {
-    const response = await cachedApiCall(url, cfg.axiosConfig, expiry);
+    const response = await cachedApiCall(url, cfg.authToken, expiry);
     spinner.success().clear();
     return response;
   } catch (error) {

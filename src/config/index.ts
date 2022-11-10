@@ -1,10 +1,6 @@
 export default {
   apiBaseUrl: 'https://api.football-data.org/v2',
-  axiosConfig: {
-    headers: {
-      'X-Auth-Token': process.env.SOCCER_GO_API_KEY,
-    },
-  },
+  authToken: process.env.SOCCER_GO_API_KEY,
   cache: {
     expiry: {
       competition: 30 * 24 * 60 * 60 * 1000, // 1 month
