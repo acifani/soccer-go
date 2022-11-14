@@ -1,5 +1,5 @@
 export default {
-  apiBaseUrl: 'https://api.football-data.org/v2',
+  apiBaseUrl: 'https://api.football-data.org/v4',
   authToken: process.env.SOCCER_GO_API_KEY,
   cache: {
     expiry: {

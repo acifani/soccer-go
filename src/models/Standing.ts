@@ -12,6 +12,7 @@ export default class Standing implements IRowable {
   public wins: number;
   public draws: number;
   public losses: number;
+  public form: string;
 
   constructor(data: IStandingJson) {
     this.rank = data.position;
@@ -24,6 +25,7 @@ export default class Standing implements IRowable {
     this.wins = data.won;
     this.draws = data.draw;
     this.losses = data.lost;
+    this.form = data.form;
   }
 
   public toRow = (): Table.Cell[] => [
@@ -44,17 +46,20 @@ export interface IStandingJson {
   position: number;
   team: ITeam;
   playedGames: number;
+  form: string;
+  won: number;
+  draw: number;
+  lost: number;
   points: number;
   goalsFor: number;
   goalsAgainst: number;
   goalDifference: number;
-  won: number;
-  draw: number;
-  lost: number;
 }
 
 interface ITeam {
   id: number;
   name: string;
-  crestUrl: string;
+  shortName: string;
+  tla: string;
+  crest: string;
 }

@@ -18,8 +18,7 @@ export const printTeam = async (
   }
 
   if (options.includes('Players')) {
-    const playersData = await api.getTeamPlayers(team);
-    const table = new PlayersTableBuilder().buildTable(playersData, Player);
+    const table = new PlayersTableBuilder().buildTable(team.squad, Player);
     console.log(table.toString());
   }
 };

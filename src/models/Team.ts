@@ -1,4 +1,5 @@
 import cfg from '../config';
+import type { IPlayerJson } from './Player';
 
 export interface ITeamLinks {
   self: string;
@@ -12,6 +13,7 @@ export default class Team {
   public code: string;
   public shortName: string | null;
   public links: ITeamLinks;
+  public squad: IPlayerJson[];
 
   constructor(data: ITeamJson) {
     const baseLink = `${cfg.apiBaseUrl}/teams/${data.id}`;
@@ -20,6 +22,7 @@ export default class Team {
     this.name = data.name;
     this.code = data.tla;
     this.shortName = data.shortName;
+    this.squad = data.squad;
     this.links = {
       matches: `${baseLink}/matches`,
       players: `${baseLink}/players`,
@@ -37,6 +40,8 @@ export interface ITeamJson {
   name: string;
   shortName: string;
   tla: string;
-  crestUrl: string;
+  crest: string;
   venue: string;
+  clubColors: string;
+  squad: IPlayerJson[];
 }

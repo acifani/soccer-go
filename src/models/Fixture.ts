@@ -5,26 +5,32 @@ import cfg from '../config';
 import { IRowable } from '../tableBuilders/BaseTableBuilder';
 
 export enum Status {
-  Awarded = 'AWARDED',
-  Canceled = 'CANCELED',
-  Finished = 'FINISHED',
-  InProgress = 'IN_PLAY',
-  Paused = 'PAUSED',
-  Postponed = 'POSTPONED',
   Scheduled = 'SCHEDULED',
+  Timed = 'TIMED',
+  InPlay = 'IN_PLAY',
+  Paused = 'PAUSED',
+  ExtraTime = 'EXTRA_TIME',
+  Penalty = 'PENALTY_SHOOTOUT',
+  Finished = 'FINISHED',
   Suspended = 'SUSPENDED',
+  Postponed = 'POSTPONED',
+  Cancelled = 'CANCELLED',
+  Awarded = 'AWARDED',
 }
 
-const statusDisplayString: Map<Status, string> = new Map([
-  [Status.Awarded, 'Awarded'],
-  [Status.Canceled, 'Canceled'],
-  [Status.Finished, 'Finished'],
-  [Status.InProgress, 'Playing'],
-  [Status.Paused, 'Paused'],
-  [Status.Postponed, 'Postponed'],
-  [Status.Scheduled, 'Scheduled'],
-  [Status.Suspended, 'Suspended'],
-]);
+const statusDisplayString: Record<Status, string> = {
+  [Status.Awarded]: 'Awarded',
+  [Status.Cancelled]: 'Canceled',
+  [Status.Finished]: 'Finished',
+  [Status.InPlay]: 'Playing',
+  [Status.Paused]: 'Paused',
+  [Status.Postponed]: 'Postponed',
+  [Status.Scheduled]: 'Scheduled',
+  [Status.Suspended]: 'Suspended',
+  [Status.Timed]: 'Timed',
+  [Status.ExtraTime]: 'Extra time',
+  [Status.Penalty]: 'Penalties',
+};
 
 export interface ISide {
   team: string;
@@ -70,25 +76,25 @@ export default class Fixture implements IRowable {
 
   public toRow = (): Table.Cell[] => [
     `${this.home.team} - ${this.away.team}`,
-    [Status.InProgress, Status.Finished].includes(this.status)
+    [Status.InPlay, Status.Finished].includes(this.status)
       ? pc.bold(`${this.home.goals} - ${this.away.goals}`)
       : '',
-    statusDisplayString.get(this.status),
+    statusDisplayString[this.status],
     dayjs(this.date).format('ddd, MMM D YYYY h:mm A'),
   ];
 
   private getScores(score: IFixtureJson['score']): [number, number] {
-    if (score.penalties.homeTeam != null) {
-      return [score.penalties.homeTeam, score.penalties.awayTeam];
+    if (score.penalties?.home != null) {
+      return [score.penalties.home, score.penalties.away!];
     }
-    if (score.extraTime.homeTeam != null) {
-      return [score.extraTime.homeTeam, score.extraTime.awayTeam];
+    if (score.extraTime?.home != null) {
+      return [score.extraTime.home, score.extraTime.away!];
     }
-    if (score.fullTime.homeTeam != null) {
-      return [score.fullTime.homeTeam, score.fullTime.awayTeam];
+    if (score.fullTime.home != null) {
+      return [score.fullTime.home, score.fullTime.away!];
     }
-    if (score.halfTime.homeTeam != null) {
-      return [score.halfTime.homeTeam, score.halfTime.awayTeam];
+    if (score.halfTime.home != null) {
+      return [score.halfTime.home, score.halfTime.away!];
     }
 
     return [0, 0];
@@ -103,12 +109,12 @@ export interface IFixtureJson {
   homeTeam: ITeamSide;
   awayTeam: ITeamSide;
   score: {
-    winner: string;
+    winner: string | null;
     duration: string;
     fullTime: IScore;
     halfTime: IScore;
-    extraTime: IScore;
-    penalties: IScore;
+    extraTime?: IScore;
+    penalties?: IScore;
   };
 }
 
@@ -118,6 +124,6 @@ interface ITeamSide {
 }
 
 interface IScore {
-  homeTeam: number;
-  awayTeam: number;
+  home: number | null;
+  away: number | null;
 }

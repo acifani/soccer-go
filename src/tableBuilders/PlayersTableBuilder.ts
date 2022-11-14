@@ -8,7 +8,6 @@ export class PlayersTableBuilder extends BaseTableBuilder<IPlayerJson, Player> {
     return new Table({
       head: [
         pc.bold('Name'),
-        pc.bold('Jersey'),
         pc.bold('Position'),
         pc.bold('Nationality'),
         pc.bold('Date of Birth'),
