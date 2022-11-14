@@ -13,7 +13,7 @@ export default class Standing implements IRowable {
   public wins: number;
   public draws: number;
   public losses: number;
-  public form: string;
+  public form: string | null;
 
   constructor(data: IStandingJson) {
     this.rank = data.position;
@@ -48,7 +48,7 @@ export interface IStandingJson {
   position: number;
   team: ITeam;
   playedGames: number;
-  form: string;
+  form: string | null;
   won: number;
   draw: number;
   lost: number;
@@ -72,7 +72,10 @@ const formatters = {
   L: pc.bgRed,
 };
 
-function formatForm(form: string): string {
+function formatForm(form: string | null): string {
+  if (!form) {
+    return '';
+  }
   const results = form.split(',') as Array<'W' | 'D' | 'L'>;
   return results.map((r) => formatters[r](' ' + pc.bold(r) + ' ')).join(' ');
 }
