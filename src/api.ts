@@ -48,7 +48,7 @@ export async function getStandings(
   leagueCode: string
 ): Promise<IStandingJson[]> {
   const data = await callApi(
-    `${cfg.apiBaseUrl}/competitions/${leagueCode}/standings?standingType=TOTAL`,
+    `${cfg.apiBaseUrl}/competitions/${leagueCode}/standings`,
     'Fetching standings...',
     cfg.cache.expiry.standings
   );

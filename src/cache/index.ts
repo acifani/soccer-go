@@ -23,6 +23,12 @@ export async function cachedApiCall(
     parse: 'json',
     headers: { 'X-Auth-Token': authToken },
   });
+
+  if (response.statusCode == null || response.statusCode >= 400) {
+    const error = response.body as any;
+    throw Error(error.message as string);
+  }
+
   const data = response.body as JSONValue;
   cache.add(url, data);
   return data;

@@ -23,10 +23,11 @@ export const leagueCodes: ILeague[] = [
   { code: 'PPL', name: 'Primeira Liga' },
   { code: 'GSL', name: 'Super League' },
   { code: 'BSA', name: 'Brasileiro Serie A' },
-  { code: 'CL', name: 'Champions-League' },
-  { code: 'EL', name: 'UEFA-Cup' },
-  { code: 'EC', name: 'European-Cup of Nations' },
-  { code: 'WC', name: 'World-Cup' },
+  { code: 'CL', name: 'Champions League' },
+  { code: 'EL', name: 'Europa League' },
+  { code: 'UCL', name: 'Conference League' },
+  { code: 'EC', name: 'European Championship' },
+  { code: 'WC', name: 'World Cup' },
 ];
 
 export const getLeagueByName = (name: string): ILeague => {
