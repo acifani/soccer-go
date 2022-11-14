@@ -24,7 +24,7 @@ export default class Cache {
     }
   }
 
-  public add = (id: string, data: object): Data => {
+  public add = (id: string, data: CacheItem['data']): Data => {
     const res = this.data.set(id, new CacheItem(Date.now(), data));
     return res;
   };

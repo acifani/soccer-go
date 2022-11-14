@@ -1,13 +1,14 @@
 import p from 'phin';
 import Cache from './Cache';
+import { JSONValue } from './CacheItem';
 
 const cache = new Cache(__dirname);
 
-export const cachedApiCall = async (
+export async function cachedApiCall(
   url: string,
   authToken: string | undefined,
   expiry: number
-): Promise<any> => {
+): Promise<JSONValue> {
   const item = cache.get(url);
   if (item) {
     const age = Date.now() - item.date;
@@ -22,10 +23,10 @@ export const cachedApiCall = async (
     parse: 'json',
     headers: { 'X-Auth-Token': authToken },
   });
-  const data = response.body as object;
+  const data = response.body as JSONValue;
   cache.add(url, data);
   return data;
-};
+}
 
 process.on('exit', () => {
   if (cache) {
