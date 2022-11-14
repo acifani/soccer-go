@@ -20,6 +20,7 @@ export class StandingsTableBuilder extends BaseTableBuilder<
         pc.bold('GF'),
         pc.bold('GA'),
         pc.bold('GD'),
+        pc.bold('Form'),
       ],
       style: { border: [], head: [] },
     }) as Table.HorizontalTable;

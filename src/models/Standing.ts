@@ -1,4 +1,5 @@
 import Table from 'cli-table3';
+import pc from 'picocolors';
 import { IRowable } from '../tableBuilders/BaseTableBuilder';
 
 export default class Standing implements IRowable {
@@ -39,6 +40,7 @@ export default class Standing implements IRowable {
     this.goals,
     this.goalsAgainst,
     this.goalDifference,
+    formatForm(this.form),
   ];
 }
 
@@ -62,4 +64,15 @@ interface ITeam {
   shortName: string;
   tla: string;
   crest: string;
+}
+
+const formatters = {
+  W: pc.bgGreen,
+  D: pc.bgYellow,
+  L: pc.bgRed,
+};
+
+function formatForm(form: string): string {
+  const results = form.split(',') as Array<'W' | 'D' | 'L'>;
+  return results.map((r) => formatters[r](' ' + pc.bold(r) + ' ')).join(' ');
 }
