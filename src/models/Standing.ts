@@ -1,6 +1,7 @@
 import Table from 'cli-table3';
 import pc from 'picocolors';
 import { IRowable } from '../tableBuilders/BaseTableBuilder';
+import { Stage } from './Fixture';
 
 export default class Standing implements IRowable {
   public rank: number;
@@ -42,6 +43,13 @@ export default class Standing implements IRowable {
     this.goalDifference,
     formatForm(this.form),
   ];
+}
+
+export interface IStandingsJson {
+  stage: Stage;
+  type: string;
+  group: `GROUP_${string}`;
+  table: IStandingJson[];
 }
 
 export interface IStandingJson {

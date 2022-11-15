@@ -14,6 +14,7 @@ export class FixturesTableBuilder extends BaseTableBuilder<
         pc.bold('Score'),
         pc.bold('Status'),
         pc.bold('Date'),
+        pc.bold('Stage'),
       ],
       style: { head: [], border: [] },
     }) as Table.HorizontalTable;

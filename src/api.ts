@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { createSpinner } from 'nanospinner';
 import { cachedApiCall } from './cache';
 import cfg from './config';
-import { IFixtureJson, IStandingJson, ITeamJson, Team } from './models';
+import { IFixtureJson, IStandingsJson, ITeamJson, Team } from './models';
 
 export async function getMatchday(leagueCode: string): Promise<IFixtureJson[]> {
   const start = dayjs().subtract(3, 'day').format('YYYY-MM-DD');
@@ -46,13 +46,13 @@ export async function getCompetitionTeams(
 
 export async function getStandings(
   leagueCode: string
-): Promise<IStandingJson[]> {
+): Promise<IStandingsJson[]> {
   const data = await callApi(
     `${cfg.apiBaseUrl}/competitions/${leagueCode}/standings`,
     'Fetching standings...',
     cfg.cache.expiry.standings
   );
-  return data.standings[0].table;
+  return data.standings?.filter((s: IStandingsJson) => s.type === 'TOTAL');
 }
 
 export async function getTeamId(
