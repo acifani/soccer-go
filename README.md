@@ -57,7 +57,7 @@ You can find the complete list in the visual mode or you can take a look [here](
 
 > Example: `$ soccer-go matchday SA`
 
-![Matchday](https://raw.githubusercontent.com/acifani/soccer-go/master/matchday.png)
+<img src="./matchday.png" width="800" />
 
 #### League standings
 
@@ -65,7 +65,7 @@ You can find the complete list in the visual mode or you can take a look [here](
 
 > Example: `$ soccer-go standings PL`
 
-![Standings](https://raw.githubusercontent.com/acifani/soccer-go/master/standings.png)
+<img src="./standings.png" width="800" />
 
 #### Team fixtures
 
@@ -82,7 +82,7 @@ You can find the complete list in the visual mode or you can take a look [here](
 >
 > `$ soccer-go team SA juventus -fp`
 
-![Fixtures](https://raw.githubusercontent.com/acifani/soccer-go/master/fixtures.png)
+<img src="./fixtures.png" width="800" />
 
 ... and more.
 
