@@ -105,9 +105,3 @@ Or build everything
 ```
 $ npm run build
 ```
-
-## To-Dos
-
-- [ ] Extra-time / penalty
-- [ ] Head2head
-- [ ] Team colors

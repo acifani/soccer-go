@@ -172,14 +172,12 @@ export default class Fixture implements IRowable {
 
   private getScores(score: IFixtureJson['score']): [number, number] {
     /* eslint-disable @typescript-eslint/no-non-null-assertion */
-    if (score.penalties?.home != null) {
-      return [score.penalties.home, score.penalties.away!];
-    }
-    if (score.extraTime?.home != null) {
-      return [score.extraTime.home, score.extraTime.away!];
-    }
-    if (score.fullTime.home != null) {
+    // fullTime is set to 0 as soon as the match starts, we want to use the halfTime in that case
+    if (score.fullTime.home != null && score.regularTime.home != null) {
       return [score.fullTime.home, score.fullTime.away!];
+    }
+    if (score.regularTime.home != null) {
+      return [score.regularTime.home, score.regularTime.away!];
     }
     if (score.halfTime.home != null) {
       return [score.halfTime.home, score.halfTime.away!];
@@ -203,6 +201,7 @@ export interface IFixtureJson {
     duration: string;
     fullTime: IScore;
     halfTime: IScore;
+    regularTime: IScore;
     extraTime?: IScore;
     penalties?: IScore;
   };
