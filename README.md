@@ -2,8 +2,6 @@
 
 **soccer-go** is a node command line application to gather soccer stats and results. Heavily inspired by [nba-go](https://github.com/xxhomey19/nba-go).
 
-The app is still in its early stages of development, so do expect bugs and errors. All contributions are very welcome!
-
 ## Install
 
 Requirements:

@@ -136,15 +136,39 @@ export default class Fixture implements IRowable {
     };
   }
 
-  public toRow = (): Table.Cell[] => [
-    `${this.home.team} - ${this.away.team}`,
-    [Status.InPlay, Status.Finished].includes(this.status)
-      ? pc.bold(`${this.home.goals} - ${this.away.goals}`)
-      : '',
-    statusDisplayString[this.status] ?? this.status,
-    dayjs(this.date).format('ddd, MMM D YYYY h:mm A'),
-    stageDisplayString[this.stage] ?? this.stage,
-  ];
+  public toRow(): Table.Cell[] {
+    let homeTeam = this.home.team;
+    if (this.home.goals > this.away.goals) {
+      homeTeam = pc.bold(homeTeam);
+    }
+
+    let awayTeam = this.away.team;
+    if (this.away.goals > this.home.goals) {
+      awayTeam = pc.bold(awayTeam);
+    }
+
+    let score = pc.bold(`${this.home.goals} - ${this.away.goals}`);
+    if (
+      [
+        Status.Scheduled,
+        Status.Timed,
+        Status.Cancelled,
+        Status.Postponed,
+      ].includes(this.status)
+    ) {
+      score = '';
+    } else if (this.status === Status.InPlay) {
+      score = pc.green(score);
+    }
+
+    return [
+      `${homeTeam} - ${awayTeam}`,
+      score,
+      statusDisplayString[this.status] ?? this.status,
+      dayjs(this.date).format('ddd, MMM D YYYY h:mm A'),
+      stageDisplayString[this.stage] ?? this.stage,
+    ];
+  }
 
   private getScores(score: IFixtureJson['score']): [number, number] {
     /* eslint-disable @typescript-eslint/no-non-null-assertion */
