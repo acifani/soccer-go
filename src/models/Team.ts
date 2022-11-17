@@ -29,10 +29,6 @@ export default class Team {
       self: baseLink,
     };
   }
-
-  public print = (): void => {
-    console.log('[' + this.code + '] ' + this.name);
-  };
 }
 
 export interface ITeamJson {
