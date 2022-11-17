@@ -10,7 +10,7 @@ export async function getMatchday(leagueCode: string): Promise<IFixtureJson[]> {
   const data = await callApi(
     `${cfg.apiBaseUrl}/competitions/${leagueCode}/matches?dateFrom=${start}&dateTo=${end}`,
     'Fetching matchday...',
-    cfg.cache.expiry.fixtures
+    cfg.cache.expiry.fixtures,
   )
   return data.matches
 }
@@ -23,7 +23,7 @@ export async function getTeamFixtures(team: Team): Promise<IFixtureJson[]> {
   const data = await callApi(
     team.links.matches,
     'Fetching team fixtures...',
-    cfg.cache.expiry.fixtures
+    cfg.cache.expiry.fixtures,
   )
   return data.matches
 }
@@ -32,7 +32,7 @@ export async function getCompetitionTeams(leagueCode: string): Promise<ITeamJson
   const data = await callApi(
     `${cfg.apiBaseUrl}/competitions/${leagueCode}/teams`,
     'Fetching teams...',
-    cfg.cache.expiry.competition
+    cfg.cache.expiry.competition,
   )
   return data.teams
 }
@@ -41,7 +41,7 @@ export async function getStandings(leagueCode: string): Promise<IStandingsJson[]
   const data = await callApi(
     `${cfg.apiBaseUrl}/competitions/${leagueCode}/standings`,
     'Fetching standings...',
-    cfg.cache.expiry.standings
+    cfg.cache.expiry.standings,
   )
   return data.standings?.filter((s: IStandingsJson) => s.type === 'TOTAL')
 }

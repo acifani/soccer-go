@@ -29,7 +29,7 @@
   },
   "scripts": {
     "clean": "rimraf lib && rimraf coverage",
-    "format": "prettier --write \"{src,__tests__}/**/*.ts\" --single-quote --trailing-comma es5",
+    "format": "prettier --write \"{src,__tests__}/**/*.ts\"",
     "lint": "eslint --ignore-path .gitignore --ext .ts,.js ./src",
     "prepublishOnly": "npm run format && npm run build",
     "prebuild": "npm run clean",

@@ -40,7 +40,7 @@ const askQuestions = async (): Promise<void> => {
 
         Example:
 
-        ${pc.green('sgo s SA')}    Print Serie A table`)
+        ${pc.green('sgo s SA')}    Print Serie A table`),
     )
     .action((league: string) => commands.printStandings(league))
 
@@ -53,7 +53,7 @@ const askQuestions = async (): Promise<void> => {
 
         Example:
 
-        ${pc.green('sgo m SA')}    Print Serie A matchday`)
+        ${pc.green('sgo m SA')}    Print Serie A matchday`),
     )
     .action((league: string) => commands.printMatchday(league))
 
@@ -69,14 +69,14 @@ const askQuestions = async (): Promise<void> => {
         Example:
 
         ${pc.green('sgo t SA roma -f')}             Print AS Roma fixtures
-        ${pc.green('sgo t PD "real madrid" -p')}    Print Real Madrid players`)
+        ${pc.green('sgo t PD "real madrid" -p')}    Print Real Madrid players`),
     )
     .action((league: string, team: string, opts: { fixtures: boolean; players: boolean }) =>
       commands.printTeam(
         team,
         [opts.fixtures ? 'Fixtures' : '', opts.players ? 'Players' : ''],
-        league
-      )
+        league,
+      ),
     )
 
   program.command('*').action((cmd) => {

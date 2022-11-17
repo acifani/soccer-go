@@ -12,7 +12,7 @@ export async function checkForUpdates(manifest: Record<string, unknown>) {
       console.log(
         '\n',
         pc.bgRed(pc.bold(' UPDATE ')),
-        `📦 Update available for ${pc.bold('soccer-go')}: ${manifest.version} → ${result.latest}\n`
+        `📦 Update available for ${pc.bold('soccer-go')}: ${manifest.version} → ${result.latest}\n`,
       )
     }
   } catch {

@@ -6,7 +6,7 @@ import { FixturesTableBuilder, PlayersTableBuilder } from '../tableBuilders'
 export const printTeam = async (
   teamName: string,
   options: string[],
-  leagueCode: string
+  leagueCode: string,
 ): Promise<void> => {
   const team = await fetchTeam(teamName, leagueCode)
   cfonts.say(team.shortName || team.name)

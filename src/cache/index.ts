@@ -7,7 +7,7 @@ const cache = new Cache(__dirname)
 export async function cachedApiCall(
   url: string,
   authToken: string | undefined,
-  expiry: number
+  expiry: number,
 ): Promise<JSONValue> {
   const item = cache.get(url)
   if (item) {
