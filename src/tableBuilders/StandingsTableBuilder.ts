@@ -1,12 +1,9 @@
-import pc from 'picocolors';
-import Table from 'cli-table3';
-import { IStandingJson, Standing } from '../models';
-import { BaseTableBuilder } from './BaseTableBuilder';
+import pc from 'picocolors'
+import Table from 'cli-table3'
+import { IStandingJson, Standing } from '../models'
+import { BaseTableBuilder } from './BaseTableBuilder'
 
-export class StandingsTableBuilder extends BaseTableBuilder<
-  IStandingJson,
-  Standing
-> {
+export class StandingsTableBuilder extends BaseTableBuilder<IStandingJson, Standing> {
   public buildTableHeader(): Table.HorizontalTable {
     return new Table({
       head: [
@@ -23,6 +20,6 @@ export class StandingsTableBuilder extends BaseTableBuilder<
         pc.bold('Form'),
       ],
       style: { border: [], head: [] },
-    }) as Table.HorizontalTable;
+    }) as Table.HorizontalTable
   }
 }

@@ -1,8 +1,8 @@
-import pc from 'picocolors';
-import Table from 'cli-table3';
-import dayjs from 'dayjs';
-import cfg from '../config';
-import { IRowable } from '../tableBuilders/BaseTableBuilder';
+import pc from 'picocolors'
+import Table from 'cli-table3'
+import dayjs from 'dayjs'
+import cfg from '../config'
+import { IRowable } from '../tableBuilders/BaseTableBuilder'
 
 export enum Status {
   Scheduled = 'SCHEDULED',
@@ -30,7 +30,7 @@ const statusDisplayString: Record<Status, string> = {
   [Status.Timed]: 'Timed',
   [Status.ExtraTime]: 'Extra time',
   [Status.Penalty]: 'Penalties',
-};
+}
 
 export enum Stage {
   Final = 'FINAL',
@@ -90,75 +90,70 @@ export const stageDisplayString: Record<Stage, string> = {
   CHAMPIONSHIP: 'Championship',
   RELEGATION: 'Relegation',
   RELEGATION_ROUND: 'Relegation round',
-};
+}
 
 export interface ISide {
-  team: string;
-  goals: number;
+  team: string
+  goals: number
 }
 
 export interface IFixtureLinks {
-  self: string;
-  homeTeam: string;
-  awayTeam: string;
+  self: string
+  homeTeam: string
+  awayTeam: string
 }
 
 export default class Fixture implements IRowable {
-  public id: number;
-  public home: ISide;
-  public away: ISide;
-  public matchday: number | null;
-  public stage: Stage;
-  public status: Status;
-  public date: Date;
-  public links: IFixtureLinks;
+  public id: number
+  public home: ISide
+  public away: ISide
+  public matchday: number | null
+  public stage: Stage
+  public status: Status
+  public date: Date
+  public links: IFixtureLinks
 
   constructor(data: IFixtureJson) {
-    const [homeScore, awayScore] = this.getScores(data.score);
+    const [homeScore, awayScore] = this.getScores(data.score)
 
-    this.id = data.id;
+    this.id = data.id
     this.home = {
       goals: homeScore,
       team: data.homeTeam.name,
-    };
+    }
     this.away = {
       goals: awayScore,
       team: data.awayTeam.name,
-    };
-    this.matchday = data.matchday;
-    this.stage = data.stage;
-    this.status = data.status;
-    this.date = new Date(data.utcDate);
+    }
+    this.matchday = data.matchday
+    this.stage = data.stage
+    this.status = data.status
+    this.date = new Date(data.utcDate)
     this.links = {
       awayTeam: `${cfg.apiBaseUrl}/teams/${data.awayTeam.id}`,
       homeTeam: `${cfg.apiBaseUrl}/teams/${data.homeTeam.id}`,
       self: `${cfg.apiBaseUrl}/matches/${data.id}`,
-    };
+    }
   }
 
   public toRow(): Table.Cell[] {
-    let homeTeam = this.home.team;
+    let homeTeam = this.home.team
     if (this.home.goals > this.away.goals) {
-      homeTeam = pc.bold(homeTeam);
+      homeTeam = pc.bold(homeTeam)
     }
 
-    let awayTeam = this.away.team;
+    let awayTeam = this.away.team
     if (this.away.goals > this.home.goals) {
-      awayTeam = pc.bold(awayTeam);
+      awayTeam = pc.bold(awayTeam)
     }
 
-    let score = pc.bold(`${this.home.goals} - ${this.away.goals}`);
+    let score = pc.bold(`${this.home.goals} - ${this.away.goals}`)
     if (
-      [
-        Status.Scheduled,
-        Status.Timed,
-        Status.Cancelled,
-        Status.Postponed,
-      ].includes(this.status)
+      [Status.Scheduled, Status.Timed, Status.Cancelled, Status.Postponed].includes(this.status)
     ) {
-      score = '';
+      score = ''
     } else if (this.status === Status.InPlay) {
-      score = pc.green(score);
+      score = pc.green(score)
     }
 
     return [
@@ -167,52 +162,52 @@ export default class Fixture implements IRowable {
       statusDisplayString[this.status] ?? this.status,
       dayjs(this.date).format('ddd, MMM D YYYY h:mm A'),
       stageDisplayString[this.stage] ?? this.stage,
-    ];
+    ]
   }
 
   private getScores(score: IFixtureJson['score']): [number, number] {
     /* eslint-disable @typescript-eslint/no-non-null-assertion */
     // fullTime is set to 0 as soon as the match starts, we want to use the halfTime in that case
     if (score.fullTime.home != null && score.regularTime.home != null) {
-      return [score.fullTime.home, score.fullTime.away!];
+      return [score.fullTime.home, score.fullTime.away!]
     }
     if (score.regularTime.home != null) {
-      return [score.regularTime.home, score.regularTime.away!];
+      return [score.regularTime.home, score.regularTime.away!]
     }
     if (score.halfTime.home != null) {
-      return [score.halfTime.home, score.halfTime.away!];
+      return [score.halfTime.home, score.halfTime.away!]
     }
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
 
-    return [0, 0];
+    return [0, 0]
   }
 }
 
 export interface IFixtureJson {
-  id: number;
-  utcDate: Date;
-  status: Status;
-  matchday: number | null;
-  stage: Stage;
-  homeTeam: ITeamSide;
-  awayTeam: ITeamSide;
+  id: number
+  utcDate: Date
+  status: Status
+  matchday: number | null
+  stage: Stage
+  homeTeam: ITeamSide
+  awayTeam: ITeamSide
   score: {
-    winner: string | null;
-    duration: string;
-    fullTime: IScore;
-    halfTime: IScore;
-    regularTime: IScore;
-    extraTime?: IScore;
-    penalties?: IScore;
-  };
+    winner: string | null
+    duration: string
+    fullTime: IScore
+    halfTime: IScore
+    regularTime: IScore
+    extraTime?: IScore
+    penalties?: IScore
+  }
 }
 
 interface ITeamSide {
-  id: number;
-  name: string;
+  id: number
+  name: string
 }
 
 interface IScore {
-  home: number | null;
-  away: number | null;
+  home: number | null
+  away: number | null
 }

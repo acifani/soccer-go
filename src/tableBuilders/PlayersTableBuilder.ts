@@ -1,7 +1,7 @@
-import pc from 'picocolors';
-import Table from 'cli-table3';
-import { IPlayerJson, Player } from '../models';
-import { BaseTableBuilder } from './BaseTableBuilder';
+import pc from 'picocolors'
+import Table from 'cli-table3'
+import { IPlayerJson, Player } from '../models'
+import { BaseTableBuilder } from './BaseTableBuilder'
 
 export class PlayersTableBuilder extends BaseTableBuilder<IPlayerJson, Player> {
   public buildTableHeader(): Table.HorizontalTable {
@@ -13,6 +13,6 @@ export class PlayersTableBuilder extends BaseTableBuilder<IPlayerJson, Player> {
         pc.bold('Date of Birth'),
       ],
       style: { border: [], head: [] },
-    }) as Table.HorizontalTable;
+    }) as Table.HorizontalTable
   }
 }

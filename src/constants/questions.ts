@@ -1,17 +1,17 @@
-import { prompt } from 'enquirer';
-import { leagueCodes } from './leagues';
+import { prompt } from 'enquirer'
+import { leagueCodes } from './leagues'
 
 type Answers =
   | {
-      league: string;
-      main: 'Team';
-      teamName: string;
-      teamOptions: Array<'Fixtures' | 'Players'>;
+      league: string
+      main: 'Team'
+      teamName: string
+      teamOptions: Array<'Fixtures' | 'Players'>
     }
   | {
-      league: string;
-      main: 'Matchday' | 'Standings';
-    };
+      league: string
+      main: 'Matchday' | 'Standings'
+    }
 
 export async function questions(): Promise<Answers> {
   let answers: any = await prompt([
@@ -29,7 +29,7 @@ export async function questions(): Promise<Answers> {
       message: 'Choose a function',
       choices: ['Matchday', 'Standings', 'Team'],
     },
-  ]);
+  ])
 
   if (answers.main === 'Team') {
     const teamAnswers = await prompt([
@@ -44,13 +44,13 @@ export async function questions(): Promise<Answers> {
         message: 'Team info',
         choices: ['Fixtures', 'Players'],
       },
-    ]);
+    ])
 
     answers = {
       ...answers,
       ...teamAnswers,
-    };
+    }
   }
 
-  return answers as Answers;
+  return answers as Answers
 }

@@ -1,7 +1,7 @@
 export interface ILeague {
-  code: string;
-  name: string;
-  type: 'LEAGUE' | 'LEAGUE_CUP' | 'CUP' | 'PLAYOFFS';
+  code: string
+  name: string
+  type: 'LEAGUE' | 'LEAGUE_CUP' | 'CUP' | 'PLAYOFFS'
 }
 
 export const leagueCodes: ILeague[] = [
@@ -29,20 +29,20 @@ export const leagueCodes: ILeague[] = [
   { code: 'UCL', name: 'Conference League', type: 'CUP' },
   { code: 'EC', name: 'European Championship', type: 'CUP' },
   { code: 'WC', name: 'World Cup', type: 'CUP' },
-];
+]
 
 export const getLeagueByName = (name: string): ILeague => {
-  const candidate = leagueCodes.find((l) => l.name === name);
+  const candidate = leagueCodes.find((l) => l.name === name)
   if (candidate) {
-    return candidate;
+    return candidate
   }
-  throw new Error('League not found');
-};
+  throw new Error('League not found')
+}
 
 export const getLeagueByCode = (code: string): ILeague => {
-  const candidate = leagueCodes.find((l) => l.code === code);
+  const candidate = leagueCodes.find((l) => l.code === code)
   if (candidate) {
-    return candidate;
+    return candidate
   }
-  throw new Error('League not found');
-};
+  throw new Error('League not found')
+}

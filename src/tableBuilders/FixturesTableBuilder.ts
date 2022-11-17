@@ -1,12 +1,9 @@
-import pc from 'picocolors';
-import Table from 'cli-table3';
-import { Fixture, IFixtureJson } from '../models';
-import { BaseTableBuilder } from './BaseTableBuilder';
+import pc from 'picocolors'
+import Table from 'cli-table3'
+import { Fixture, IFixtureJson } from '../models'
+import { BaseTableBuilder } from './BaseTableBuilder'
 
-export class FixturesTableBuilder extends BaseTableBuilder<
-  IFixtureJson,
-  Fixture
-> {
+export class FixturesTableBuilder extends BaseTableBuilder<IFixtureJson, Fixture> {
   public buildTableHeader(): Table.HorizontalTable {
     return new Table({
       head: [
@@ -17,6 +14,6 @@ export class FixturesTableBuilder extends BaseTableBuilder<
         pc.bold('Stage'),
       ],
       style: { head: [], border: [] },
-    }) as Table.HorizontalTable;
+    }) as Table.HorizontalTable
   }
 }
