@@ -8,3 +8,4 @@ lib_test
 .idea/
 yarn-error.log
 .cache
+dist

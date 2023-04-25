@@ -1,0 +1,30 @@
+name: Bundle CLI
+
+on:
+  push:
+    branches:
+      - main
+      - 'build/executable'
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: build
+        run: npm ci && npm run build
+
+      - name: bundle
+        run: npm run bundle
+
+      - name: upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: soccer-go
+          path: dist/soccer-go
