@@ -9,3 +9,4 @@ lib_test
 yarn-error.log
 .cache
 dist
+.tool-versions

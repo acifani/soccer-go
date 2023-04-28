@@ -7,7 +7,7 @@ on:
       - 'build/executable'
 
 jobs:
-  bundle:
+  bundle-linux:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,10 +21,32 @@ jobs:
         run: npm ci && npm run build
 
       - name: bundle
-        run: npm run bundle
+        run: ./bundle-linux.sh
 
       - name: upload
         uses: actions/upload-artifact@v3
         with:
-          name: soccer-go
+          name: soccer-go-linux
+          path: dist/soccer-go
+
+  bundle-mac:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: build
+        run: npm ci && npm run build
+
+      - name: bundle
+        run: ./bundle-mac.sh
+
+      - name: upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: soccer-go-mac
           path: dist/soccer-go

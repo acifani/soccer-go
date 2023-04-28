@@ -29,7 +29,6 @@
   },
   "scripts": {
     "clean": "rimraf lib && rimraf coverage",
-    "bundle": "./bundle.sh",
     "format": "prettier --write \"{src,__tests__}/**/*.ts\"",
     "lint": "eslint --ignore-path .gitignore --ext .ts,.js ./src",
     "prepublishOnly": "npm run format && npm run build",
