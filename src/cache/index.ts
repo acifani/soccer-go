@@ -1,8 +1,9 @@
 import p from 'phin'
 import Cache from './Cache'
 import { JSONValue } from './CacheItem'
+import { getCacheDir } from '../utils/system-paths'
 
-const cache = new Cache(__dirname)
+const cache = new Cache(getCacheDir())
 
 export async function cachedApiCall(
   url: string,
