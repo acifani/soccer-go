@@ -6,7 +6,7 @@
 
 Requirements:
 
-- [Node.js](https://nodejs.org/en/) >= 8
+- [Node.js](https://nodejs.org/en/) >= 10.12.0
 - [football-data](https://www.football-data.org/) API key, which can be obtained [here](https://www.football-data.org/client/register)
 
 You can install **soccer-go** with `npm` or `yarn`:
