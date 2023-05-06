@@ -4,7 +4,7 @@ import { Fixture, IFixtureJson } from '../models'
 import { BaseTableBuilder } from './BaseTableBuilder'
 
 export class FixturesTableBuilder extends BaseTableBuilder<IFixtureJson, Fixture> {
-  public buildTableHeader(): Table.HorizontalTable {
+  public buildTableHeader(): Table.Table {
     return new Table({
       head: [
         pc.bold('Home - Away'),
@@ -14,6 +14,6 @@ export class FixturesTableBuilder extends BaseTableBuilder<IFixtureJson, Fixture
         pc.bold('Stage'),
       ],
       style: { head: [], border: [] },
-    }) as Table.HorizontalTable
+    })
   }
 }

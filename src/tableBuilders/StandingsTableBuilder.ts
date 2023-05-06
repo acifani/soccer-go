@@ -4,7 +4,7 @@ import { IStandingJson, Standing } from '../models'
 import { BaseTableBuilder } from './BaseTableBuilder'
 
 export class StandingsTableBuilder extends BaseTableBuilder<IStandingJson, Standing> {
-  public buildTableHeader(): Table.HorizontalTable {
+  public buildTableHeader(): Table.Table {
     return new Table({
       head: [
         pc.bold('#'),
@@ -20,6 +20,6 @@ export class StandingsTableBuilder extends BaseTableBuilder<IStandingJson, Stand
         pc.bold('Form'),
       ],
       style: { border: [], head: [] },
-    }) as Table.HorizontalTable
+    })
   }
 }

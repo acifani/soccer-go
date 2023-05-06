@@ -4,7 +4,7 @@ import { IPlayerJson, Player } from '../models'
 import { BaseTableBuilder } from './BaseTableBuilder'
 
 export class PlayersTableBuilder extends BaseTableBuilder<IPlayerJson, Player> {
-  public buildTableHeader(): Table.HorizontalTable {
+  public buildTableHeader(): Table.Table {
     return new Table({
       head: [
         pc.bold('Name'),
@@ -13,6 +13,6 @@ export class PlayersTableBuilder extends BaseTableBuilder<IPlayerJson, Player> {
         pc.bold('Date of Birth'),
       ],
       style: { border: [], head: [] },
-    }) as Table.HorizontalTable
+    })
   }
 }
