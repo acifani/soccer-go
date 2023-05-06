@@ -1,3 +1,5 @@
+import { ApplicationError, ErrorCode } from '../utils/errors'
+
 export interface ILeague {
   code: string
   name: string
@@ -36,7 +38,7 @@ export const getLeagueByName = (name: string): ILeague => {
   if (candidate) {
     return candidate
   }
-  throw new Error('League not found')
+  throw new ApplicationError(ErrorCode.LEAGUE_NOT_FOUND_BY_NAME, name)
 }
 
 export const getLeagueByCode = (code: string): ILeague => {
@@ -44,5 +46,5 @@ export const getLeagueByCode = (code: string): ILeague => {
   if (candidate) {
     return candidate
   }
-  throw new Error('League not found')
+  throw new ApplicationError(ErrorCode.LEAGUE_NOT_FOUND_BY_CODE, code)
 }

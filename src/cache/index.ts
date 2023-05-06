@@ -2,6 +2,7 @@ import p from 'phin'
 import Cache from './Cache'
 import { JSONValue } from './CacheItem'
 import { getCacheDir } from '../utils/system-paths'
+import { ApplicationError, ErrorCode } from '../utils/errors'
 
 const cache = new Cache(getCacheDir())
 
@@ -27,7 +28,17 @@ export async function cachedApiCall(
 
   if (response.statusCode == null || response.statusCode >= 400) {
     const error = response.body as any
-    throw Error(error.message as string)
+    switch (response.statusCode) {
+      case 400:
+        if (error.message === 'Your API token is invalid.') {
+          throw new ApplicationError(ErrorCode.API_KEY_INVALID)
+        }
+        throw new ApplicationError(ErrorCode.API_RESPONSE_400, error.message)
+      case 429:
+        throw new ApplicationError(ErrorCode.API_RESPONSE_429)
+      default:
+        throw new ApplicationError(ErrorCode.API_RESPONSE_500)
+    }
   }
 
   const data = response.body as JSONValue

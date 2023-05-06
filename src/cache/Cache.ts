@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import cfg from '../config'
 import CacheItem from './CacheItem'
+import { ApplicationError, ErrorCode } from '../utils/errors'
 
 type Data = Map<string, CacheItem>
 
@@ -19,7 +20,7 @@ export default class Cache {
         this.data = new Map<string, CacheItem>()
         fs.writeFileSync(this.file, JSON.stringify(Array.from(this.data)))
       } else {
-        throw error
+        throw new ApplicationError(ErrorCode.CACHE_WRITE)
       }
     }
   }
