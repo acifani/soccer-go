@@ -9,12 +9,14 @@ export const printTeam = async (
   leagueCode: string,
 ): Promise<void> => {
   const team = await fetchTeam(teamName, leagueCode)
-  cfonts.say(team.shortName || team.name)
 
   if (options.includes('Fixtures')) {
     const fixturesData = await api.getTeamFixtures(team)
     const table = new FixturesTableBuilder().buildTable(fixturesData, Fixture)
+    cfonts.say(team.shortName || team.name)
     console.log(table.toString())
+  } else {
+    cfonts.say(team.shortName || team.name)
   }
 
   if (options.includes('Players')) {

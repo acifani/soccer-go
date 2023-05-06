@@ -7,8 +7,8 @@ import { StandingsTableBuilder } from '../tableBuilders'
 
 export const printStandings = async (leagueCode: string): Promise<void> => {
   const league = getLeagueByCode(leagueCode)
-  cfonts.say(league.name)
   const standingsData = await api.getStandings(leagueCode)
+  cfonts.say(league.name)
   for (const standing of standingsData) {
     if (standing.group) {
       const [, group] = standing.group.split('_')

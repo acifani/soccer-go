@@ -6,8 +6,8 @@ import { FixturesTableBuilder } from '../tableBuilders'
 
 export const printMatchday = async (leagueCode: string): Promise<void> => {
   const league = getLeagueByCode(leagueCode)
-  cfonts.say(league.name)
   const fixturesData = await api.getMatchday(league.code)
+  cfonts.say(league.name)
   const table = new FixturesTableBuilder().buildTable(fixturesData, Fixture)
   console.log(table.toString())
 }
