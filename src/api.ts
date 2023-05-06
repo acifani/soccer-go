@@ -57,11 +57,12 @@ export async function getTeamId(teamName: string, leagueCode: string): Promise<n
 }
 
 async function callApi(url: string, placeholder: string, expiry: number): Promise<any> {
-  if (!cfg.authToken) {
-    apiKeyError()
+  const spinner = createSpinner(placeholder).start()
+  if (!cfg.authToken && !process.env.CI) {
+    spinner.error()
+    throw new ApplicationError(ErrorCode.API_KEY_MISSING)
   }
 
-  const spinner = createSpinner(placeholder).start()
   try {
     const response = await cachedApiCall(url, cfg.authToken, expiry)
     spinner.success().clear()
@@ -77,12 +78,4 @@ async function callApi(url: string, placeholder: string, expiry: number): Promis
     }
     throw error
   }
-}
-
-function apiKeyError(): void {
-  if (process.env.CI) {
-    return
-  }
-
-  throw new ApplicationError(ErrorCode.API_KEY_MISSING)
 }
