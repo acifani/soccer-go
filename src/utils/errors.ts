@@ -92,7 +92,7 @@ export const formatErrorForPrinting = (code: ErrorCode, extraData?: string): str
       return `There was an issue when attempting to write data to cache.\n`
 
     case ErrorCode.NETWORK_UNREACHABLE:
-      return 'Could not contact the server.\nPlease check your connection settings.\n'
+      return 'Could not contact the server.\nPlease check your internet connection.\n'
   }
 }
 
