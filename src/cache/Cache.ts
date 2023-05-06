@@ -2,25 +2,27 @@ import fs from 'fs'
 import path from 'path'
 import cfg from '../config'
 import CacheItem from './CacheItem'
-import { ApplicationError, ErrorCode } from '../utils/errors'
+import { isErrorNodeSystemError } from '../utils/errors'
 
 type Data = Map<string, CacheItem>
 
 export default class Cache {
   private file: string
-  private data: Data
+  private data: Data = new Map<string, CacheItem>()
 
   constructor(dir: string) {
     this.file = path.join(dir, cfg.cache.fileName)
     try {
       const buffer = fs.readFileSync(this.file)
       this.data = new Map(JSON.parse(buffer.toString('utf-8')))
-    } catch (error: any) {
-      if (error.code === 'ENOENT') {
+    } catch (error: unknown) {
+      if (isErrorNodeSystemError(error) && error.code === 'ENOENT') {
+        // Cache file does not exist, so create it.
         this.data = new Map<string, CacheItem>()
         fs.writeFileSync(this.file, JSON.stringify(Array.from(this.data)))
       } else {
-        throw new ApplicationError(ErrorCode.CACHE_WRITE)
+        // Some other error occurred but since it's about caching
+        // we will ignore it and let the application work without it.
       }
     }
   }

@@ -21,7 +21,6 @@ export enum ErrorCode {
   LEAGUE_NOT_FOUND_BY_NAME,
   LEAGUE_NOT_FOUND_BY_CODE,
   TEAM_NOT_FOUND,
-  CACHE_WRITE,
   NETWORK_UNREACHABLE,
 }
 
@@ -36,7 +35,6 @@ export class ApplicationError extends Error {
   constructor(code: ErrorCode.TEAM_NOT_FOUND, teamName: string)
   constructor(code: ErrorCode.LEAGUE_NOT_FOUND_BY_NAME, leagueName: string)
   constructor(code: ErrorCode.LEAGUE_NOT_FOUND_BY_CODE, leagueCode: string)
-  constructor(code: ErrorCode.CACHE_WRITE)
   constructor(code: ErrorCode.NETWORK_UNREACHABLE)
   constructor(public code: ErrorCode, public extraData?: string) {
     super()
@@ -87,9 +85,6 @@ export const formatErrorForPrinting = (code: ErrorCode, extraData?: string): str
 
     case ErrorCode.TEAM_NOT_FOUND:
       return `Could not find team "${extraData}".\n`
-
-    case ErrorCode.CACHE_WRITE:
-      return `There was an issue when attempting to write data to cache.\n`
 
     case ErrorCode.NETWORK_UNREACHABLE:
       return 'Could not contact the server.\nPlease check your internet connection.\n'
