@@ -14,3 +14,7 @@ updates:
         # Starting from version 8, Commander.js bumped their min Node.js version to 12.
       - dependency-name: "commander"
         versions: [">=8.0.0"]
+
+      # Starting from version 4, rimraf bumped their min Node.js version to 14.
+      - dependency-name: "rimraf"
+        versions: [">=4.0.0"]
