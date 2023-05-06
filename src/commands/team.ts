@@ -24,12 +24,7 @@ export const printTeam = async (
 }
 
 async function fetchTeam(team: string, league: string): Promise<Team> {
-  try {
-    const teamId = await api.getTeamId(team, league)
-    const teamData = await api.getTeam(teamId)
-    return new Team(teamData)
-  } catch (error: any) {
-    console.log(error.message)
-    process.exit(1)
-  }
+  const teamId = await api.getTeamId(team, league)
+  const teamData = await api.getTeam(teamId)
+  return new Team(teamData)
 }

@@ -3,6 +3,7 @@ import { createSpinner } from 'nanospinner'
 import { cachedApiCall } from './cache'
 import cfg from './config'
 import { IFixtureJson, IStandingsJson, ITeamJson, Team } from './models'
+import { ApplicationError, ErrorCode } from './utils/errors'
 
 export async function getMatchday(leagueCode: string): Promise<IFixtureJson[]> {
   const start = dayjs().subtract(3, 'day').format('YYYY-MM-DD')
@@ -67,22 +68,8 @@ async function callApi(url: string, placeholder: string, expiry: number): Promis
     return response
   } catch (error) {
     spinner.error()
-    handleError(error)
+    throw error
   }
-}
-
-function handleError(error: any): void {
-  if (error.response) {
-    console.log(error.response.data.error)
-    console.log(error.response.status)
-  } else if (error.request) {
-    console.log(error.request)
-  } else if (error.message) {
-    console.log('Error', error.message)
-  } else {
-    console.log(error)
-  }
-  process.exit(1)
 }
 
 function apiKeyError(): void {
@@ -90,13 +77,5 @@ function apiKeyError(): void {
     return
   }
 
-  console.error(`
-  SOCCER_GO_API_KEY environment variable not set.
-
-      $ export SOCCER_GO_API_KEY=<football_data_api_key>
-
-  You can get your own API key over at
-  https://www.football-data.org/client/register
-  `)
-  process.exit(1)
+  throw new ApplicationError(ErrorCode.API_KEY_MISSING)
 }
