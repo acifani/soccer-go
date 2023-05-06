@@ -3,6 +3,7 @@ import { createSpinner } from 'nanospinner'
 import { cachedApiCall } from './cache'
 import cfg from './config'
 import { IFixtureJson, IStandingsJson, ITeamJson, Team } from './models'
+import { ApplicationError, ErrorCode, isErrorNodeSystemError } from './utils/errors'
 
 export async function getMatchday(leagueCode: string): Promise<IFixtureJson[]> {
   const start = dayjs().subtract(3, 'day').format('YYYY-MM-DD')
@@ -50,53 +51,31 @@ export async function getTeamId(teamName: string, leagueCode: string): Promise<n
   const teams = await getCompetitionTeams(leagueCode)
   const team = teams.find((t) => t.name.toLowerCase().includes(teamName.toLowerCase().trim()))
   if (team == null) {
-    throw new Error('Team not found.')
+    throw new ApplicationError(ErrorCode.TEAM_NOT_FOUND, teamName)
   }
   return team.id
 }
 
 async function callApi(url: string, placeholder: string, expiry: number): Promise<any> {
-  if (!cfg.authToken) {
-    apiKeyError()
+  const spinner = createSpinner(placeholder).start()
+  if (!cfg.authToken && !process.env.CI) {
+    spinner.error()
+    throw new ApplicationError(ErrorCode.API_KEY_MISSING)
   }
 
-  const spinner = createSpinner(placeholder).start()
   try {
     const response = await cachedApiCall(url, cfg.authToken, expiry)
     spinner.success().clear()
     return response
-  } catch (error) {
+  } catch (error: unknown) {
     spinner.error()
-    handleError(error)
+    if (
+      isErrorNodeSystemError(error) &&
+      error.code === 'ENOTFOUND' &&
+      error.syscall === 'getaddrinfo'
+    ) {
+      throw new ApplicationError(ErrorCode.NETWORK_UNREACHABLE)
+    }
+    throw error
   }
-}
-
-function handleError(error: any): void {
-  if (error.response) {
-    console.log(error.response.data.error)
-    console.log(error.response.status)
-  } else if (error.request) {
-    console.log(error.request)
-  } else if (error.message) {
-    console.log('Error', error.message)
-  } else {
-    console.log(error)
-  }
-  process.exit(1)
-}
-
-function apiKeyError(): void {
-  if (process.env.CI) {
-    return
-  }
-
-  console.error(`
-  SOCCER_GO_API_KEY environment variable not set.
-
-      $ export SOCCER_GO_API_KEY=<football_data_api_key>
-
-  You can get your own API key over at
-  https://www.football-data.org/client/register
-  `)
-  process.exit(1)
 }

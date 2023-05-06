@@ -3,6 +3,7 @@
 import pc from 'picocolors'
 import program from 'commander'
 import { checkForUpdates } from './utils/update-check'
+import { ApplicationError, ErrorCode, handleCommandError } from './utils/errors'
 import pkg from '../package.json'
 import * as commands from './commands'
 import { getLeagueByName } from './constants/leagues'
@@ -14,17 +15,17 @@ const askQuestions = async (): Promise<void> => {
     const league = getLeagueByName(answers.league)
     switch (answers.main) {
       case 'Matchday':
-        commands.printMatchday(league.code)
+        await commands.printMatchday(league.code)
         break
       case 'Standings':
-        commands.printStandings(league.code)
+        await commands.printStandings(league.code)
         break
       case 'Team':
-        commands.printTeam(answers.teamName, answers.teamOptions, league.code)
+        await commands.printTeam(answers.teamName, answers.teamOptions, league.code)
         break
     }
   } catch (error) {
-    console.log(error)
+    handleCommandError(error)
   }
 }
 
@@ -42,7 +43,7 @@ const askQuestions = async (): Promise<void> => {
 
         ${pc.green('sgo s SA')}    Print Serie A table`),
     )
-    .action((league: string) => commands.printStandings(league))
+    .action((league: string) => commands.printStandings(league).catch(handleCommandError))
 
   program
     .command('matchday <league>')
@@ -55,7 +56,7 @@ const askQuestions = async (): Promise<void> => {
 
         ${pc.green('sgo m SA')}    Print Serie A matchday`),
     )
-    .action((league: string) => commands.printMatchday(league))
+    .action((league: string) => commands.printMatchday(league).catch(handleCommandError))
 
   program
     .command('team <league> <team>')
@@ -72,16 +73,13 @@ const askQuestions = async (): Promise<void> => {
         ${pc.green('sgo t PD "real madrid" -p')}    Print Real Madrid players`),
     )
     .action((league: string, team: string, opts: { fixtures: boolean; players: boolean }) =>
-      commands.printTeam(
-        team,
-        [opts.fixtures ? 'Fixtures' : '', opts.players ? 'Players' : ''],
-        league,
-      ),
+      commands
+        .printTeam(team, [opts.fixtures ? 'Fixtures' : '', opts.players ? 'Players' : ''], league)
+        .catch(handleCommandError),
     )
 
   program.command('*').action((cmd) => {
-    console.log(`Unknown command "${cmd}".`)
-    process.exit(1)
+    handleCommandError(new ApplicationError(ErrorCode.COMMAND_UNKNOWN, cmd))
   })
 
   if (process.argv.length === 2) {
@@ -90,6 +88,8 @@ const askQuestions = async (): Promise<void> => {
 
   program.parse(process.argv)
 })()
+
+process.on('uncaughtException', handleCommandError)
 
 process.on('beforeExit', async () => {
   await checkForUpdates(pkg)

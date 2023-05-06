@@ -9,12 +9,14 @@ export const printTeam = async (
   leagueCode: string,
 ): Promise<void> => {
   const team = await fetchTeam(teamName, leagueCode)
-  cfonts.say(team.shortName || team.name)
 
   if (options.includes('Fixtures')) {
     const fixturesData = await api.getTeamFixtures(team)
     const table = new FixturesTableBuilder().buildTable(fixturesData, Fixture)
+    cfonts.say(team.shortName || team.name)
     console.log(table.toString())
+  } else {
+    cfonts.say(team.shortName || team.name)
   }
 
   if (options.includes('Players')) {
@@ -24,12 +26,7 @@ export const printTeam = async (
 }
 
 async function fetchTeam(team: string, league: string): Promise<Team> {
-  try {
-    const teamId = await api.getTeamId(team, league)
-    const teamData = await api.getTeam(teamId)
-    return new Team(teamData)
-  } catch (error: any) {
-    console.log(error.message)
-    process.exit(1)
-  }
+  const teamId = await api.getTeamId(team, league)
+  const teamData = await api.getTeam(teamId)
+  return new Team(teamData)
 }
