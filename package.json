@@ -24,8 +24,8 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "bin": {
-    "soccer-go": "lib/index.js",
-    "sgo": "lib/index.js"
+    "soccer-go": "lib/src/index.js",
+    "sgo": "lib/src/index.js"
   },
   "scripts": {
     "clean": "rimraf lib && rimraf coverage",
