@@ -27,7 +27,7 @@ export async function cachedApiCall(
   })
 
   if (response.statusCode == null || response.statusCode >= 400) {
-    const error = response.body as any
+    const error = response.body as { message: string }
     switch (response.statusCode) {
       case 400:
         if (error.message === 'Your API token is invalid.') {

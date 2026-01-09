@@ -14,7 +14,7 @@ type Answers =
     }
 
 export async function questions(): Promise<Answers> {
-  let answers: any = await prompt([
+  let answers = await prompt<Answers>([
     {
       type: 'autocomplete',
       name: 'league',

@@ -36,7 +36,10 @@ export class ApplicationError extends Error {
   constructor(code: ErrorCode.LEAGUE_NOT_FOUND_BY_NAME, leagueName: string)
   constructor(code: ErrorCode.LEAGUE_NOT_FOUND_BY_CODE, leagueCode: string)
   constructor(code: ErrorCode.NETWORK_UNREACHABLE)
-  constructor(public code: ErrorCode, public extraData?: string) {
+  constructor(
+    public code: ErrorCode,
+    public extraData?: string,
+  ) {
     super()
   }
 }

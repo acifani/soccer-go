@@ -1,4 +1,4 @@
-import Cache from './../src/cache/Cache'
+import Cache from './Cache'
 
 const filePath = process.cwd()
 
