@@ -1,5 +1,6 @@
 export { default as Fixture } from './Fixture'
 export type { IFixtureJson } from './Fixture'
+export { default as FixtureDetails } from './FixtureDetails'
 export { default as Player } from './Player'
 export type { IPlayerJson } from './Player'
 export { default as Team } from './Team'

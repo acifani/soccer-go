@@ -86,9 +86,17 @@ Check the [API coverage](https://www.football-data.org/coverage) for the complet
 
 #### Matchday
 
-**`$ soccer-go matchday <league>`**
+**`$ soccer-go matchday <league> [options]`**
 
-> Example: `$ soccer-go matchday SA`
+##### Options
+
+- `--details`, `-d`: Show additional match details including referee information
+
+> Examples:
+>
+> `$ soccer-go matchday SA`
+>
+> `$ soccer-go matchday PL --details`
 
 <img src="./matchday.png" width="800" />
 

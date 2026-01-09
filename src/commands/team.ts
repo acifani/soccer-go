@@ -1,12 +1,22 @@
 import cfonts from 'cfonts'
 import pc from 'picocolors'
 import * as api from '../api'
-import { Fixture, Player, Team } from '../models'
-import { FixturesTableBuilder, PlayersTableBuilder } from '../tableBuilders'
+import { Fixture, FixtureDetails, Player, Team } from '../models'
+import {
+  FixtureDetailsTableBuilder,
+  FixturesTableBuilder,
+  PlayersTableBuilder,
+} from '../tableBuilders'
+
+export interface TeamOptions {
+  players?: boolean
+  fixtures?: boolean
+  details?: boolean
+}
 
 export const printTeam = async (
   teamName: string,
-  options: string[],
+  options: TeamOptions,
   leagueCode: string,
 ): Promise<void> => {
   const team = await fetchTeam(teamName, leagueCode)
@@ -14,13 +24,18 @@ export const printTeam = async (
   cfonts.say(team.shortName || team.name)
   printTeamDetails(team)
 
-  if (options.includes('Fixtures')) {
+  if (options.fixtures) {
     const fixturesData = await api.getTeamFixtures(team)
-    const table = new FixturesTableBuilder().buildTable(fixturesData, Fixture)
-    console.log(table.toString())
+    if (options.details) {
+      const table = new FixtureDetailsTableBuilder().buildTable(fixturesData, FixtureDetails)
+      console.log(table.toString())
+    } else {
+      const table = new FixturesTableBuilder().buildTable(fixturesData, Fixture)
+      console.log(table.toString())
+    }
   }
 
-  if (options.includes('Players')) {
+  if (options.players) {
     const table = new PlayersTableBuilder().buildTable(team.squad, Player)
     console.log(table.toString())
   }

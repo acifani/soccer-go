@@ -1,5 +1,6 @@
 export { PlayersTableBuilder } from './PlayersTableBuilder'
 export { FixturesTableBuilder } from './FixturesTableBuilder'
+export { FixtureDetailsTableBuilder } from './FixtureDetailsTableBuilder'
 export { StandingsTableBuilder } from './StandingsTableBuilder'
 export type { IRowable } from './BaseTableBuilder'
 export { BaseTableBuilder } from './BaseTableBuilder'

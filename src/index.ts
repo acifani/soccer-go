@@ -14,16 +14,16 @@ const askQuestions = async (): Promise<void> => {
     const answers = await questions()
     const league = getLeagueByName(answers.league)
     switch (answers.main) {
-      case 'Matchday':
+      case 'matchday':
         await commands.printMatchday(league.code)
         break
-      case 'Standings':
+      case 'standings':
         await commands.printStandings(league.code)
         break
-      case 'Scorers':
+      case 'scorers':
         await commands.printScorers(league.code)
         break
-      case 'Team':
+      case 'team':
         await commands.printTeam(answers.teamName, answers.teamOptions, league.code)
         break
     }
@@ -85,14 +85,18 @@ Example:
     .alias('m')
     .argument('<league>', 'League code (e.g., PL, SA, BL1)')
     .description('Get matchday fixtures for a given league')
+    .option('-d, --details', 'Include additional details (e.g., referee)')
     .addHelpText(
       'after',
       `
 Example:
-  ${pc.green('sgo m SA')}    Print Serie A matchday
+  ${pc.green('sgo m SA')}          Print Serie A matchday
+  ${pc.green('sgo m PL --details')} Print with additional details (referee)
 `,
     )
-    .action((league) => commands.printMatchday(league).catch(handleCommandError))
+    .action((league, opts) =>
+      commands.printMatchday(league, opts.details).catch(handleCommandError),
+    )
 
   program
     .command('scorers')
@@ -114,8 +118,9 @@ Example:
     .argument('<league>', 'League code (e.g., PL, SA, BL1)')
     .argument('<team>', 'Team name (use quotes for multi-word names)')
     .description('Get team information, fixtures, and players')
-    .option('-f, --fixtures', 'include fixtures')
-    .option('-p, --players', 'include players')
+    .option('-f, --fixtures', 'Include fixtures')
+    .option('-p, --players', 'Include player infos')
+    .option('-d, --details', 'Include additional details (e.g., referee)')
     .addHelpText(
       'after',
       `
@@ -125,9 +130,7 @@ Example:
 `,
     )
     .action((league, team, opts) =>
-      commands
-        .printTeam(team, [opts.fixtures ? 'Fixtures' : '', opts.players ? 'Players' : ''], league)
-        .catch(handleCommandError),
+      commands.printTeam(team, opts, league).catch(handleCommandError),
     )
 
   program.parse(process.argv)

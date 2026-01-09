@@ -52,8 +52,22 @@ describe('printMatchday', () => {
 
   it('should fetch fixtures and display table', async () => {
     const mockFixtures = [
-      { id: 1, status: 'FINISHED' },
-      { id: 2, status: 'SCHEDULED' },
+      {
+        id: 1,
+        status: 'FINISHED',
+        homeTeam: { id: 1, name: 'Team A' },
+        awayTeam: { id: 2, name: 'Team B' },
+        utcDate: new Date(),
+        matchday: 1,
+        stage: 'REGULAR_SEASON',
+        referees: [],
+        score: {
+          winner: null,
+          duration: 'REGULAR',
+          fullTime: { home: 2, away: 1 },
+          halfTime: { home: 1, away: 0 },
+        },
+      },
     ]
     mockGetMatchday.mockResolvedValue(mockFixtures as any)
 
@@ -88,7 +102,24 @@ describe('printMatchday', () => {
   })
 
   it('should build table and print it', async () => {
-    const mockFixtures = [{ id: 1 }]
+    const mockFixtures = [
+      {
+        id: 1,
+        status: 'SCHEDULED',
+        homeTeam: { id: 1, name: 'Team A' },
+        awayTeam: { id: 2, name: 'Team B' },
+        utcDate: new Date(),
+        matchday: 1,
+        stage: 'REGULAR_SEASON',
+        referees: [],
+        score: {
+          winner: null,
+          duration: 'REGULAR',
+          fullTime: { home: null, away: null },
+          halfTime: { home: null, away: null },
+        },
+      },
+    ]
     mockGetMatchday.mockResolvedValue(mockFixtures as any)
     mockTable.toString.mockReturnValue('custom table output')
 

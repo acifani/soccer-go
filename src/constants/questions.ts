@@ -1,21 +1,21 @@
 import { search, select, input, checkbox } from '@inquirer/prompts'
 import cfonts from 'cfonts'
 import { leagueCodes } from './leagues'
+import { TeamOptions } from '../commands/team'
 
 type Answers =
   | {
       league: string
-      main: 'Team'
+      main: 'team'
       teamName: string
-      teamOptions: Array<'Fixtures' | 'Players'>
+      teamOptions: TeamOptions
     }
   | {
       league: string
-      main: 'Matchday' | 'Standings' | 'Scorers'
+      main: 'matchday' | 'standings' | 'scorers'
     }
 
 export async function questions(): Promise<Answers> {
-  // Display banner
   cfonts.say('SOCCER-GO', {
     font: 'tiny',
     colors: ['green'],
@@ -40,15 +40,15 @@ export async function questions(): Promise<Answers> {
   const main = await select({
     message: 'Choose a function',
     choices: [
-      { name: 'Matchday', value: 'Matchday' },
-      { name: 'Standings', value: 'Standings' },
-      { name: 'Top Scorers', value: 'Scorers' },
-      { name: 'Team info', value: 'Team' },
+      { name: 'Matchday', value: 'matchday' },
+      { name: 'Standings', value: 'standings' },
+      { name: 'Top Scorers', value: 'scorers' },
+      { name: 'Team info', value: 'team' },
     ],
   })
 
   // Conditional team prompts
-  if (main === 'Team') {
+  if (main === 'team') {
     const teamName = await input({
       message: 'Team name',
     })
@@ -56,8 +56,9 @@ export async function questions(): Promise<Answers> {
     const teamOptions = await checkbox({
       message: 'Team info',
       choices: [
-        { name: 'Fixtures', value: 'Fixtures' },
-        { name: 'Players', value: 'Players' },
+        { name: 'Fixtures', value: 'fixtures' },
+        { name: 'Players', value: 'players' },
+        { name: 'Details', value: 'details' },
       ],
     })
 
@@ -65,12 +66,16 @@ export async function questions(): Promise<Answers> {
       league,
       main,
       teamName,
-      teamOptions: teamOptions as Array<'Fixtures' | 'Players'>,
+      teamOptions: {
+        players: teamOptions.includes('players'),
+        fixtures: teamOptions.includes('fixtures'),
+        details: teamOptions.includes('details'),
+      },
     }
   }
 
   return {
     league,
-    main: main as 'Matchday' | 'Standings' | 'Scorers',
+    main: main as 'matchday' | 'standings' | 'scorers',
   }
 }

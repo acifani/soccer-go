@@ -113,6 +113,7 @@ export default class Fixture implements IRowable {
   public stage: Stage
   public status: Status
   public date: Date
+  public referee: IReferee | null
   public links: IFixtureLinks
 
   constructor(data: IFixtureJson) {
@@ -131,6 +132,7 @@ export default class Fixture implements IRowable {
     this.stage = data.stage
     this.status = data.status
     this.date = new Date(data.utcDate)
+    this.referee = data.referees?.find((r) => r.type === 'REFEREE') || null
     this.links = {
       awayTeam: `${cfg.apiBaseUrl}/teams/${data.awayTeam.id}`,
       homeTeam: `${cfg.apiBaseUrl}/teams/${data.homeTeam.id}`,
@@ -191,6 +193,8 @@ export interface IFixtureJson {
   stage: Stage
   homeTeam: ITeamSide
   awayTeam: ITeamSide
+  venue: string | null
+  referees?: IReferee[]
   score: {
     winner: string | null
     duration: string
@@ -200,6 +204,13 @@ export interface IFixtureJson {
     extraTime?: Score
     penalties?: Score
   }
+}
+
+export interface IReferee {
+  id: number
+  name: string
+  type: string
+  nationality: string
 }
 
 interface ITeamSide {

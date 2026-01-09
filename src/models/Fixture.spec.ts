@@ -9,6 +9,14 @@ describe('Fixture', () => {
     stage: Stage.RegularSeason,
     homeTeam: { id: 57, name: 'Arsenal FC' },
     awayTeam: { id: 61, name: 'Chelsea FC' },
+    referees: [
+      {
+        id: 11580,
+        name: 'Anthony Taylor',
+        type: 'REFEREE',
+        nationality: 'England',
+      },
+    ],
     score: {
       winner: null,
       duration: 'REGULAR',
@@ -43,6 +51,46 @@ describe('Fixture', () => {
       const fixture = new Fixture(fixtureData)
 
       expect(fixture.matchday).toBeNull()
+    })
+
+    it('should extract referee from referees array', () => {
+      const fixture = new Fixture(baseFixture)
+
+      expect(fixture.referee).toEqual({
+        id: 11580,
+        name: 'Anthony Taylor',
+        type: 'REFEREE',
+        nationality: 'England',
+      })
+    })
+
+    it('should handle missing referees array', () => {
+      const fixtureData = { ...baseFixture, referees: undefined }
+      const fixture = new Fixture(fixtureData)
+
+      expect(fixture.referee).toBeNull()
+    })
+
+    it('should handle empty referees array', () => {
+      const fixtureData = { ...baseFixture, referees: [] }
+      const fixture = new Fixture(fixtureData)
+
+      expect(fixture.referee).toBeNull()
+    })
+
+    it('should extract only REFEREE type from referees', () => {
+      const fixtureData = {
+        ...baseFixture,
+        referees: [
+          { id: 1, name: 'Assistant 1', type: 'ASSISTANT', nationality: 'Spain' },
+          { id: 2, name: 'Main Ref', type: 'REFEREE', nationality: 'Italy' },
+          { id: 3, name: 'Assistant 2', type: 'ASSISTANT', nationality: 'France' },
+        ],
+      }
+      const fixture = new Fixture(fixtureData)
+
+      expect(fixture.referee?.name).toBe('Main Ref')
+      expect(fixture.referee?.nationality).toBe('Italy')
     })
   })
 
