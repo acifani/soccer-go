@@ -20,6 +20,9 @@ const askQuestions = async (): Promise<void> => {
       case 'Standings':
         await commands.printStandings(league.code)
         break
+      case 'Scorers':
+        await commands.printScorers(league.code)
+        break
       case 'Team':
         await commands.printTeam(answers.teamName, answers.teamOptions, league.code)
         break
@@ -50,6 +53,7 @@ const askQuestions = async (): Promise<void> => {
 Examples:
   ${pc.green('sgo')}                       Run in interactive mode
   ${pc.green('sgo standings PL')}          Show Premier League table
+  ${pc.green('sgo scorers PL')}            Show Premier League top scorers
   ${pc.green('sgo matchday SA')}           Show Serie A matchday fixtures
   ${pc.green('sgo team PL arsenal -f')}    Show Arsenal fixtures
 
@@ -89,6 +93,20 @@ Example:
 `,
     )
     .action((league) => commands.printMatchday(league).catch(handleCommandError))
+
+  program
+    .command('scorers')
+    .alias('sc')
+    .argument('<league>', 'League code (e.g., PL, SA, BL1)')
+    .description('Get top scorers for a given league')
+    .addHelpText(
+      'after',
+      `
+Example:
+  ${pc.green('sgo sc PL')}    Print Premier League top scorers
+`,
+    )
+    .action((league) => commands.printScorers(league).catch(handleCommandError))
 
   program
     .command('team')

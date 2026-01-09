@@ -33,10 +33,11 @@ Just launch `soccer-go`, you will be then prompted for info.
 
 ### CLI
 
-There are 3 main commands:
+There are 4 main commands:
 
 - [`matchday` or `m`](#matchday)
 - [`standings` or `s`](#league-standings)
+- [`scorers` or `sc`](#top-scorers)
 - [`team` or `t`](#team-fixtures)
 
 Each of these commands will take the league code as first argument. Common ones are
@@ -50,6 +51,7 @@ Each of these commands will take the league code as first argument. Common ones 
 ### Supported Leagues
 
 **Free tier** (12 leagues):
+
 - PL - Premier League (England)
 - ELC - Championship (England)
 - PD - Primera División (Spain)
@@ -97,6 +99,16 @@ Check the [API coverage](https://www.football-data.org/coverage) for the complet
 > Example: `$ soccer-go standings PL`
 
 <img src="./standings.png" width="800" />
+
+#### Top scorers
+
+**`$ soccer-go scorers <league>`**
+
+Display the top goal scorers for a given league, including goals, assists, penalties, and matches played.
+
+> Example: `$ soccer-go scorers PL`
+
+<img src="./scorers.png" width="800" />
 
 #### Team fixtures
 

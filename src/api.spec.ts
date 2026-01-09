@@ -5,6 +5,7 @@ import {
   getCompetitionTeams,
   getStandings,
   getTeamId,
+  getScorers,
 } from './api'
 import { ApplicationError, ErrorCode } from './utils/errors'
 import { Team } from './models'
@@ -49,6 +50,7 @@ describe('API functions', () => {
       cache: {
         expiry: {
           fixtures: 300000,
+          scorers: 3600000,
           standings: 3600000,
           team: 604800000,
           competition: 2592000000,
@@ -256,6 +258,67 @@ describe('API functions', () => {
         code: ErrorCode.TEAM_NOT_FOUND,
         extraData: 'NonExistent',
       })
+    })
+  })
+
+  describe('getScorers', () => {
+    it('should fetch top scorers for a league', async () => {
+      const mockScorersResponse = {
+        count: 2,
+        scorers: [
+          {
+            player: { id: 38101, name: 'Erling Haaland' },
+            team: { id: 65, name: 'Manchester City FC', shortName: 'Man City' },
+            goals: 20,
+            assists: 4,
+            penalties: 2,
+            playedMatches: 21,
+          },
+          {
+            player: { id: 175994, name: 'Thiago Rodrigues' },
+            team: { id: 402, name: 'Brentford FC', shortName: 'Brentford' },
+            goals: 16,
+            assists: 1,
+            penalties: 5,
+            playedMatches: 21,
+          },
+        ],
+      }
+      mockCachedApiCall.mockResolvedValue(mockScorersResponse)
+
+      const result = await getScorers('PL')
+
+      expect(result).toEqual(mockScorersResponse)
+      expect(mockCachedApiCall).toHaveBeenCalledWith(
+        'https://api.football-data.org/v4/competitions/PL/scorers',
+        'test-token',
+        3600000,
+      )
+      expect(mockSpinner.success).toHaveBeenCalled()
+      expect(mockSpinner.clear).toHaveBeenCalled()
+    })
+
+    it('should show spinner during API call', async () => {
+      const mockResponse = { count: 0, scorers: [] }
+      mockCachedApiCall.mockResolvedValue(mockResponse)
+
+      await getScorers('SA')
+
+      expect(mockCreateSpinner).toHaveBeenCalledWith('Fetching top scorers...')
+      expect(mockSpinner.start).toHaveBeenCalled()
+    })
+
+    it('should fetch scorers for different leagues', async () => {
+      const mockResponse = { count: 1, scorers: [] }
+      mockCachedApiCall.mockResolvedValue(mockResponse)
+
+      await getScorers('BL1')
+
+      expect(mockCachedApiCall).toHaveBeenCalledWith(
+        'https://api.football-data.org/v4/competitions/BL1/scorers',
+        'test-token',
+        3600000,
+      )
     })
   })
 

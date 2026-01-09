@@ -11,7 +11,7 @@ type Answers =
     }
   | {
       league: string
-      main: 'Matchday' | 'Standings'
+      main: 'Matchday' | 'Standings' | 'Scorers'
     }
 
 export async function questions(): Promise<Answers> {
@@ -42,7 +42,8 @@ export async function questions(): Promise<Answers> {
     choices: [
       { name: 'Matchday', value: 'Matchday' },
       { name: 'Standings', value: 'Standings' },
-      { name: 'Team', value: 'Team' },
+      { name: 'Top Scorers', value: 'Scorers' },
+      { name: 'Team info', value: 'Team' },
     ],
   })
 
@@ -70,6 +71,6 @@ export async function questions(): Promise<Answers> {
 
   return {
     league,
-    main: main as 'Matchday' | 'Standings',
+    main: main as 'Matchday' | 'Standings' | 'Scorers',
   }
 }

@@ -6,7 +6,7 @@ export abstract class BaseTableBuilder<TJson, T extends IRowable> {
     TClass: new (d: TJson) => T,
   ): Table.GenericTable<Table.HorizontalTableRow> {
     const table = this.buildTableHeader()
-    const rows = data.map((d) => new TClass(d).toRow())
+    const rows = data.map((d, idx) => new TClass(d).toRow(idx))
     table.push(...rows)
     return table
   }
@@ -15,5 +15,5 @@ export abstract class BaseTableBuilder<TJson, T extends IRowable> {
 }
 
 export interface IRowable {
-  toRow(): Table.Cell[]
+  toRow(index: number): Table.Cell[]
 }

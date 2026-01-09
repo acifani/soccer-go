@@ -3,6 +3,7 @@ import { createSpinner } from 'nanospinner'
 import { cachedApiCall } from './cache'
 import cfg from './config'
 import { IFixtureJson, IStandingsJson, ITeamJson, Team } from './models'
+import { IScorersResponseJson } from './models/Scorer'
 import { ApplicationError, ErrorCode, isErrorNodeSystemError } from './utils/errors'
 import { getDateWithOffset } from './utils/date-format'
 
@@ -59,6 +60,14 @@ export async function getTeamId(teamName: string, leagueCode: string): Promise<n
     throw new ApplicationError(ErrorCode.TEAM_NOT_FOUND, teamName)
   }
   return team.id
+}
+
+export async function getScorers(leagueCode: string): Promise<IScorersResponseJson> {
+  return callApi(
+    `${cfg.apiBaseUrl}/competitions/${leagueCode}/scorers`,
+    'Fetching top scorers...',
+    cfg.cache.expiry.scorers,
+  ) as Promise<IScorersResponseJson>
 }
 
 async function callApi(url: string, placeholder: string, expiry: number): Promise<unknown> {
