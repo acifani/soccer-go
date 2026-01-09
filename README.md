@@ -47,7 +47,40 @@ Each of these commands will take the league code as first argument. Common ones 
 - **BL1** - Bundesliga
 - **FL1** - Ligue 1
 
-You can find the complete list in the visual mode or you can take a look [here](https://github.com/acifani/soccer-go/blob/master/src/constants/leagues.ts).
+### Supported Leagues
+
+**Free tier** (12 leagues):
+- PL - Premier League (England)
+- ELC - Championship (England)
+- PD - Primera División (Spain)
+- BL1 - Bundesliga (Germany)
+- SA - Serie A (Italy)
+- FL1 - Ligue 1 (France)
+- DED - Eredivisie (Netherlands)
+- PPL - Primeira Liga (Portugal)
+- BSA - Série A (Brazil)
+- CL - Champions League
+- WC - World Cup
+- EC - European Championship
+
+<details>
+<summary><b>Additional paid tier leagues</b> (requires API subscription - <a href="https://www.football-data.org/pricing">pricing</a>)</summary>
+
+- BL2 - 2. Bundesliga (Germany)
+- DFB - DFB-Pokal (Germany)
+- EL1 - League One (England)
+- FAC - FA Cup (England)
+- SB - Serie B (Italy)
+- SD - Segunda División (Spain)
+- FL2 - Ligue 2 (France)
+- EL - Europa League
+- CLQ - Champions League Qualification
+- MLS - MLS (USA)
+- ECF - UEFA Women's Euro
+
+Check the [API coverage](https://www.football-data.org/coverage) for the complete list.
+
+</details>
 
 #### Matchday
 
@@ -94,7 +127,7 @@ $ cd soccer-go
 $ npm i
 ```
 
-Now you can either run it in watch mode
+Now you can either run it in development mode
 
 ```
 $ npm start
@@ -104,4 +137,13 @@ Or build everything
 
 ```
 $ npm run build
+```
+
+Run tests and check code quality
+
+```
+$ npm test            # Run all tests with linting
+$ npm run coverage    # Generate coverage report
+$ npm run lint        # Check code style
+$ npm run format      # Auto-format with Prettier
 ```
