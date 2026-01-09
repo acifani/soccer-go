@@ -11,8 +11,7 @@ export const printStandings = async (leagueCode: string): Promise<void> => {
   cfonts.say(league.name)
   for (const standing of standingsData) {
     if (standing.group) {
-      const [, group] = standing.group.split('_')
-      console.log('\n' + pc.bold('Group ' + group))
+      console.log('\n' + pc.bold(standing.group))
     }
 
     const table = new StandingsTableBuilder().buildTable(standing.table, Standing)

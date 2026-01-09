@@ -48,7 +48,7 @@ export default class Standing implements IRowable {
 export interface IStandingsJson {
   stage: Stage
   type: string
-  group: `GROUP_${string}`
+  group: string
   table: IStandingJson[]
 }
 
