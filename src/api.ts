@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import dayjs from 'dayjs'
 import { createSpinner } from 'nanospinner'
 import { cachedApiCall } from './cache'
 import cfg from './config'
 import { IFixtureJson, IStandingsJson, ITeamJson, Team } from './models'
 import { ApplicationError, ErrorCode, isErrorNodeSystemError } from './utils/errors'
+import { getDateWithOffset } from './utils/date-format'
 
 export async function getMatchday(leagueCode: string): Promise<IFixtureJson[]> {
-  const start = dayjs().subtract(3, 'day').format('YYYY-MM-DD')
-  const end = dayjs().add(4, 'days').format('YYYY-MM-DD')
+  const start = getDateWithOffset(-3)
+  const end = getDateWithOffset(4)
   const data = (await callApi(
     `${cfg.apiBaseUrl}/competitions/${leagueCode}/matches?dateFrom=${start}&dateTo=${end}`,
     'Fetching matchday...',

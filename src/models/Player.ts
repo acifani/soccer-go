@@ -1,6 +1,6 @@
 import Table from 'cli-table3'
-import dayjs from 'dayjs'
 import { IRowable } from '../tableBuilders/BaseTableBuilder'
+import { formatPlayerDate } from '../utils/date-format'
 
 export default class Player implements IRowable {
   public name: string
@@ -19,7 +19,7 @@ export default class Player implements IRowable {
     this.name,
     this.position,
     this.nationality,
-    dayjs(this.dateOfBirth).format('MM/DD/YYYY'),
+    formatPlayerDate(this.dateOfBirth),
   ]
 }
 

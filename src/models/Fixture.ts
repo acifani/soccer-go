@@ -1,7 +1,7 @@
 import pc from 'picocolors'
 import Table from 'cli-table3'
-import dayjs from 'dayjs'
 import cfg from '../config'
+import { formatFixtureDate } from '../utils/date-format'
 import { IRowable } from '../tableBuilders/BaseTableBuilder'
 
 export enum Status {
@@ -162,7 +162,7 @@ export default class Fixture implements IRowable {
       `${homeTeam} - ${awayTeam}`,
       score,
       statusDisplayString[this.status] ?? this.status,
-      dayjs(this.date).format('ddd, MMM D YYYY h:mm A'),
+      formatFixtureDate(this.date),
       stageDisplayString[this.stage] ?? this.stage,
     ]
   }
