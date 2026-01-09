@@ -1,4 +1,3 @@
-import p from 'phin'
 import Cache from './Cache'
 import { JSONValue } from './CacheItem'
 import { getCacheDir } from '../utils/system-paths'
@@ -20,15 +19,13 @@ export async function cachedApiCall(
     // data is expired
     cache.remove(url)
   }
-  const response = await p({
-    url,
-    parse: 'json',
-    headers: { 'X-Auth-Token': authToken },
+  const response = await fetch(url, {
+    headers: { 'X-Auth-Token': authToken ?? '' },
   })
 
-  if (response.statusCode == null || response.statusCode >= 400) {
-    const error = response.body as { message: string }
-    switch (response.statusCode) {
+  if (!response.ok) {
+    const error = (await response.json().catch(() => ({ message: '' }))) as { message: string }
+    switch (response.status) {
       case 400:
         if (error.message === 'Your API token is invalid.') {
           throw new ApplicationError(ErrorCode.API_KEY_INVALID)
@@ -41,7 +38,7 @@ export async function cachedApiCall(
     }
   }
 
-  const data = response.body as JSONValue
+  const data = (await response.json()) as JSONValue
   cache.add(url, data)
   return data
 }

@@ -47,7 +47,6 @@
     "cfonts": "^3.3.1",
     "cli-table3": "^0.6.5",
     "nanospinner": "^1.2.2",
-    "phin": "^3.7.1",
     "picocolors": "^1.1.1",
     "update-check": "^1.5.4"
   },
