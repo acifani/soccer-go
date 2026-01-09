@@ -1,4 +1,5 @@
-import { prompt } from 'enquirer'
+import { search, select, input, checkbox } from '@inquirer/prompts'
+import cfonts from 'cfonts'
 import { leagueCodes } from './leagues'
 
 type Answers =
@@ -14,43 +15,61 @@ type Answers =
     }
 
 export async function questions(): Promise<Answers> {
-  let answers = await prompt<Answers>([
-    {
-      type: 'autocomplete',
-      name: 'league',
-      message: 'Choose a league',
-      choices: leagueCodes.map((l) => l.name),
-      // @ts-expect-error: remove once types are fixed
-      limit: 10,
-    },
-    {
-      type: 'select',
-      name: 'main',
-      message: 'Choose a function',
-      choices: ['Matchday', 'Standings', 'Team'],
-    },
-  ])
+  // Display banner
+  cfonts.say('SOCCER-GO', {
+    font: 'tiny',
+    colors: ['green'],
+    space: false,
+  })
 
-  if (answers.main === 'Team') {
-    const teamAnswers = await prompt([
-      {
-        type: 'input',
-        name: 'teamName',
-        message: 'Team name',
-      },
-      {
-        type: 'multiselect',
-        name: 'teamOptions',
-        message: 'Team info',
-        choices: ['Fixtures', 'Players'],
-      },
-    ])
+  // League selection with search
+  const league = await search({
+    message: 'Choose a league',
+    source: async (input) => {
+      const filtered = !input
+        ? leagueCodes
+        : leagueCodes.filter((l) => l.name.toLowerCase().includes(input.toLowerCase()))
+      return filtered.slice(0, 10).map((l) => ({
+        name: l.name,
+        value: l.name,
+      }))
+    },
+  })
 
-    answers = {
-      ...answers,
-      ...teamAnswers,
+  // Main function selection
+  const main = await select({
+    message: 'Choose a function',
+    choices: [
+      { name: 'Matchday', value: 'Matchday' },
+      { name: 'Standings', value: 'Standings' },
+      { name: 'Team', value: 'Team' },
+    ],
+  })
+
+  // Conditional team prompts
+  if (main === 'Team') {
+    const teamName = await input({
+      message: 'Team name',
+    })
+
+    const teamOptions = await checkbox({
+      message: 'Team info',
+      choices: [
+        { name: 'Fixtures', value: 'Fixtures' },
+        { name: 'Players', value: 'Players' },
+      ],
+    })
+
+    return {
+      league,
+      main,
+      teamName,
+      teamOptions: teamOptions as Array<'Fixtures' | 'Players'>,
     }
   }
 
-  return answers as Answers
+  return {
+    league,
+    main: main as 'Matchday' | 'Standings',
+  }
 }

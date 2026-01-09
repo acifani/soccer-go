@@ -42,11 +42,11 @@
     "start": "ts-node --files src/index.ts"
   },
   "dependencies": {
+    "@commander-js/extra-typings": "^14.0.0",
+    "@inquirer/prompts": "^8.1.0",
     "cfonts": "^3.3.1",
     "cli-table3": "^0.5.1",
-    "commander": "^3.0.2",
     "dayjs": "^1.11.19",
-    "enquirer": "^2.4.1",
     "nanospinner": "^1.2.2",
     "phin": "^3.7.1",
     "picocolors": "^1.1.1",

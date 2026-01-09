@@ -12,7 +12,6 @@ export const isErrorNodeSystemError = (error: unknown): error is NodeJS.ErrnoExc
 
 export enum ErrorCode {
   GENERIC = 1000,
-  COMMAND_UNKNOWN,
   API_KEY_MISSING,
   API_KEY_INVALID,
   API_RESPONSE_400,
@@ -26,7 +25,6 @@ export enum ErrorCode {
 
 export class ApplicationError extends Error {
   constructor(code: ErrorCode.GENERIC, message: string)
-  constructor(code: ErrorCode.COMMAND_UNKNOWN, command: string)
   constructor(code: ErrorCode.API_KEY_MISSING)
   constructor(code: ErrorCode.API_KEY_INVALID)
   constructor(code: ErrorCode.API_RESPONSE_400, message: string)
@@ -48,9 +46,6 @@ export const formatErrorForPrinting = (code: ErrorCode, extraData?: string): str
   switch (code) {
     case ErrorCode.GENERIC:
       return `Something unexpected happened:\n     ${extraData}\n`
-
-    case ErrorCode.COMMAND_UNKNOWN:
-      return `Unknown command "${extraData}".\n`
 
     case ErrorCode.API_KEY_MISSING:
       return (

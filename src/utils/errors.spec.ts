@@ -48,13 +48,6 @@ describe('ApplicationError', () => {
     expect(error.extraData).toBe('Something went wrong')
   })
 
-  it('should construct with COMMAND_UNKNOWN error code', () => {
-    const error = new ApplicationError(ErrorCode.COMMAND_UNKNOWN, 'badcommand')
-
-    expect(error.code).toBe(ErrorCode.COMMAND_UNKNOWN)
-    expect(error.extraData).toBe('badcommand')
-  })
-
   it('should construct with API_KEY_MISSING error code', () => {
     const error = new ApplicationError(ErrorCode.API_KEY_MISSING)
 
@@ -131,12 +124,6 @@ describe('formatErrorForPrinting', () => {
 
     expect(result).toContain('Something unexpected happened')
     expect(result).toContain('File not found')
-  })
-
-  it('should format COMMAND_UNKNOWN error', () => {
-    const result = formatErrorForPrinting(ErrorCode.COMMAND_UNKNOWN, 'badcmd')
-
-    expect(result).toContain('Unknown command "badcmd"')
   })
 
   it('should format API_KEY_MISSING error with setup instructions', () => {
