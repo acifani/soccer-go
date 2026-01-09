@@ -34,6 +34,11 @@ const askQuestions = async (): Promise<void> => {
 }
 
 ;(async (): Promise<void> => {
+  if (process.argv.length === 2) {
+    await askQuestions()
+    return
+  }
+
   const program = new Command()
   program
     .name('sgo')
@@ -106,10 +111,6 @@ Example:
         .printTeam(team, [opts.fixtures ? 'Fixtures' : '', opts.players ? 'Players' : ''], league)
         .catch(handleCommandError),
     )
-
-  if (process.argv.length === 2) {
-    await askQuestions()
-  }
 
   program.parse(process.argv)
 })()
