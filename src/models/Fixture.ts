@@ -60,6 +60,7 @@ export enum Stage {
   Championship = 'CHAMPIONSHIP',
   Relegation = 'RELEGATION',
   RelegationRound = 'RELEGATION_ROUND',
+  LeagueStage = 'LEAGUE_STAGE',
 }
 
 export const stageDisplayString: Record<Stage, string> = {
@@ -90,6 +91,7 @@ export const stageDisplayString: Record<Stage, string> = {
   CHAMPIONSHIP: 'Championship',
   RELEGATION: 'Relegation',
   RELEGATION_ROUND: 'Relegation round',
+  LEAGUE_STAGE: 'League stage',
 }
 
 export interface ISide {
