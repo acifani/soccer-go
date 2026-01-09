@@ -45,7 +45,7 @@
     "@commander-js/extra-typings": "^14.0.0",
     "@inquirer/prompts": "^8.1.0",
     "cfonts": "^3.3.1",
-    "cli-table3": "^0.5.1",
+    "cli-table3": "^0.6.5",
     "dayjs": "^1.11.19",
     "nanospinner": "^1.2.2",
     "phin": "^3.7.1",
@@ -65,7 +65,7 @@
     "eslint-plugin-prettier": "^5.0.0",
     "jest": "^30.2.0",
     "prettier": "^3.0.0",
-    "rimraf": "^3.0.2",
+    "rimraf": "^6.1.2",
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
