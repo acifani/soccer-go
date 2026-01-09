@@ -7,14 +7,6 @@ updates:
       time: "04:00"
     open-pull-requests-limit: 10
     ignore:
-        # Node.js typings must be constrained to the oldest supported version (10 in this case)
-        # to ensure compatibility, so newer versions must be ignored.
+      # Node.js typings must be constrained to the oldest supported version
+      # to ensure compatibility, so newer versions must be ignored.
       - dependency-name: "@types/node"
-
-        # Starting from version 8, Commander.js bumped their min Node.js version to 12.
-      - dependency-name: "commander"
-        versions: [">=8.0.0"]
-
-      # Starting from version 4, rimraf bumped their min Node.js version to 14.
-      - dependency-name: "rimraf"
-        versions: [">=4.0.0"]
