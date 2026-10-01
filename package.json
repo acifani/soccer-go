@@ -51,7 +51,7 @@
     "update-check": "^1.5.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.5",
+    "@babel/core": "^8.0.6",
     "@tsconfig/node20": "^20.1.4",
     "@types/jest": "^30.0.0",
     "@types/node": "^20.0.0",
